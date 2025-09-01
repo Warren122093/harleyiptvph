@@ -106,77 +106,44 @@ footer.transparent-nav,
     margin-top: 0;
     justify-content: center;
     align-items: center;
-    /* Ensures player stays centered with sidebar */
   }
 }
 
-/* Fixed player size for all devices */
+/* Player wrapper with modest padding/margin, max width */
 .player-wrapper {
-  width: 100vw;
-  height: auto;
+  width: 100%;
+  max-width: 900px;
+  padding: 16px;
+  margin: 24px auto; /* space above/below, centered horizontally */
   background: rgba(255,255,255,0.07);
-  border-radius: 0;
-  box-shadow: none;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0;
   position: relative;
   z-index: 2;
 }
 
-@media (min-width: 992px) {
-  .player-wrapper {
-    width: calc(100vw - 270px);
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 24px 0;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-/* Video Aspect Ratio Container */
+/* Responsive video aspect */
 .video-aspect {
   position: relative;
-  width: 100vw;
-  height: 56vw;
-  max-width: 100vw;
-  max-height: 100vh;
+  width: 100%;
   aspect-ratio: 16 / 9;
   background: #000;
-  border-radius: 0;
+  border-radius: 8px;
   box-shadow: 0 4px 20px var(--shadow-color);
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  max-width: 100%; /* ensures video doesn't overflow wrapper */
 }
 
-@media (min-width: 992px) {
-  .video-aspect {
-    width: 100%;
-    max-width: 960px;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    margin: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px var(--shadow-color);
-  }
-}
-
-.video-aspect video {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  object-fit: cover;
-  background: #000;
-  border-radius: 0;
-  display: block;
-  outline: none;
-  border: none;
-}
+/* For old browsers */
 @supports not (aspect-ratio: 16 / 9) {
   .video-aspect {
     height: 0;
@@ -187,6 +154,17 @@ footer.transparent-nav,
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
   }
+}
+
+.video-aspect video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+  border-radius: 0;
+  display: block;
+  outline: none;
+  border: none;
 }
 
 .offcanvas.transparent-nav {
