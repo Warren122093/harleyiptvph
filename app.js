@@ -587,14 +587,13 @@ const channels = {
       "1c7b9a2af9ad4076b155f06269b6adc2": "ed6a8b11738cd27c0bee2d9e3fee178a"
     }
   },
-  pilipinas_live_10: {
-    name: "PILIPINAS LIVE #10",
-    url: "https://qp-pldt-live-grp-07-prod.akamaized.net/out/u/pl_sdi10.mpd",
-    keys: {
-      "63055a8904644407a64a57874703f71e": "0fd611777d37a7ff8afce19d9cee2e91"
-    }
+  cartoon_network: {
+    name: "Cartoon Network",
+    url: "https://cdn4.skygo.mn/live/disk1/Cartoon_Network/HLSv3-FTA/Cartoon_Network.m3u8"
+    // No DRM keys required for this .m3u8 link
   }
 };
+
 const selectMobile = document.getElementById('channelSelect');
 const selectDesktop = document.getElementById('channelSelectDesktop');
 const video = document.getElementById('video');
@@ -736,3 +735,4 @@ window.addEventListener('DOMContentLoaded', () => {
   selectDesktop.value = defaultChannelKey;
   loadChannel(defaultChannelKey);
 });
+
