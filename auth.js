@@ -1,8 +1,4 @@
-// Add Firebase SDKs for Auth in your HTML before this file is loaded:
-// <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-// <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-
-// Your Firebase config here
+// Firebase config (use your actual config here)
 const firebaseConfig = {
   apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
   authDomain: "harley1-dc7c4.firebaseapp.com",
@@ -39,13 +35,13 @@ document.getElementById('loginForm').onsubmit = async function(e) {
     await auth.signInWithEmailAndPassword(email, password);
     alert('Login successful!');
     document.getElementById('loginForm').reset();
-    // Redirect or show logged-in UI
+    window.location.href = "index2.html"; // Redirect after login
   } catch (error) {
     alert(error.message);
   }
 };
 
-// (Optional) Log out
+// Logout handler
 document.getElementById('logoutBtn').onclick = function() {
   auth.signOut();
   alert('Logged out!');
@@ -53,11 +49,22 @@ document.getElementById('logoutBtn').onclick = function() {
 
 // Show/hide UI based on auth state
 auth.onAuthStateChanged(function(user) {
+  const watchBtn = document.getElementById('watchBtn');
+  const authSection = document.getElementById('authSection');
+  const authStatus = document.getElementById('authStatus');
+  const userEmail = document.getElementById('userEmail');
+  const logoutBtn = document.getElementById('logoutBtn');
   if (user) {
-    document.getElementById('authStatus').textContent = `Logged in as ${user.email}`;
-    document.getElementById('logoutBtn').style.display = 'inline-block';
+    watchBtn.classList.add('authenticated');
+    authSection.style.display = 'none';
+    authStatus.textContent = 'Welcome, you are logged in.';
+    userEmail.textContent = user.email;
+    logoutBtn.style.display = 'inline-block';
   } else {
-    document.getElementById('authStatus').textContent = 'Not logged in';
-    document.getElementById('logoutBtn').style.display = 'none';
+    watchBtn.classList.remove('authenticated');
+    authSection.style.display = 'block';
+    authStatus.textContent = 'Please login or register to continue.';
+    userEmail.textContent = '';
+    logoutBtn.style.display = 'none';
   }
 });
