@@ -1,26 +1,23 @@
+// Bitmovin Player integration for your channel list.
+// You must have Bitmovin Player JS loaded on your page.
+// See https://bitmovin.com/docs/player/getting-started for setup and license key.
+
+// Example: <script src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+// And a <div id="player"></div> for the Bitmovin player.
+
 const channels = {
-  test_clearkey: {
-    name: "Test Clearkey Channel",
-    url: "https://bitmovin-a.akamaihd.net/content/sintel/sintel.mpd", // Public DASH test stream
+  pbb_ce_live_tfc_: {
+    name: "PBB CE LIVE (TFC)",
+    url: "https://abslive.akamaized.net/dash/live/2112806/pbbmain/manifest.mpd",
     keys: {
-      // Example Clearkey (from Bitmovin test vectors)
-      "1ae8ccd0e0e94d5a1c0e5a7c0a8d5f1a": "68e8f8f8a8e8e8e8e8e8e8e8e8e8e8e8"
+      "8438e8495659425585a09749cd6bc39a": "9d92b12db092fe6bdf2207ef7a2a9e65"
     }
   },
-  test_widevine: {
-    name: "Test Widevine Channel",
-    url: "https://storage.googleapis.com/shaka-demo-assets/angel-one-widevine/dash.mpd",
-    license: {
-      type: "com.widevine.alpha",
-      url: "https://cwip-shaka-proxy.appspot.com/no_auth"
-    }
-  },
-  // ... your other channels ...
+  // ... (all your other channels as in your data)
 };
 
 const selectMobile = document.getElementById('channelSelect');
 const selectDesktop = document.getElementById('channelSelectDesktop');
-const video = document.getElementById('video');
 
 // Helper to populate a select element with channels
 function populateChannels(select) {
@@ -41,48 +38,45 @@ function populateChannels(select) {
 populateChannels(selectMobile);
 populateChannels(selectDesktop);
 
-let player = null;
+let playerInstance = null;
 
-// Load channel helper
-async function loadChannel(channelKey) {
+// Helper to convert clearkey object to Bitmovin format
+function keysToBitmovin(keysObj) {
+  // Bitmovin expects: { key: "KEY", keyId: "KEY_ID" }
+  const arr = [];
+  for (const keyId in keysObj) {
+    arr.push({ key: keysObj[keyId], keyId });
+  }
+  return arr;
+}
+
+// Load channel with Bitmovin Player
+function loadChannelBitmovin(channelKey) {
   const channel = channels[channelKey];
   if (!channel) return;
 
-  if (player) {
-    await player.destroy();
+  if (playerInstance) {
+    playerInstance.destroy();
+    playerInstance = null;
   }
 
-  shaka.polyfill.installAll();
-  player = new shaka.Player(video);
+  // Bitmovin player config
+  const conf = {
+    key: 'YOUR_BITMOVIN_PLAYER_LICENSE_KEY', // <-- replace with your Bitmovin license key
+    playback: {
+      autoplay: true
+    },
+    source: {
+      dash: channel.url,
+      drm: {
+        // Widevine/Clearkey config
+        widevine: channel.license?.url ? { LA_URL: channel.license.url } : undefined,
+        clearkey: channel.keys ? { key: keysToBitmovin(channel.keys) } : undefined
+      }
+    }
+  };
 
-  player.addEventListener('error', e => {
-    console.error('Error code', e.detail.code, 'object', e.detail);
-  });
-
-  const drmConfig = {};
-
-  if (channel.keys) {
-    drmConfig.clearKeys = channel.keys;
-  }
-
-  if (channel.license && channel.license.type && channel.license.url) {
-    drmConfig.servers = {
-      [channel.license.type]: channel.license.url
-    };
-  }
-
-  player.configure({ drm: drmConfig });
-
-  try {
-    await player.load(channel.url);
-    video.play();
-    document.querySelector('.player-wrapper').scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
-    });
-  } catch (error) {
-    console.error("Failed to load channel:", error);
-  }
+  playerInstance = new bitmovin.player.Player(document.getElementById('player'), conf);
 }
 
 // Sync and load channel on change
@@ -91,7 +85,7 @@ function onChannelChange(e) {
   selectMobile.value = selectedKey;
   selectDesktop.value = selectedKey;
   if (selectedKey) {
-    loadChannel(selectedKey);
+    loadChannelBitmovin(selectedKey);
 
     // Close mobile nav drawer if open
     const navDrawer = document.getElementById('navDrawer');
@@ -107,8 +101,8 @@ selectDesktop.addEventListener('change', onChannelChange);
 
 // Load default channel (GMA PINOY TV) on page load
 window.addEventListener('DOMContentLoaded', () => {
-  const defaultChannelKey = 'test_widevine'; // Use test_widevine for testing
+  const defaultChannelKey = 'gma_pinoy_tv';
   selectMobile.value = defaultChannelKey;
   selectDesktop.value = defaultChannelKey;
-  loadChannel(defaultChannelKey);
+  loadChannelBitmovin(defaultChannelKey);
 });
