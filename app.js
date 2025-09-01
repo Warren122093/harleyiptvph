@@ -595,7 +595,6 @@ const channels = {
     }
   }
 };
-
 const selectMobile = document.getElementById('channelSelect');
 const selectDesktop = document.getElementById('channelSelectDesktop');
 const video = document.getElementById('video');
@@ -620,46 +619,93 @@ populateChannels(selectMobile);
 populateChannels(selectDesktop);
 
 let player = null;
+let hls = null;
+
+// Helper: Detect stream type by file extension
+function getStreamType(url) {
+  if (url.endsWith('.mpd')) return 'dash';
+  if (url.endsWith('.m3u8')) return 'hls';
+  return null;
+}
 
 // Load channel helper
 async function loadChannel(channelKey) {
   const channel = channels[channelKey];
   if (!channel) return;
 
+  // Destroy previous player
   if (player) {
     await player.destroy();
+    player = null;
+  }
+  if (hls) {
+    hls.destroy();
+    hls = null;
   }
 
-  shaka.polyfill.installAll();
-  player = new shaka.Player(video);
+  const type = getStreamType(channel.url);
 
-  player.addEventListener('error', e => {
-    console.error('Error code', e.detail.code, 'object', e.detail);
-  });
+  if (type === 'dash') {
+    shaka.polyfill.installAll();
+    player = new shaka.Player(video);
 
-  const drmConfig = {};
-
-  if (channel.keys) {
-    drmConfig.clearKeys = channel.keys;
-  }
-
-  if (channel.license && channel.license.type && channel.license.url) {
-    drmConfig.servers = {
-      [channel.license.type]: channel.license.url
-    };
-  }
-
-  player.configure({ drm: drmConfig });
-
-  try {
-    await player.load(channel.url);
-    video.play();
-    document.querySelector('.player-wrapper').scrollIntoView({
-      behavior: 'smooth',
-      block: 'center'
+    player.addEventListener('error', e => {
+      console.error('Error code', e.detail.code, 'object', e.detail);
     });
-  } catch (error) {
-    console.error("Failed to load channel:", error);
+
+    const drmConfig = {};
+    if (channel.keys) drmConfig.clearKeys = channel.keys;
+    if (channel.license && channel.license.type && channel.license.url) {
+      drmConfig.servers = {
+        [channel.license.type]: channel.license.url
+      };
+    }
+    player.configure({ drm: drmConfig });
+
+    try {
+      await player.load(channel.url);
+      video.play();
+      document.querySelector('.player-wrapper').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    } catch (error) {
+      console.error("Failed to load channel:", error);
+    }
+  } else if (type === 'hls') {
+    // Use native HLS if supported (Safari), else hls.js
+    if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = channel.url;
+      video.play();
+      document.querySelector('.player-wrapper').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    } else if (window.Hls) {
+      hls = new Hls();
+      hls.loadSource(channel.url);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        video.play();
+        document.querySelector('.player-wrapper').scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      });
+      hls.on(Hls.Events.ERROR, function(event, data) {
+        console.error('HLS.js error:', data);
+      });
+    } else {
+      // If hls.js is not loaded, fallback to direct src (may work in Safari)
+      video.src = channel.url;
+      video.play();
+      document.querySelector('.player-wrapper').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  } else {
+    console.error("Unknown stream type:", channel.url);
   }
 }
 
