@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
     measurementId: "G-XJDDS9HC2S"
   };
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
