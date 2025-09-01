@@ -216,4 +216,83 @@ footer {
   text-shadow: 0 0 6px #e91e63, 0 0 2px #ad1457;
   font-weight: bold;
   margin-left: 15px;
+
+}
+/* Overlay styles for About and Contact */
+.custom-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(233,30,99,0.93);
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s;
+}
+.custom-overlay.active {
+  display: flex;
+}
+.overlay-content {
+  background: rgba(255,255,255,0.13);
+  border-radius: 22px;
+  box-shadow: 0 8px 40px #e91e63a0;
+  max-width: 360px;
+  padding: 2rem 1.5rem 1.3rem 1.5rem;
+  text-align: center;
+  position: relative;
+  color: #fff;
+  font-size: 1.07rem;
+}
+.overlay-content h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.overlay-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.16s;
+}
+.overlay-close:hover, .overlay-close:focus {
+  opacity: 1;
+}
+.contact-icons {
+  margin: 1.2rem 0 0.3rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+.contact-icon {
+  font-size: 2rem;
+  color: #fff;
+  background: #e91e63;
+  border-radius: 50%;
+  padding: 0.25em 0.32em;
+  transition: background 0.2s, color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.contact-icon.telegram {
+  background: #0088cc;
+  color: #fff;
+}
+.contact-icon:hover, .contact-icon:focus {
+  background: #f8bbd0;
+  color: #ad1457;
+  text-decoration: none;
+}
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to { opacity: 1;}
 }
