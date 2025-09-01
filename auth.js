@@ -8,23 +8,25 @@ document.addEventListener('DOMContentLoaded', function() {
     appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
     measurementId: "G-XJDDS9HC2S"
   };
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
+  // Register handler
   document.getElementById('registerForm').onsubmit = async function(e) {
     e.preventDefault();
     const email = document.getElementById('registerEmail').value;
     const password = document.getElementById('registerPassword').value;
     try {
       await auth.createUserWithEmailAndPassword(email, password);
-      alert('Registration successful! You can now log in.');
+      alert('Registration successful! Login now.');
       document.getElementById('registerForm').reset();
+      // NO REDIRECT HERE!
     } catch (error) {
       alert("Registration error: " + error.message);
     }
   };
 
+  // Login handler
   document.getElementById('loginForm').onsubmit = async function(e) {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
       await auth.signInWithEmailAndPassword(email, password);
       alert('Login successful!');
       document.getElementById('loginForm').reset();
+      // Redirect ONLY after login
       window.location.href = "index2.html";
     } catch (error) {
       alert("Login error: " + error.message);
