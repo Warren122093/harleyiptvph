@@ -1,12 +1,16 @@
-// Add Firebase SDKs for Auth
+// Add Firebase SDKs for Auth in your HTML before this file is loaded:
 // <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
 // <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
 
 // Your Firebase config here
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  // ... rest of your config
+  apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
+  authDomain: "harley1-dc7c4.firebaseapp.com",
+  projectId: "harley1-dc7c4",
+  storageBucket: "harley1-dc7c4.appspot.com",
+  messagingSenderId: "364436057378",
+  appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
+  measurementId: "G-XJDDS9HC2S"
 };
 firebase.initializeApp(firebaseConfig);
 
