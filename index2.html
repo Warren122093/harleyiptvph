@@ -75,7 +75,6 @@
   <footer class="bg-primary text-light text-center py-3 mt-4 transparent-nav">
     <div>
       <span class="brand-title">Harley IPTV</span>
-      <span class="cool-clock" id="footerTime"></span>
       <br>
       <i class="bi bi-c-circle"></i> 2025 Harley IPTV. All rights reserved. | <span class="ms-1">🇵🇭 Pinoy IPTV Experience</span>
     </div>
@@ -116,7 +115,7 @@
       document.getElementById('navbarTime').textContent = timeStr;
       document.getElementById('drawerTime').textContent = timeStr;
       document.getElementById('sidebarTime').textContent = timeStr;
-      document.getElementById('footerTime').textContent = timeStr;
+      // document.getElementById('footerTime').textContent = timeStr; // <--- REMOVED from footer
     }
     setInterval(updateClock, 1000);
     updateClock();
