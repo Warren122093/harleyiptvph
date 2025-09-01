@@ -20,9 +20,7 @@
         <span class="brand-title fs-4 fw-bold">Harley IPTV</span>
       </span>
       <span class="navbar-text ms-auto cool-clock" id="navbarTime"></span>
-      <!-- Overlay triggers in nav -->
-      <button class="btn btn-outline-light ms-2 nav-overlay-btn" id="aboutNavBtn" title="About"><i class="bi bi-info-circle"></i></button>
-      <button class="btn btn-outline-light ms-2 nav-overlay-btn" id="contactNavBtn" title="Contact"><i class="bi bi-envelope"></i></button>
+      <!-- Overlay triggers REMOVED! -->
     </div>
   </nav>
 
@@ -104,7 +102,6 @@
         Need help, have questions, or want to join our community?<br>
         Reach us by email or connect via Telegram!
       </p>
-      <!-- The contact-icons block is removed; it is already in navigation. -->
       <div style="font-size:0.98rem;margin-top:0.7rem;">Telegram: <a href="https://t.me/harleyiptv" style="color:#fff;text-decoration:underline;" target="_blank">@harleyiptv</a></div>
     </div>
   </div>
@@ -134,9 +131,6 @@
       document.body.style.overflow = '';
     }
 
-    // Nav triggers
-    document.getElementById('aboutNavBtn').onclick = () => openOverlay('aboutOverlay');
-    document.getElementById('contactNavBtn').onclick = () => openOverlay('contactOverlay');
     // Drawer triggers
     document.getElementById('aboutDrawerBtn').onclick = function(e) {
       e.preventDefault();
