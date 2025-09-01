@@ -38,31 +38,23 @@
       color: #fff;
       opacity: 0.95;
     }
-    .overlay-btns {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
+    .auth-section {
       margin-bottom: 2rem;
-    }
-    .overlay-btn {
-      background: rgba(255,255,255,0.93);
-      color: #e91e63;
-      border: none;
-      font-weight: 600;
-      padding: 0.55em 1.25em;
-      border-radius: 30px;
+      background: rgba(255,255,255,0.13);
+      border-radius: 10px;
+      padding: 1.2rem 1rem 1rem 1rem;
+      color: #fff;
       font-size: 1rem;
-      box-shadow: 0 2px 8px #e91e6340;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
+      box-shadow: 0 4px 20px #e91e63a0;
     }
-    .overlay-btn:hover, .overlay-btn:focus {
-      background: #f8bbd0;
+    .form-control, .form-label {
       color: #ad1457;
     }
+    @keyframes fadeIn {
+      from { opacity: 0;}
+      to { opacity: 1;}
+    }
+    /* Overlay styles retained for About/Contact overlays */
     .custom-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -136,22 +128,6 @@
       color: #ad1457;
       text-decoration: none;
     }
-    .auth-section {
-      margin-bottom: 2rem;
-      background: rgba(255,255,255,0.13);
-      border-radius: 10px;
-      padding: 1.2rem 1rem 1rem 1rem;
-      color: #fff;
-      font-size: 1rem;
-      box-shadow: 0 4px 20px #e91e63a0;
-    }
-    .form-control, .form-label {
-      color: #ad1457;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0;}
-      to { opacity: 1;}
-    }
   </style>
 </head>
 <body>
@@ -192,6 +168,9 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
           </form>
+          <div class="mb-2 text-end">
+            <button type="button" class="btn btn-link p-0" id="forgotPasswordBtn" style="font-size:1rem;">Forgot password?</button>
+          </div>
         </div>
         <!-- Register Form -->
         <div class="tab-pane fade" id="registerPane" role="tabpanel">
@@ -213,9 +192,6 @@
         <button id="logoutBtn" class="btn btn-secondary btn-sm" style="display: none;">Logout</button>
       </div>
     </div>
-
-    <!-- Removed "Watch Now" and overlay buttons as requested -->
-
   </div>
 
   <!-- About Overlay -->
@@ -250,101 +226,6 @@
   <!-- Bootstrap JS (optional, for tabs/overlays) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Modular Firebase Auth: all JS in one <script type="module"> -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
-      authDomain: "harley1-dc7c4.firebaseapp.com",
-      projectId: "harley1-dc7c4",
-      storageBucket: "harley1-dc7c4.appspot.com",
-      messagingSenderId: "364436057378",
-      appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
-      measurementId: "G-XJDDS9HC2S"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Register
-    document.getElementById('registerForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const email = document.getElementById('registerEmail').value;
-      const password = document.getElementById('registerPassword').value;
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        alert('Registration successful! You can now log in.');
-        document.getElementById('registerForm').reset();
-      } catch (error) {
-        alert("Registration error: " + error.message);
-      }
-    };
-
-    // Login
-    document.getElementById('loginForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert('Login successful!');
-        document.getElementById('loginForm').reset();
-        window.location.href = "index2.html";
-      } catch (error) {
-        alert("Login error: " + error.message);
-      }
-    };
-
-    // Logout
-    document.getElementById('logoutBtn').onclick = function() {
-      signOut(auth);
-      alert('Logged out!');
-    };
-
-    // Auth state UI updates
-    onAuthStateChanged(auth, function(user) {
-      // Removed all watchBtn code since it's no longer present
-      const authSection = document.getElementById('authSection');
-      const authStatus = document.getElementById('authStatus');
-      const userEmail = document.getElementById('userEmail');
-      const logoutBtn = document.getElementById('logoutBtn');
-      if (user) {
-        authSection.style.display = 'none';
-        authStatus.textContent = 'Welcome, you are logged in.';
-        userEmail.textContent = user.email;
-        logoutBtn.style.display = 'inline-block';
-      } else {
-        authSection.style.display = 'block';
-        authStatus.textContent = 'Please login or register to continue.';
-        userEmail.textContent = '';
-        logoutBtn.style.display = 'none';
-      }
-    });
-
-    // Overlay logic (unchanged)
-    window.openOverlay = function(overlayId) {
-      document.getElementById(overlayId).classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    window.closeOverlay = function(overlayId) {
-      document.getElementById(overlayId).classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    document.getElementById('aboutBtn').onclick = () => openOverlay('aboutOverlay');
-    document.getElementById('contactBtn').onclick = () => openOverlay('contactOverlay');
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeOverlay('aboutOverlay');
-        closeOverlay('contactOverlay');
-      }
-    });
-    document.getElementById('aboutOverlay').onclick = function(e) {
-      if (e.target === this) closeOverlay('aboutOverlay');
-    };
-    document.getElementById('contactOverlay').onclick = function(e) {
-      if (e.target === this) closeOverlay('contactOverlay');
-    };
-  </script>
+  <script src="auth.js"></script>
 </body>
 </html>
