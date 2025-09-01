@@ -19,7 +19,6 @@ body {
   position: relative;
 }
 
-/* Nav/sidebar/footer use solid pink */
 .transparent-nav,
 .sidebar.transparent-nav,
 footer.transparent-nav,
@@ -30,7 +29,6 @@ footer.transparent-nav,
   border: none;
 }
 
-/* Fixed navbar for small devices */
 .navbar.fixed-top {
   position: fixed;
   top: 0;
@@ -39,13 +37,7 @@ footer.transparent-nav,
   z-index: 1050;
 }
 
-/* Player margin for mobile to prevent overlap with nav */
-@media (max-width:991px) {
-  .main-player-area {
-    margin-top: 56px !important; /* Height of navbar */
-  }
-}
-
+/* Sidebar styles */
 .sidebar {
   position: fixed;
   top: 0;
@@ -58,6 +50,7 @@ footer.transparent-nav,
   box-shadow: 2px 0 16px var(--shadow-color);
   display: flex;
   flex-direction: column;
+  padding: 0 0.5rem;
 }
 @media (max-width: 991px) {
   .sidebar {
@@ -73,6 +66,9 @@ footer.transparent-nav,
   transition: background 0.2s;
   width: 100%;
   text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
 .sidebar .nav-link.active,
 .sidebar .nav-link:hover,
@@ -86,9 +82,12 @@ footer.transparent-nav,
 .sidebar .form-select {
   background-color: var(--input-color);
   color: #ad1457;
+  border-radius: 6px;
+  padding: 0.4em 0.7em;
+  border: none;
 }
 
-/* Main player area: occupy entire screen except sidebar */
+/* Main player area */
 .main-player-area {
   margin-left: 0;
   margin-top: 0;
@@ -98,6 +97,7 @@ footer.transparent-nav,
   justify-content: center;
   position: relative;
   z-index: 2;
+  width: 100%;
 }
 @media (min-width: 992px) {
   .main-player-area {
@@ -106,90 +106,76 @@ footer.transparent-nav,
     margin-top: 0;
     justify-content: center;
     align-items: center;
+    width: calc(100vw - 270px);
   }
 }
 
-/* Player wrapper with modest padding/margin, max width */
+/* The updated player wrapper for max space and just a little margin/padding */
 .player-wrapper {
   width: 100%;
-  max-width: 900px;
-  padding: 16px;
-  margin: 24px auto; /* space above/below, centered horizontally */
-  background: rgba(255,255,255,0.07);
+  max-width: 100%;
+  margin: 24px 0;          /* Small vertical margin */
+  padding: 0 2vw;          /* Small horizontal padding, keeps away from edges */
   box-sizing: border-box;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px var(--shadow-color);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 2;
+  background: rgba(255,255,255,0.07);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px var(--shadow-color);
 }
 
-/* Responsive video aspect */
+/* Responsive video aspect: nearly fills wrapper */
 .video-aspect {
-  position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
   background: #000;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 4px 20px var(--shadow-color);
-  margin: 0 auto;
+  overflow: hidden;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  max-width: 100%; /* ensures video doesn't overflow wrapper */
+  max-width: 100%;
 }
-
-/* For old browsers */
 @supports not (aspect-ratio: 16 / 9) {
   .video-aspect {
+    position: relative;
     height: 0;
     padding-bottom: 56.25%;
-    position: relative;
   }
+  .video-aspect iframe,
   .video-aspect video {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
   }
 }
-
+.video-aspect iframe,
 .video-aspect video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  background: #000;
-  border-radius: 0;
-  display: block;
-  outline: none;
   border: none;
+  display: block;
+  background: #000;
 }
 
-.offcanvas.transparent-nav {
-  color: #fff;
-}
-.offcanvas .nav-link {
-  color: #fff !important;
-  font-size: 1.1rem;
-  border-radius: 6px;
-  padding: 0.5em 1em;
-}
-.offcanvas .nav-link.active,
-.offcanvas .nav-link:hover,
-.offcanvas .nav-link:focus {
-  background: var(--highlight);
-  color: #fff !important;
-}
-.offcanvas .dropdown-label {
-  font-weight: 500;
-}
-.offcanvas .form-select {
-  background-color: var(--input-color);
-  color: #ad1457;
+/* Mobile adjustments */
+@media (max-width: 991px) {
+  .player-wrapper {
+    max-width: 100%;
+    margin: 12px 0;
+    padding: 0 1vw;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .video-aspect {
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
+/* Footer and misc */
 footer {
   font-size: 1rem;
   letter-spacing: .4px;
@@ -199,7 +185,6 @@ footer {
   background: var(--primary-color) !important;
 }
 
-/* Simple Brand Title */
 .brand-title {
   font-size: clamp(1.5rem, 3vw, 2.1rem);
   font-weight: 700;
@@ -217,6 +202,7 @@ footer {
   margin-left: 15px;
 
 }
+
 /* Overlay styles for About and Contact */
 .custom-overlay {
   position: fixed;
