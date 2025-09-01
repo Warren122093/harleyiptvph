@@ -596,7 +596,6 @@ const channels = {
   }
 };
 
-
 const selectMobile = document.getElementById('channelSelect');
 const selectDesktop = document.getElementById('channelSelectDesktop');
 const video = document.getElementById('video');
@@ -669,12 +668,25 @@ function onChannelChange(e) {
   const selectedKey = e.target.value;
   selectMobile.value = selectedKey;
   selectDesktop.value = selectedKey;
-  if (selectedKey) loadChannel(selectedKey);
+  if (selectedKey) {
+    loadChannel(selectedKey);
+
+    // Close mobile nav drawer if open
+    const navDrawer = document.getElementById('navDrawer');
+    if (window.innerWidth < 992 && navDrawer && navDrawer.classList.contains('show')) {
+      const offcanvas = bootstrap.Offcanvas.getInstance(navDrawer);
+      if (offcanvas) offcanvas.hide();
+    }
+  }
 }
 
 selectMobile.addEventListener('change', onChannelChange);
 selectDesktop.addEventListener('change', onChannelChange);
 
-// Optional: load first channel by default
-// loadChannel(Object.keys(channels)[0]);
-
+// Load default channel (GMA PINOY TV) on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const defaultChannelKey = 'gma_pinoy_tv';
+  selectMobile.value = defaultChannelKey;
+  selectDesktop.value = defaultChannelKey;
+  loadChannel(defaultChannelKey);
+});
