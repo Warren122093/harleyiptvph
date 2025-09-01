@@ -1,21 +1,15 @@
-// --- Firebase config ---
-const firebaseConfig = {
-  apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
-  authDomain: "harley1-dc7c4.firebaseapp.com",
-  projectId: "harley1-dc7c4",
-  storageBucket: "harley1-dc7c4.appspot.com",
-  messagingSenderId: "364436057378",
-  appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
-  measurementId: "G-XJDDS9HC2S"
-};
-
-// --- Initialize Firebase ---
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-// --- Registration handler ---
 document.addEventListener('DOMContentLoaded', function() {
-  // Defensive: Wait until DOM is ready!
+  const firebaseConfig = {
+    apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
+    authDomain: "harley1-dc7c4.firebaseapp.com",
+    projectId: "harley1-dc7c4",
+    storageBucket: "harley1-dc7c4.appspot.com",
+    messagingSenderId: "364436057378",
+    appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
+    measurementId: "G-XJDDS9HC2S"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
 
   document.getElementById('registerForm').onsubmit = async function(e) {
     e.preventDefault();
@@ -30,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  // --- Login handler ---
   document.getElementById('loginForm').onsubmit = async function(e) {
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
@@ -39,19 +32,17 @@ document.addEventListener('DOMContentLoaded', function() {
       await auth.signInWithEmailAndPassword(email, password);
       alert('Login successful!');
       document.getElementById('loginForm').reset();
-      window.location.href = "index2.html"; // Redirect after login
+      window.location.href = "index2.html";
     } catch (error) {
       alert("Login error: " + error.message);
     }
   };
 
-  // --- Logout handler ---
   document.getElementById('logoutBtn').onclick = function() {
     auth.signOut();
     alert('Logged out!');
   };
 
-  // --- Auth state UI ---
   auth.onAuthStateChanged(function(user) {
     const watchBtn = document.getElementById('watchBtn');
     const authSection = document.getElementById('authSection');
