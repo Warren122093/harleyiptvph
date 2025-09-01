@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
+  const db = firebase.firestore(); // Firestore instance
 
   // Register handler
   document.getElementById('registerForm').onsubmit = async function(e) {
@@ -17,10 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const email = document.getElementById('registerEmail').value;
     const password = document.getElementById('registerPassword').value;
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      // Save user data & role to Firestore
+      await db.collection('users').doc(userCredential.user.uid).set({
+        email: email,
+        role: 'free', // ALL REGISTERED ACCOUNTS ARE FREE BY DEFAULT
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
       alert('Registration successful! Login now.');
       document.getElementById('registerForm').reset();
-      // NO REDIRECT HERE!
     } catch (error) {
       alert("Registration error: " + error.message);
     }
@@ -35,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
       await auth.signInWithEmailAndPassword(email, password);
       alert('Login successful!');
       document.getElementById('loginForm').reset();
-      // Redirect ONLY after login
       window.location.href = "index2.html";
     } catch (error) {
       alert("Login error: " + error.message);
@@ -59,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
       authStatus.textContent = 'Welcome, you are logged in.';
       userEmail.textContent = user.email;
       logoutBtn.style.display = 'inline-block';
+      // You can optionally show user role info here by reading Firestore
     } else {
       watchBtn.classList.remove('authenticated');
       authSection.style.display = 'block';
