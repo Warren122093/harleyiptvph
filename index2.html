@@ -7,7 +7,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.min.js"></script>
+  <!-- Bitmovin Player JS -->
+  <script src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
 </head>
 <body>
   <!-- Mobile Navigation -->
@@ -20,7 +21,6 @@
         <span class="brand-title fs-4 fw-bold">Harley IPTV</span>
       </span>
       <span class="navbar-text ms-auto cool-clock" id="navbarTime"></span>
-      <!-- Overlay triggers REMOVED! -->
     </div>
   </nav>
 
@@ -67,7 +67,8 @@
   <main class="main-player-area">
     <div class="player-wrapper">
       <div class="video-aspect">
-        <video id="video" controls autoplay poster="https://img.icons8.com/ios-filled/500/netflix-desktop-app.png"></video>
+        <!-- Bitmovin Player container -->
+        <div id="player" style="width:100%;height:60vh;background:#000;"></div>
       </div>
     </div>
   </main>
@@ -115,7 +116,6 @@
       document.getElementById('navbarTime').textContent = timeStr;
       document.getElementById('drawerTime').textContent = timeStr;
       document.getElementById('sidebarTime').textContent = timeStr;
-      // document.getElementById('footerTime').textContent = timeStr; // <--- REMOVED from footer
     }
     setInterval(updateClock, 1000);
     updateClock();
@@ -129,12 +129,9 @@
       document.getElementById(overlayId).classList.remove('active');
       document.body.style.overflow = '';
     }
-
-    // Drawer triggers
     document.getElementById('aboutDrawerBtn').onclick = function(e) {
       e.preventDefault();
       openOverlay('aboutOverlay');
-      // Hide drawer if open
       const navDrawer = document.getElementById('navDrawer');
       if (navDrawer && navDrawer.classList.contains('show')) {
         const offcanvas = bootstrap.Offcanvas.getInstance(navDrawer);
@@ -150,7 +147,6 @@
         if (offcanvas) offcanvas.hide();
       }
     };
-    // Sidebar triggers
     document.getElementById('aboutSidebarBtn').onclick = function(e) {
       e.preventDefault();
       openOverlay('aboutOverlay');
@@ -159,14 +155,12 @@
       e.preventDefault();
       openOverlay('contactOverlay');
     };
-    // ESC key closes overlays
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeOverlay('aboutOverlay');
         closeOverlay('contactOverlay');
       }
     });
-    // Click outside overlay closes
     document.getElementById('aboutOverlay').onclick = function(e) {
       if (e.target === this) closeOverlay('aboutOverlay');
     };
@@ -174,5 +168,6 @@
       if (e.target === this) closeOverlay('contactOverlay');
     };
   </script>
+  <script src="bitmovin-app.js"></script>
 </body>
 </html>
