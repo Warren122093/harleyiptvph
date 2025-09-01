@@ -4,28 +4,28 @@
 const channels = {
   "ALLTV": {
     name: "ALLTV",
-    url: "http://143.44.136.110:6610/001/2/ch00000090990000001179/manifest.mpd?virtualDomain=001.live_hls.zte.com",
+    url: "https://143.44.136.110:6610/001/2/ch00000090990000001179/manifest.mpd?virtualDomain=001.live_hls.zte.com",
     drm: {
       "com.widevine.alpha": {
-        serverURL: "http://143.44.136.74:9443/widevine/?deviceId=02:00:00:00:00:00"
+        serverURL: "https://143.44.136.74:9443/widevine/?deviceId=02:00:00:00:00:00"
       }
     }
   },
   "DWIZ_News_TV": {
     name: "DWIZ News TV",
-    url: "http://143.44.136.110:6610/001/2/ch00000090990000001109/manifest.mpd?virtualDomain=001.live_hls.zte.com",
+    url: "https://143.44.136.110:6610/001/2/ch00000090990000001109/manifest.mpd?virtualDomain=001.live_hls.zte.com",
     drm: {
       "com.widevine.alpha": {
-        serverURL: "http://143.44.136.74:9443/widevine/?deviceId=02:00:00:00:00:00"
+        serverURL: "https://143.44.136.74:9443/widevine/?deviceId=02:00:00:00:00:00"
       }
     }
   },
   "ANC": {
     name: "ANC",
-    url: "http://143.44.136.110:6610/001/2/ch00000090990000001274/manifest.mpd?virtualDomain=001.live_hls.zte.com",
+    url: "https://143.44.136.110:6610/001/2/ch00000090990000001274/manifest.mpd?virtualDomain=001.live_hls.zte.com",
     drm: {
       "com.widevine.alpha": {
-        serverURL: "http://143.44.136.74:9443/widevine/?deviceId=02:00:00:00:00:00"
+        serverURL: "https://143.44.136.74:9443/widevine/?deviceId=02:00:00:00:00:00"
       }
     }
   },
@@ -125,3 +125,4 @@ window.addEventListener('DOMContentLoaded', () => {
     loadChannel(defaultChannelKey);
   }
 });
+
