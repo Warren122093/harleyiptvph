@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Check Firebase loaded
+  if (typeof firebase === "undefined") {
+    alert("Firebase SDK not loaded. Check your <script src='...firebase.js'></script> in index.html.");
+    return;
+  }
+
   const firebaseConfig = {
     apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
     authDomain: "harley1-dc7c4.firebaseapp.com",
@@ -8,7 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
     appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
     measurementId: "G-XJDDS9HC2S"
   };
-  firebase.initializeApp(firebaseConfig);
+  // Only initialize if not already
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
   const auth = firebase.auth();
 
   // Register handler
@@ -76,6 +85,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('logoutBtn').onclick = function() {
     auth.signOut();
     alert('Logged out!');
+    // Optionally redirect or reload page
+    // location.reload();
   };
 
   // Auth state UI updates
