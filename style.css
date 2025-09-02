@@ -3,19 +3,18 @@
   --primary-dark: #c2185b;
   --secondary-color: #f8bbd0;
   --highlight: #ad1457;
+  --background-color: #fce4ec;
   --card-bg: #fff;
   --input-color: #fce4ec;
   --tag-color: #f8bbd0;
+  --shadow: 0 6px 16px rgba(0,0,0,0.12);
   --shadow-color: rgba(233, 30, 99, 0.13);
-  --background-color: #fce4ec;
   --text-color: #333;
   --border-radius: 14px;
-  --shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
-/* --- LOGIN PAGE STYLES --- */
-
-body {
+/* --- LOGIN / AUTH PAGE STYLES --- */
+body.login-bg {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
   min-height: 100vh;
@@ -25,7 +24,7 @@ body {
   align-items: center;
 }
 
-.container {
+.container.login-container {
   background: var(--card-bg);
   padding: 36px 24px 20px 24px;
   border-radius: var(--border-radius);
@@ -35,7 +34,7 @@ body {
   animation: fadeIn 0.5s ease;
 }
 
-h2 {
+h2.login-title {
   text-align: center;
   margin-bottom: 16px;
   color: var(--primary-dark);
@@ -60,7 +59,7 @@ h2 {
   margin-bottom: 18px;
 }
 
-input {
+input[type="email"], input[type="password"] {
   width: 100%;
   padding: 12px 12px 12px 42px;
   border: 1px solid #ddd;
@@ -72,7 +71,8 @@ input {
   transition: border-color 0.2s;
 }
 
-input:focus {
+input[type="email"]:focus,
+input[type="password"]:focus {
   border-color: var(--primary-color);
 }
 
@@ -128,8 +128,7 @@ button:hover, button:focus {
   min-height: 20px;
 }
 
-/* Copyright below form */
-.container > div[style*="margin-top: 18px"] {
+.copyright-note {
   margin-top: 18px;
   text-align:center;
   font-size:0.92rem;
@@ -138,7 +137,7 @@ button:hover, button:focus {
 
 /* Responsive for small screens */
 @media (max-width: 500px) {
-  .container {
+  .container.login-container {
     padding: 20px 6vw;
     max-width: 98vw;
   }
@@ -149,8 +148,20 @@ button:hover, button:focus {
   to { opacity: 1; transform: translateY(0);}
 }
 
-/* --- IPTV APP STYLES (UNCHANGED) --- */
+/* --- MAIN IPTV APP STYLES --- */
 
+/* Pink Gradient Body Main App */
+body:not(.login-bg) {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  line-height: 1.6;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  position: relative;
+}
+
+/* Navigation, Sidebar and Footer */
 .transparent-nav,
 .sidebar.transparent-nav,
 footer.transparent-nav,
@@ -292,9 +303,124 @@ footer.transparent-nav,
   background: #000;
 }
 
+/* Mobile adjustments */
 @media (max-width: 991px) {
   .player-wrapper {
     max-width: 100%;
     margin: 12px 0;
     padding: 0 1vw;
-    border
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .video-aspect {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* Footer and misc */
+footer {
+  font-size: 1rem;
+  letter-spacing: .4px;
+  border-top: 2px solid var(--highlight);
+  position: relative;
+  z-index: 1;
+  background: var(--primary-color) !important;
+}
+
+.brand-title {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.cool-clock {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.2rem;
+  color: #f8bbd0;
+  text-shadow: 0 0 6px #e91e63, 0 0 2px #ad1457;
+  font-weight: bold;
+  margin-left: 15px;
+
+}
+
+/* Overlay styles for About and Contact */
+.custom-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(233,30,99,0.93);
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s;
+}
+.custom-overlay.active {
+  display: flex;
+}
+.overlay-content {
+  background: rgba(255,255,255,0.13);
+  border-radius: 22px;
+  box-shadow: 0 8px 40px #e91e63a0;
+  max-width: 360px;
+  padding: 2rem 1.5rem 1.3rem 1.5rem;
+  text-align: center;
+  position: relative;
+  color: #fff;
+  font-size: 1.07rem;
+}
+.overlay-content h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+.overlay-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.16s;
+}
+.overlay-close:hover, .overlay-close:focus {
+  opacity: 1;
+}
+.contact-icons {
+  margin: 1.2rem 0 0.3rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+.contact-icon {
+  font-size: 2rem;
+  color: #fff;
+  background: #e91e63;
+  border-radius: 50%;
+  padding: 0.25em 0.32em;
+  transition: background 0.2s, color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.contact-icon.telegram {
+  background: #0088cc;
+  color: #fff;
+}
+.contact-icon:hover, .contact-icon:focus {
+  background: #f8bbd0;
+  color: #ad1457;
+  text-decoration: none;
+}
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to { opacity: 1;}
+ }
