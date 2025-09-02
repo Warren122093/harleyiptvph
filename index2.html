@@ -25,12 +25,11 @@
     const auth = getAuth(app);
 
     // Only allow access if authenticated
-    onAuthStateChanged(auth, (user) => {
-      // Only allow access if coming from index.html via login
-      if (!user || !document.referrer.includes('index.html')) {
-        window.location.replace("index.html");
-      }
-    });
+   onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.replace("index.html");
+  }
+});
 
     window.logout = async function() {
       await signOut(auth);
@@ -212,3 +211,4 @@
   </script>
 </body>
 </html>
+
