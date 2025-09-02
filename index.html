@@ -238,4 +238,11 @@
           await auth.sendPasswordResetEmail(email);
           showMessage('Password reset email sent! Check your inbox.', 'success');
         } catch (error) {
-          showMessage('Error: ' + error.m
+          showMessage('Error: ' + error.message, 'error');
+        }
+      }
+    };
+  });
+  </script>
+</body>
+</html>
