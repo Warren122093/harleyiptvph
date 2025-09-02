@@ -21,8 +21,11 @@ document.getElementById('registerForm').onsubmit = async function(e) {
   const password = document.getElementById('registerPassword').value;
   try {
     await createUserWithEmailAndPassword(auth, email, password);
-    alert('Registration successful! You can now log in.');
+    await signOut(auth); // ensure manual login after register
+    alert('Registration successful! Please login to continue.');
     document.getElementById('registerForm').reset();
+    // Switch to login tab
+    document.getElementById('login-tab').click();
   } catch (error) {
     alert("Registration error: " + error.message);
   }
@@ -79,20 +82,4 @@ onAuthStateChanged(auth, function(user) {
     userEmail.textContent = '';
     logoutBtn.style.display = 'none';
   }
-});
-
-// Overlay logic (unchanged)
-window.openOverlay = function(overlayId) {
-  document.getElementById(overlayId).classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-window.closeOverlay = function(overlayId) {
-  document.getElementById(overlayId).classList.remove('active');
-  document.body.style.overflow = '';
-}
-document.getElementById('aboutOverlay').onclick = function(e) {
-  if (e.target === this) closeOverlay('aboutOverlay');
-};
-document.getElementById('contactOverlay').onclick = function(e) {
-  if (e.target === this) closeOverlay('contactOverlay');
 };
