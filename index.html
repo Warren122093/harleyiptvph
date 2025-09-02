@@ -54,6 +54,16 @@
       color: #ad1457;
       font-size: 1.2rem;
     }
+    .change-password-section {
+      margin-top: 1.5rem;
+      background: rgba(255,255,255,0.09);
+      border-radius: 8px;
+      padding: 1.2rem 1rem;
+      color: #fff;
+      font-size: 1rem;
+      box-shadow: 0 2px 10px #e91e6340;
+      display: none;
+    }
     .contact-section {
       margin-top: 1.5rem;
       display: flex;
@@ -105,15 +115,11 @@
           <form id="loginForm" class="mb-3">
             <div class="mb-2">
               <label for="loginEmail" class="form-label">Email:</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-person"></i></span>
-                <input type="email" id="loginEmail" class="form-control" required autocomplete="username">
-              </div>
+              <input type="email" id="loginEmail" class="form-control" required autocomplete="username">
             </div>
             <div class="mb-2">
               <label for="loginPassword" class="form-label">Password:</label>
               <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-lock"></i></span>
                 <input type="password" id="loginPassword" class="form-control" required autocomplete="current-password">
                 <span class="input-group-text" id="toggleLoginPassword"><i class="bi bi-eye-slash"></i></span>
               </div>
@@ -129,15 +135,11 @@
           <form id="registerForm">
             <div class="mb-2">
               <label for="registerEmail" class="form-label">Email:</label>
-              <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-person"></i></span>
-                <input type="email" id="registerEmail" class="form-control" required autocomplete="username">
-              </div>
+              <input type="email" id="registerEmail" class="form-control" required autocomplete="username">
             </div>
             <div class="mb-2">
               <label for="registerPassword" class="form-label">Password:</label>
               <div class="input-group">
-                <span class="input-group-text"><i class="bi bi-lock"></i></span>
                 <input type="password" id="registerPassword" class="form-control" required autocomplete="new-password">
                 <span class="input-group-text" id="toggleRegisterPassword"><i class="bi bi-eye-slash"></i></span>
               </div>
@@ -148,6 +150,20 @@
       </div>
       <div class="mt-3 d-flex justify-content-between align-items-center">
         <span id="userEmail"></span>
+        <button id="logoutBtn" class="btn btn-secondary btn-sm" style="display: none;">Logout</button>
+      </div>
+      <!-- Change Password (shown only when logged in) -->
+      <div class="change-password-section" id="changePasswordSection">
+        <form id="changePasswordForm">
+          <div class="mb-2">
+            <label for="newPassword" class="form-label">New Password:</label>
+            <div class="input-group">
+              <input type="password" id="newPassword" class="form-control" required autocomplete="new-password">
+              <span class="input-group-text" id="toggleNewPassword"><i class="bi bi-eye-slash"></i></span>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-warning w-100">Change Password</button>
+        </form>
       </div>
     </div>
     <!-- Contact Section -->
@@ -156,6 +172,7 @@
       <div class="contact-icons">
         <a href="https://t.me/your_telegram_username" target="_blank" title="Telegram"><i class="bi bi-telegram"></i></a>
         <a href="mailto:your@email.com" target="_blank" title="Email"><i class="bi bi-envelope"></i></a>
+        <!-- You can add other icons here -->
       </div>
     </div>
   </div>
@@ -182,6 +199,7 @@
     }
     togglePassword('loginPassword', 'toggleLoginPassword');
     togglePassword('registerPassword', 'toggleRegisterPassword');
+    togglePassword('newPassword', 'toggleNewPassword');
 
     // Professional message area
     const messageArea = document.getElementById('messageArea');
@@ -259,6 +277,51 @@
         }
       }
     };
+
+    // Change Password handler
+    document.getElementById('changePasswordForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const user = auth.currentUser;
+      const newPassword = document.getElementById('newPassword').value;
+      if (user) {
+        try {
+          await user.updatePassword(newPassword);
+          showMessage('Password changed successfully!', 'success');
+          document.getElementById('changePasswordForm').reset();
+        } catch (error) {
+          showMessage('Error changing password: ' + error.message, 'error');
+        }
+      } else {
+        showMessage('No user is logged in.', 'error');
+      }
+    };
+
+    // Logout handler
+    document.getElementById('logoutBtn').onclick = function() {
+      auth.signOut();
+      showMessage('Logged out!', 'success');
+    };
+
+    // Auth state UI updates
+    auth.onAuthStateChanged(function(user) {
+      const authSection = document.getElementById('authSection');
+      const userEmail = document.getElementById('userEmail');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const changePasswordSection = document.getElementById('changePasswordSection');
+      if (user) {
+        authSection.style.display = 'block';
+        showMessage('Welcome, you are logged in.', 'success');
+        userEmail.textContent = user.email;
+        logoutBtn.style.display = 'inline-block';
+        changePasswordSection.style.display = 'block';
+      } else {
+        authSection.style.display = 'block';
+        showMessage('', 'info');
+        userEmail.textContent = '';
+        logoutBtn.style.display = 'none';
+        changePasswordSection.style.display = 'none';
+      }
+    });
   });
   </script>
 </body>
