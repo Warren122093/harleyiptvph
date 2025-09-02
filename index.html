@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to Harley IPTV</title>
+  <title>Harley IPTV Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <style>
@@ -29,14 +29,8 @@
     .welcome-title {
       font-size: 2.1rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       letter-spacing: 1px;
-    }
-    .welcome-intro {
-      font-size: 1.12rem;
-      margin-bottom: 2rem;
-      color: #fff;
-      opacity: 0.95;
     }
     .auth-section {
       margin-bottom: 2rem;
@@ -50,31 +44,51 @@
     .form-control, .form-label {
       color: #ad1457;
     }
-    .change-password-section {
+    .form-label {
+      font-weight: 500;
+    }
+    .input-group-text {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      color: #ad1457;
+      font-size: 1.2rem;
+    }
+    .contact-section {
       margin-top: 1.5rem;
-      background: rgba(255,255,255,0.09);
-      border-radius: 8px;
-      padding: 1.2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
       color: #fff;
+    }
+    .contact-icons {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.8rem;
+    }
+    .contact-icons a {
+      color: #fff;
+      transition: color 0.2s;
+    }
+    .contact-icons a:hover {
+      color: #0088cc;
+    }
+    .message-area {
+      margin: 0.2rem 0 0.7rem 0;
+      min-height: 1.5rem;
+      font-weight: 500;
+      color: #ffecb3;
       font-size: 1rem;
-      box-shadow: 0 2px 10px #e91e6340;
-      display: none;
     }
   </style>
 </head>
 <body>
   <div class="welcome-card">
-    <div class="welcome-title">Welcome to Harley IPTV!</div>
-    <div class="welcome-intro">
-      <p>
-        Experience the best in Pinoy IPTV streaming.<br>
-        Harley IPTV brings you live TV, entertainment, sports, and more—all in one place. 
-        Enjoy fast, reliable, and easy access to your favorite channels, wherever you are.
-      </p>
-      <p>
-        <span id="authStatus">Please login or register to continue.</span>
-      </p>
-    </div>
+    <div class="welcome-title">Harley IPTV</div>
+    <div class="message-area" id="messageArea"></div>
     <!-- Login/Register Section -->
     <div class="auth-section" id="authSection">
       <ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
@@ -91,11 +105,18 @@
           <form id="loginForm" class="mb-3">
             <div class="mb-2">
               <label for="loginEmail" class="form-label">Email:</label>
-              <input type="email" id="loginEmail" class="form-control" required autocomplete="username">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="email" id="loginEmail" class="form-control" required autocomplete="username">
+              </div>
             </div>
             <div class="mb-2">
               <label for="loginPassword" class="form-label">Password:</label>
-              <input type="password" id="loginPassword" class="form-control" required autocomplete="current-password">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input type="password" id="loginPassword" class="form-control" required autocomplete="current-password">
+                <span class="input-group-text" id="toggleLoginPassword"><i class="bi bi-eye-slash"></i></span>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
           </form>
@@ -108,11 +129,18 @@
           <form id="registerForm">
             <div class="mb-2">
               <label for="registerEmail" class="form-label">Email:</label>
-              <input type="email" id="registerEmail" class="form-control" required autocomplete="username">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="email" id="registerEmail" class="form-control" required autocomplete="username">
+              </div>
             </div>
             <div class="mb-2">
               <label for="registerPassword" class="form-label">Password:</label>
-              <input type="password" id="registerPassword" class="form-control" required autocomplete="new-password">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input type="password" id="registerPassword" class="form-control" required autocomplete="new-password">
+                <span class="input-group-text" id="toggleRegisterPassword"><i class="bi bi-eye-slash"></i></span>
+              </div>
             </div>
             <button type="submit" class="btn btn-success w-100">Register</button>
           </form>
@@ -120,43 +148,74 @@
       </div>
       <div class="mt-3 d-flex justify-content-between align-items-center">
         <span id="userEmail"></span>
-        <button id="logoutBtn" class="btn btn-secondary btn-sm" style="display: none;">Logout</button>
       </div>
-      <!-- Change Password (shown only when logged in) -->
-      <div class="change-password-section" id="changePasswordSection">
-        <form id="changePasswordForm">
-          <div class="mb-2">
-            <label for="newPassword" class="form-label">New Password:</label>
-            <input type="password" id="newPassword" class="form-control" required autocomplete="new-password">
-          </div>
-          <button type="submit" class="btn btn-warning w-100">Change Password</button>
-        </form>
+    </div>
+    <!-- Contact Section -->
+    <div class="contact-section">
+      <span style="font-weight:500;">Contact us:</span>
+      <div class="contact-icons">
+        <a href="https://t.me/your_telegram_username" target="_blank" title="Telegram"><i class="bi bi-telegram"></i></a>
+        <a href="mailto:your@email.com" target="_blank" title="Email"><i class="bi bi-envelope"></i></a>
       </div>
     </div>
   </div>
   <!-- Bootstrap JS (for tabs only) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Modular Firebase v12 SDK (type="module") -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, updatePassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-    // import other modules if needed (e.g., analytics)
-    // import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Password visibility toggles
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId).querySelector('i');
+      document.getElementById(iconId).addEventListener('click', function() {
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.classList.remove('bi-eye-slash');
+          icon.classList.add('bi-eye');
+        } else {
+          input.type = 'password';
+          icon.classList.remove('bi-eye');
+          icon.classList.add('bi-eye-slash');
+        }
+      });
+    }
+    togglePassword('loginPassword', 'toggleLoginPassword');
+    togglePassword('registerPassword', 'toggleRegisterPassword');
+
+    // Professional message area
+    const messageArea = document.getElementById('messageArea');
+    function showMessage(msg, type='info') {
+      if (!msg) {
+        messageArea.textContent = '';
+        return;
+      }
+      messageArea.textContent = msg;
+      if (type === 'error') messageArea.style.color = '#ffcdd2';
+      else if (type === 'success') messageArea.style.color = '#c8e6c9';
+      else messageArea.style.color = '#ffecb3';
+    }
+
+    // Firebase
+    if (typeof firebase === "undefined") {
+      showMessage("Authentication Service Error: Unable to load Firebase SDK. Please contact support.", 'error');
+      document.getElementById('authSection').style.display = 'none';
+      return;
+    }
 
     const firebaseConfig = {
       apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
       authDomain: "harley1-dc7c4.firebaseapp.com",
       projectId: "harley1-dc7c4",
-      storageBucket: "harley1-dc7c4.appspot.com", // Corrected!
+      storageBucket: "harley1-dc7c4.appspot.com",
       messagingSenderId: "364436057378",
       appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
       measurementId: "G-XJDDS9HC2S"
     };
-
-    // Firebase init
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    // const analytics = getAnalytics(app);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
 
     // Register handler
     document.getElementById('registerForm').onsubmit = async function(e) {
@@ -164,12 +223,12 @@
       const email = document.getElementById('registerEmail').value;
       const password = document.getElementById('registerPassword').value;
       try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        alert('Registration successful!');
+        await auth.createUserWithEmailAndPassword(email, password);
+        showMessage('Registration successful!', 'success');
         document.getElementById('registerForm').reset();
         document.getElementById('login-tab').click();
       } catch (error) {
-        alert("Registration error: " + error.message);
+        showMessage("Registration error: " + error.message, 'error');
       }
     };
 
@@ -179,12 +238,12 @@
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert('Login successful!');
+        await auth.signInWithEmailAndPassword(email, password);
+        showMessage('Login successful!', 'success');
         document.getElementById('loginForm').reset();
-        window.location.href = "index2.html";
+        setTimeout(() => window.location.href = "index2.html", 700);
       } catch (error) {
-        alert("Login error: " + error.message);
+        showMessage("Login error: " + error.message, 'error');
       }
     };
 
@@ -193,59 +252,14 @@
       const email = prompt('Please enter your email address for password reset:');
       if (email) {
         try {
-          await sendPasswordResetEmail(auth, email);
-          alert('Password reset email sent! Please check your inbox.');
+          await auth.sendPasswordResetEmail(email);
+          showMessage('Password reset email sent! Please check your inbox.', 'success');
         } catch (error) {
-          alert('Error sending reset email: ' + error.message);
+          showMessage('Error sending reset email: ' + error.message, 'error');
         }
       }
     };
-
-    // Change Password handler
-    document.getElementById('changePasswordForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const user = auth.currentUser;
-      const newPassword = document.getElementById('newPassword').value;
-      if (user) {
-        try {
-          await updatePassword(user, newPassword);
-          alert('Password changed successfully!');
-          document.getElementById('changePasswordForm').reset();
-        } catch (error) {
-          alert('Error changing password: ' + error.message);
-        }
-      } else {
-        alert('No user is logged in.');
-      }
-    };
-
-    // Logout handler
-    document.getElementById('logoutBtn').onclick = function() {
-      signOut(auth);
-      alert('Logged out!');
-    };
-
-    // Auth state UI updates
-    onAuthStateChanged(auth, function(user) {
-      const authSection = document.getElementById('authSection');
-      const authStatus = document.getElementById('authStatus');
-      const userEmail = document.getElementById('userEmail');
-      const logoutBtn = document.getElementById('logoutBtn');
-      const changePasswordSection = document.getElementById('changePasswordSection');
-      if (user) {
-        authSection.style.display = 'block';
-        authStatus.textContent = 'Welcome, you are logged in.';
-        userEmail.textContent = user.email;
-        logoutBtn.style.display = 'inline-block';
-        changePasswordSection.style.display = 'block';
-      } else {
-        authSection.style.display = 'block';
-        authStatus.textContent = 'Please login or register to continue.';
-        userEmail.textContent = '';
-        logoutBtn.style.display = 'none';
-        changePasswordSection.style.display = 'none';
-      }
-    });
+  });
   </script>
 </body>
 </html>
