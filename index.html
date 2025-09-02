@@ -172,13 +172,16 @@
       <div class="contact-icons">
         <a href="https://t.me/your_telegram_username" target="_blank" title="Telegram"><i class="bi bi-telegram"></i></a>
         <a href="mailto:your@email.com" target="_blank" title="Email"><i class="bi bi-envelope"></i></a>
-        <!-- You can add other icons here -->
       </div>
     </div>
   </div>
   <!-- Bootstrap JS (for tabs only) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase.js"></script>
+
+  <!-- ✅ Firebase v8 SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Password visibility toggles
@@ -214,13 +217,7 @@
       else messageArea.style.color = '#ffecb3';
     }
 
-    // Firebase
-    if (typeof firebase === "undefined") {
-      showMessage("Authentication Service Error: Unable to load Firebase SDK. Please contact support.", 'error');
-      document.getElementById('authSection').style.display = 'none';
-      return;
-    }
-
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
       authDomain: "harley1-dc7c4.firebaseapp.com",
