@@ -1,325 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Harley IPTV Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Login & Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      background: linear-gradient(135deg, #e91e63 0%, #f8bbd0 100%);
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-    .welcome-card {
-      background: rgba(255,255,255,0.07);
-      border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(233,30,99,0.25);
-      padding: 2.5rem 2rem;
-      max-width: 410px;
-      text-align: center;
-      position: relative;
-    }
-    .welcome-title {
-      font-size: 2.1rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      letter-spacing: 1px;
-    }
-    .auth-section {
-      margin-bottom: 2rem;
-      background: rgba(255,255,255,0.13);
+    .container {
+      background: white;
+      padding: 20px;
       border-radius: 10px;
-      padding: 1.2rem 1rem 1rem 1rem;
-      color: #fff;
-      font-size: 1rem;
-      box-shadow: 0 4px 20px #e91e63a0;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .form-control, .form-label {
-      color: #ad1457;
+    h2 {
+      text-align: center;
     }
-    .form-label {
-      font-weight: 500;
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    .input-group-text {
-      cursor: pointer;
-      background: transparent;
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
       border: none;
-      color: #ad1457;
-      font-size: 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    .change-password-section {
-      margin-top: 1.5rem;
-      background: rgba(255,255,255,0.09);
-      border-radius: 8px;
-      padding: 1.2rem 1rem;
-      color: #fff;
-      font-size: 1rem;
-      box-shadow: 0 2px 10px #e91e6340;
+    button:hover {
+      background: #0056b3;
+    }
+    .link {
+      text-align: center;
+      margin-top: 10px;
+      cursor: pointer;
+      color: #007bff;
+    }
+    .hidden {
       display: none;
-    }
-    .contact-section {
-      margin-top: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-      color: #fff;
-    }
-    .contact-icons {
-      display: flex;
-      gap: 1.2rem;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.8rem;
-    }
-    .contact-icons a {
-      color: #fff;
-      transition: color 0.2s;
-    }
-    .contact-icons a:hover {
-      color: #0088cc;
-    }
-    .message-area {
-      margin: 0.2rem 0 0.7rem 0;
-      min-height: 1.5rem;
-      font-weight: 500;
-      color: #ffecb3;
-      font-size: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="welcome-card">
-    <div class="welcome-title">Harley IPTV</div>
-    <div class="message-area" id="messageArea"></div>
-    <!-- Login/Register Section -->
-    <div class="auth-section" id="authSection">
-      <ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#loginPane" type="button" role="tab">Login</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#registerPane" type="button" role="tab">Register</button>
-        </li>
-      </ul>
-      <div class="tab-content" id="authTabContent">
-        <!-- Login Form -->
-        <div class="tab-pane fade show active" id="loginPane" role="tabpanel">
-          <form id="loginForm" class="mb-3">
-            <div class="mb-2">
-              <label for="loginEmail" class="form-label">Email:</label>
-              <input type="email" id="loginEmail" class="form-control" required autocomplete="username">
-            </div>
-            <div class="mb-2">
-              <label for="loginPassword" class="form-label">Password:</label>
-              <div class="input-group">
-                <input type="password" id="loginPassword" class="form-control" required autocomplete="current-password">
-                <span class="input-group-text" id="toggleLoginPassword"><i class="bi bi-eye-slash"></i></span>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
-          </form>
-          <div class="mb-2 text-end">
-            <button type="button" class="btn btn-link p-0" id="forgotPasswordBtn" style="font-size:1rem;">Forgot password?</button>
-          </div>
-        </div>
-        <!-- Register Form -->
-        <div class="tab-pane fade" id="registerPane" role="tabpanel">
-          <form id="registerForm">
-            <div class="mb-2">
-              <label for="registerEmail" class="form-label">Email:</label>
-              <input type="email" id="registerEmail" class="form-control" required autocomplete="username">
-            </div>
-            <div class="mb-2">
-              <label for="registerPassword" class="form-label">Password:</label>
-              <div class="input-group">
-                <input type="password" id="registerPassword" class="form-control" required autocomplete="new-password">
-                <span class="input-group-text" id="toggleRegisterPassword"><i class="bi bi-eye-slash"></i></span>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-success w-100">Register</button>
-          </form>
-        </div>
-      </div>
-      <div class="mt-3 d-flex justify-content-between align-items-center">
-        <span id="userEmail"></span>
-        <button id="logoutBtn" class="btn btn-secondary btn-sm" style="display: none;">Logout</button>
-      </div>
-      <!-- Change Password (shown only when logged in) -->
-      <div class="change-password-section" id="changePasswordSection">
-        <form id="changePasswordForm">
-          <div class="mb-2">
-            <label for="newPassword" class="form-label">New Password:</label>
-            <div class="input-group">
-              <input type="password" id="newPassword" class="form-control" required autocomplete="new-password">
-              <span class="input-group-text" id="toggleNewPassword"><i class="bi bi-eye-slash"></i></span>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-warning w-100">Change Password</button>
-        </form>
-      </div>
+  <div class="container">
+    <h2 id="form-title">Login</h2>
+
+    <!-- Login Form -->
+    <div id="login-form">
+      <input type="email" id="login-email" placeholder="Email">
+      <input type="password" id="login-password" placeholder="Password">
+      <button id="login-btn">Login</button>
+      <div class="link" id="show-signup">Don't have an account? Sign up</div>
+      <div class="link" id="show-forgot">Forgot Password?</div>
     </div>
-    <!-- Contact Section -->
-    <div class="contact-section">
-      <span style="font-weight:500;">Contact us:</span>
-      <div class="contact-icons">
-        <a href="https://t.me/your_telegram_username" target="_blank" title="Telegram"><i class="bi bi-telegram"></i></a>
-        <a href="mailto:your@email.com" target="_blank" title="Email"><i class="bi bi-envelope"></i></a>
-      </div>
+
+    <!-- Signup Form -->
+    <div id="signup-form" class="hidden">
+      <input type="email" id="signup-email" placeholder="Email">
+      <input type="password" id="signup-password" placeholder="Password">
+      <button id="signup-btn">Sign Up</button>
+      <div class="link" id="show-login">Already have an account? Login</div>
+    </div>
+
+    <!-- Forgot Password Form -->
+    <div id="forgot-form" class="hidden">
+      <input type="email" id="forgot-email" placeholder="Enter your email">
+      <button id="forgot-btn">Reset Password</button>
+      <div class="link" id="back-login">Back to Login</div>
     </div>
   </div>
-  <!-- Bootstrap JS (for tabs only) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- ✅ Firebase v8 SDK -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Password visibility toggles
-    function togglePassword(inputId, iconId) {
-      const input = document.getElementById(inputId);
-      const icon = document.getElementById(iconId).querySelector('i');
-      document.getElementById(iconId).addEventListener('click', function() {
-        if (input.type === 'password') {
-          input.type = 'text';
-          icon.classList.remove('bi-eye-slash');
-          icon.classList.add('bi-eye');
-        } else {
-          input.type = 'password';
-          icon.classList.remove('bi-eye');
-          icon.classList.add('bi-eye-slash');
-        }
-      });
-    }
-    togglePassword('loginPassword', 'toggleLoginPassword');
-    togglePassword('registerPassword', 'toggleRegisterPassword');
-    togglePassword('newPassword', 'toggleNewPassword');
-
-    // Professional message area
-    const messageArea = document.getElementById('messageArea');
-    function showMessage(msg, type='info') {
-      if (!msg) {
-        messageArea.textContent = '';
-        return;
-      }
-      messageArea.textContent = msg;
-      if (type === 'error') messageArea.style.color = '#ffcdd2';
-      else if (type === 'success') messageArea.style.color = '#c8e6c9';
-      else messageArea.style.color = '#ffecb3';
-    }
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      sendPasswordResetEmail 
+    } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
     // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
       authDomain: "harley1-dc7c4.firebaseapp.com",
       projectId: "harley1-dc7c4",
-      storageBucket: "harley1-dc7c4.appspot.com",
+      storageBucket: "harley1-dc7c4.firebasestorage.app",
       messagingSenderId: "364436057378",
       appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
       measurementId: "G-XJDDS9HC2S"
     };
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    const auth = firebase.auth();
 
-    // Register handler
-    document.getElementById('registerForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const email = document.getElementById('registerEmail').value;
-      const password = document.getElementById('registerPassword').value;
+    // Init Firebase
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+    const auth = getAuth(app);
+
+    // Elements
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+    const forgotForm = document.getElementById("forgot-form");
+    const formTitle = document.getElementById("form-title");
+
+    // Switch forms
+    document.getElementById("show-signup").addEventListener("click", () => {
+      loginForm.classList.add("hidden");
+      signupForm.classList.remove("hidden");
+      forgotForm.classList.add("hidden");
+      formTitle.innerText = "Sign Up";
+    });
+
+    document.getElementById("show-login").addEventListener("click", () => {
+      loginForm.classList.remove("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.add("hidden");
+      formTitle.innerText = "Login";
+    });
+
+    document.getElementById("show-forgot").addEventListener("click", () => {
+      loginForm.classList.add("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.remove("hidden");
+      formTitle.innerText = "Forgot Password";
+    });
+
+    document.getElementById("back-login").addEventListener("click", () => {
+      loginForm.classList.remove("hidden");
+      signupForm.classList.add("hidden");
+      forgotForm.classList.add("hidden");
+      formTitle.innerText = "Login";
+    });
+
+    // Signup
+    document.getElementById("signup-btn").addEventListener("click", async () => {
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
       try {
-        await auth.createUserWithEmailAndPassword(email, password);
-        showMessage('Registration successful!', 'success');
-        document.getElementById('registerForm').reset();
-        document.getElementById('login-tab').click();
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Signup successful! Please login.");
+        loginForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+        formTitle.innerText = "Login";
       } catch (error) {
-        showMessage("Registration error: " + error.message, 'error');
-      }
-    };
-
-    // Login handler
-    document.getElementById('loginForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      try {
-        await auth.signInWithEmailAndPassword(email, password);
-        showMessage('Login successful!', 'success');
-        document.getElementById('loginForm').reset();
-        setTimeout(() => window.location.href = "index2.html", 700);
-      } catch (error) {
-        showMessage("Login error: " + error.message, 'error');
-      }
-    };
-
-    // Forgot Password handler
-    document.getElementById('forgotPasswordBtn').onclick = async function() {
-      const email = prompt('Please enter your email address for password reset:');
-      if (email) {
-        try {
-          await auth.sendPasswordResetEmail(email);
-          showMessage('Password reset email sent! Please check your inbox.', 'success');
-        } catch (error) {
-          showMessage('Error sending reset email: ' + error.message, 'error');
-        }
-      }
-    };
-
-    // Change Password handler
-    document.getElementById('changePasswordForm').onsubmit = async function(e) {
-      e.preventDefault();
-      const user = auth.currentUser;
-      const newPassword = document.getElementById('newPassword').value;
-      if (user) {
-        try {
-          await user.updatePassword(newPassword);
-          showMessage('Password changed successfully!', 'success');
-          document.getElementById('changePasswordForm').reset();
-        } catch (error) {
-          showMessage('Error changing password: ' + error.message, 'error');
-        }
-      } else {
-        showMessage('No user is logged in.', 'error');
-      }
-    };
-
-    // Logout handler
-    document.getElementById('logoutBtn').onclick = function() {
-      auth.signOut();
-      showMessage('Logged out!', 'success');
-    };
-
-    // Auth state UI updates
-    auth.onAuthStateChanged(function(user) {
-      const authSection = document.getElementById('authSection');
-      const userEmail = document.getElementById('userEmail');
-      const logoutBtn = document.getElementById('logoutBtn');
-      const changePasswordSection = document.getElementById('changePasswordSection');
-      if (user) {
-        authSection.style.display = 'block';
-        showMessage('Welcome, you are logged in.', 'success');
-        userEmail.textContent = user.email;
-        logoutBtn.style.display = 'inline-block';
-        changePasswordSection.style.display = 'block';
-      } else {
-        authSection.style.display = 'block';
-        showMessage('', 'info');
-        userEmail.textContent = '';
-        logoutBtn.style.display = 'none';
-        changePasswordSection.style.display = 'none';
+        alert(error.message);
       }
     });
-  });
+
+    // Login
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        window.location.href = "index2.html"; // Redirect after login
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+    // Forgot Password
+    document.getElementById("forgot-btn").addEventListener("click", async () => {
+      const email = document.getElementById("forgot-email").value;
+      try {
+        await sendPasswordResetEmail(auth, email);
+        alert("Password reset email sent!");
+        loginForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+        forgotForm.classList.add("hidden");
+        formTitle.innerText = "Login";
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   </script>
 </body>
 </html>
