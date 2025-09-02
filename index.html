@@ -50,6 +50,16 @@
     .form-control, .form-label {
       color: #ad1457;
     }
+    .change-password-section {
+      margin-top: 1.5rem;
+      background: rgba(255,255,255,0.09);
+      border-radius: 8px;
+      padding: 1.2rem 1rem;
+      color: #fff;
+      font-size: 1rem;
+      box-shadow: 0 2px 10px #e91e6340;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -111,6 +121,16 @@
       <div class="mt-3 d-flex justify-content-between align-items-center">
         <span id="userEmail"></span>
         <button id="logoutBtn" class="btn btn-secondary btn-sm" style="display: none;">Logout</button>
+      </div>
+      <!-- Change Password (shown only when logged in) -->
+      <div class="change-password-section" id="changePasswordSection">
+        <form id="changePasswordForm">
+          <div class="mb-2">
+            <label for="newPassword" class="form-label">New Password:</label>
+            <input type="password" id="newPassword" class="form-control" required autocomplete="new-password">
+          </div>
+          <button type="submit" class="btn btn-warning w-100">Change Password</button>
+        </form>
       </div>
     </div>
   </div>
