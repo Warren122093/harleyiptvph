@@ -7,7 +7,127 @@
   <!-- Bootstrap & Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --primary-color: #e91e63;
+      --primary-dark: #c2185b;
+      --background-color: #fce4ec;
+      --card-bg: #fff;
+      --text-color: #333;
+      --border-radius: 14px;
+      --shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: var(--card-bg);
+      padding: 36px 24px 20px 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 360px;
+      animation: fadeIn 0.5s ease;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 16px;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: .5px;
+    }
+    .form-icon {
+      font-size: 1.2rem;
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-color);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 12px 12px 42px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 15px;
+      background: var(--background-color);
+      color: var(--text-color);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      border-color: var(--primary-color);
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: var(--border-radius);
+      background: var(--primary-color);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      box-shadow: 0 2px 8px rgba(233,30,99,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    button:hover, button:focus {
+      background: var(--primary-dark);
+    }
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      cursor: pointer;
+      color: var(--primary-color);
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 0.99rem;
+      text-decoration: none;
+    }
+    .link:hover, .link:focus {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+    .hidden {
+      display: none;
+    }
+    .message {
+      text-align: center;
+      margin-top: 13px;
+      font-size: 15px;
+      font-weight: 600;
+      min-height: 20px;
+    }
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px 6vw;
+        max-width: 98vw;
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -63,7 +183,16 @@
       sendPasswordResetEmail 
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    function _0x5d42(_0x1549b6,_0x20d9fc){const _0x4feb21=_0x4feb();return _0x5d42=function(_0x5d42f3,_0x26f929){_0x5d42f3=_0x5d42f3-0x1aa;let _0x2ee0da=_0x4feb21[_0x5d42f3];if(_0x5d42['VrPrze']===undefined){var _0x1cee11=function(_0x476a91){const _0x2d3d92='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x4d6666='',_0x347edb='';for(let _0x1c640a=0x0,_0x1ce625,_0x111e22,_0x44e8f8=0x0;_0x111e22=_0x476a91['charAt'](_0x44e8f8++);~_0x111e22&&(_0x1ce625=_0x1c640a%0x4?_0x1ce625*0x40+_0x111e22:_0x111e22,_0x1c640a++%0x4)?_0x4d6666+=String['fromCharCode'](0xff&_0x1ce625>>(-0x2*_0x1c640a&0x6)):0x0){_0x111e22=_0x2d3d92['indexOf'](_0x111e22);}for(let _0x61563d=0x0,_0x2945f3=_0x4d6666['length'];_0x61563d<_0x2945f3;_0x61563d++){_0x347edb+='%'+('00'+_0x4d6666['charCodeAt'](_0x61563d)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x347edb);};const _0x46efa2=function(_0x403bc0,_0x1801b0){let _0x282a23=[],_0x454edd=0x0,_0xe1ed47,_0x37f579='';_0x403bc0=_0x1cee11(_0x403bc0);let _0x49a33c;for(_0x49a33c=0x0;_0x49a33c<0x100;_0x49a33c++){_0x282a23[_0x49a33c]=_0x49a33c;}for(_0x49a33c=0x0;_0x49a33c<0x100;_0x49a33c++){_0x454edd=(_0x454edd+_0x282a23[_0x49a33c]+_0x1801b0['charCodeAt'](_0x49a33c%_0x1801b0['length']))%0x100,_0xe1ed47=_0x282a23[_0x49a33c],_0x282a23[_0x49a33c]=_0x282a23[_0x454edd],_0x282a23[_0x454edd]=_0xe1ed47;}_0x49a33c=0x0,_0x454edd=0x0;for(let _0x59d311=0x0;_0x59d311<_0x403bc0['length'];_0x59d311++){_0x49a33c=(_0x49a33c+0x1)%0x100,_0x454edd=(_0x454edd+_0x282a23[_0x49a33c])%0x100,_0xe1ed47=_0x282a23[_0x49a33c],_0x282a23[_0x49a33c]=_0x282a23[_0x454edd],_0x282a23[_0x454edd]=_0xe1ed47,_0x37f579+=String['fromCharCode'](_0x403bc0['charCodeAt'](_0x59d311)^_0x282a23[(_0x282a23[_0x49a33c]+_0x282a23[_0x454edd])%0x100]);}return _0x37f579;};_0x5d42['hTJBTs']=_0x46efa2,_0x1549b6=arguments,_0x5d42['VrPrze']=!![];}const _0x188fd7=_0x4feb21[0x0],_0x6bba05=_0x5d42f3+_0x188fd7,_0x37b839=_0x1549b6[_0x6bba05];return!_0x37b839?(_0x5d42['jLtOXx']===undefined&&(_0x5d42['jLtOXx']=!![]),_0x2ee0da=_0x5d42['hTJBTs'](_0x2ee0da,_0x26f929),_0x1549b6[_0x6bba05]=_0x2ee0da):_0x2ee0da=_0x37b839,_0x2ee0da;},_0x5d42(_0x1549b6,_0x20d9fc);}const _0x5e582a=_0x5d42;(function(_0x58d6e5,_0x2d8838){const _0x35fff5=_0x5d42,_0x48b9ff=_0x58d6e5();while(!![]){try{const _0x286e53=parseInt(_0x35fff5(0x1bc,'9qty'))/0x1+-parseInt(_0x35fff5(0x1b5,'TGq]'))/0x2+parseInt(_0x35fff5(0x1ae,'MQV]'))/0x3+parseInt(_0x35fff5(0x1bb,'tcWZ'))/0x4+-parseInt(_0x35fff5(0x1ab,'I26%'))/0x5*(parseInt(_0x35fff5(0x1b4,'jVlv'))/0x6)+-parseInt(_0x35fff5(0x1b7,'9508'))/0x7+-parseInt(_0x35fff5(0x1b1,'*ltS'))/0x8*(-parseInt(_0x35fff5(0x1b8,'I26%'))/0x9);if(_0x286e53===_0x2d8838)break;else _0x48b9ff['push'](_0x48b9ff['shift']());}catch(_0x4479cc){_0x48b9ff['push'](_0x48b9ff['shift']());}}}(_0x4feb,0xbbd86));const firebaseConfig={'apiKey':_0x5e582a(0x1c1,'XA)C'),'authDomain':_0x5e582a(0x1c0,'e[5D'),'projectId':_0x5e582a(0x1b3,'ORQs'),'storageBucket':_0x5e582a(0x1ad,'9qty'),'messagingSenderId':_0x5e582a(0x1bf,'I26%'),'appId':_0x5e582a(0x1b0,']uJI'),'measurementId':_0x5e582a(0x1b6,'tcWZ')};function _0x4feb(){const _0x42a723=['qMJcGgtdUdqQWQpcL1vKW54','WQddJtWfWR3dPSolWQ7cLfZcK8kqja','WRJcGJOjW6LCW4mfW4u1','u31Xq3HfW57dG3KQoNa','WRhcPtxdTwNcV8k5WPalgqhdIa','bmoXW4NdKCo9zSkkWRJcM8kJW6Hefa','W4SSWPJcS1r2WRJcICkbW70','W5jbWObUW5VdTX7cIIv3W4BdQ0m','WRpcJZunWPekWQSfW6udW6tdTh8','W4dcUL3cIHxdG8kbW7KAeeRdUq','W5LVcmorjCk7WRRcGSoFkSk5W68','zsFdRmkXW5XgnNaGW5mygG','WRNdRWyLWQK9WPBcUCkAhHDq','W4KTWPVcTb8ZW6tdS8oCWRLwhG','WOfQW6z2CCkSW4eAxHiDWPqruaZcM8keW4BcOvm6WQ9bqgi7W5tdOSot','W6PvWRuMx8kwFrf6WQVdKCoJW6j0WQ5piHCWWO/cUedcR8oZWQdcJ2tcI3FdOhXJhSkrWODewCogW6C','cCo2W4xdL8klmCoIWQBcRmkP','jCoiWR9XWQRcRCoUWQBdHmkP','W4SIWPRcSg1eWQBcRCkjW74','W7BdOSk/WOvlDHO1CmoC','WOy4t8kfCCoYW47dOmoSemo2W5TOoGePxCoypvaKWQ3dV1JdSmoxWRVcPbnAW57cMtS','W6nwoN57y2jgW5hcHSk5W7dcLG','wNH6qs8xW4BdKxWv','W6bcd8kWnG7dMZVcLtufs8oGWRmNW6iRW4VcQXFdVNfsk2VdJSo7CdSFyNFdUSo8C8oyzviiW7/dNG','BeXWc3JcGSkDn8obW44'];_0x4feb=function(){return _0x42a723;};return _0x4feb();}
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
+      authDomain: "harley1-dc7c4.firebaseapp.com",
+      projectId: "harley1-dc7c4",
+      storageBucket: "harley1-dc7c4.firebasestorage.app",
+      messagingSenderId: "364436057378",
+      appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
+      measurementId: "G-XJDDS9HC2S"
+    };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
