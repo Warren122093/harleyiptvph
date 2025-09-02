@@ -76,19 +76,11 @@
     .contact-icons a:hover {
       color: #0088cc;
     }
-    .message-area {
-      margin: 0.2rem 0 0.7rem 0;
-      min-height: 1.5rem;
-      font-weight: 500;
-      color: #ffecb3;
-      font-size: 1rem;
-    }
   </style>
 </head>
 <body>
   <div class="welcome-card">
     <div class="welcome-title">Harley IPTV</div>
-    <div class="message-area" id="messageArea"></div>
     <!-- Login/Register Section -->
     <div class="auth-section" id="authSection">
       <ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
@@ -183,26 +175,6 @@
     togglePassword('loginPassword', 'toggleLoginPassword');
     togglePassword('registerPassword', 'toggleRegisterPassword');
 
-    // Professional message area
-    const messageArea = document.getElementById('messageArea');
-    function showMessage(msg, type='info') {
-      if (!msg) {
-        messageArea.textContent = '';
-        return;
-      }
-      messageArea.textContent = msg;
-      if (type === 'error') messageArea.style.color = '#ffcdd2';
-      else if (type === 'success') messageArea.style.color = '#c8e6c9';
-      else messageArea.style.color = '#ffecb3';
-    }
-
-    // Firebase
-    if (typeof firebase === "undefined") {
-      showMessage("Authentication Service Error: Unable to load Firebase SDK. Please contact support.", 'error');
-      document.getElementById('authSection').style.display = 'none';
-      return;
-    }
-
     const firebaseConfig = {
       apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
       authDomain: "harley1-dc7c4.firebaseapp.com",
@@ -224,11 +196,10 @@
       const password = document.getElementById('registerPassword').value;
       try {
         await auth.createUserWithEmailAndPassword(email, password);
-        showMessage('Registration successful!', 'success');
         document.getElementById('registerForm').reset();
         document.getElementById('login-tab').click();
       } catch (error) {
-        showMessage("Registration error: " + error.message, 'error');
+        alert("Registration error: " + error.message);
       }
     };
 
@@ -239,11 +210,10 @@
       const password = document.getElementById('loginPassword').value;
       try {
         await auth.signInWithEmailAndPassword(email, password);
-        showMessage('Login successful!', 'success');
         document.getElementById('loginForm').reset();
         setTimeout(() => window.location.href = "index2.html", 700);
       } catch (error) {
-        showMessage("Login error: " + error.message, 'error');
+        alert("Login error: " + error.message);
       }
     };
 
@@ -253,9 +223,9 @@
       if (email) {
         try {
           await auth.sendPasswordResetEmail(email);
-          showMessage('Password reset email sent! Please check your inbox.', 'success');
+          alert('Password reset email sent! Please check your inbox.');
         } catch (error) {
-          showMessage('Error sending reset email: ' + error.message, 'error');
+          alert('Error sending reset email: ' + error.message);
         }
       }
     };
