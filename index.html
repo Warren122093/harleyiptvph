@@ -136,8 +136,116 @@
   </div>
   <!-- Bootstrap JS (for tabs only) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Firebase classic CDN: this is **the only** Firebase script needed for window.firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase.js"></script>
-  <script src="auth.js"></script>
+  <!-- Modular Firebase v12 SDK (type="module") -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, updatePassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+    // import other modules if needed (e.g., analytics)
+    // import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
+      authDomain: "harley1-dc7c4.firebaseapp.com",
+      projectId: "harley1-dc7c4",
+      storageBucket: "harley1-dc7c4.appspot.com", // Corrected!
+      messagingSenderId: "364436057378",
+      appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
+      measurementId: "G-XJDDS9HC2S"
+    };
+
+    // Firebase init
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    // const analytics = getAnalytics(app);
+
+    // Register handler
+    document.getElementById('registerForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert('Registration successful!');
+        document.getElementById('registerForm').reset();
+        document.getElementById('login-tab').click();
+      } catch (error) {
+        alert("Registration error: " + error.message);
+      }
+    };
+
+    // Login handler
+    document.getElementById('loginForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert('Login successful!');
+        document.getElementById('loginForm').reset();
+        window.location.href = "index2.html";
+      } catch (error) {
+        alert("Login error: " + error.message);
+      }
+    };
+
+    // Forgot Password handler
+    document.getElementById('forgotPasswordBtn').onclick = async function() {
+      const email = prompt('Please enter your email address for password reset:');
+      if (email) {
+        try {
+          await sendPasswordResetEmail(auth, email);
+          alert('Password reset email sent! Please check your inbox.');
+        } catch (error) {
+          alert('Error sending reset email: ' + error.message);
+        }
+      }
+    };
+
+    // Change Password handler
+    document.getElementById('changePasswordForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const user = auth.currentUser;
+      const newPassword = document.getElementById('newPassword').value;
+      if (user) {
+        try {
+          await updatePassword(user, newPassword);
+          alert('Password changed successfully!');
+          document.getElementById('changePasswordForm').reset();
+        } catch (error) {
+          alert('Error changing password: ' + error.message);
+        }
+      } else {
+        alert('No user is logged in.');
+      }
+    };
+
+    // Logout handler
+    document.getElementById('logoutBtn').onclick = function() {
+      signOut(auth);
+      alert('Logged out!');
+    };
+
+    // Auth state UI updates
+    onAuthStateChanged(auth, function(user) {
+      const authSection = document.getElementById('authSection');
+      const authStatus = document.getElementById('authStatus');
+      const userEmail = document.getElementById('userEmail');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const changePasswordSection = document.getElementById('changePasswordSection');
+      if (user) {
+        authSection.style.display = 'block';
+        authStatus.textContent = 'Welcome, you are logged in.';
+        userEmail.textContent = user.email;
+        logoutBtn.style.display = 'inline-block';
+        changePasswordSection.style.display = 'block';
+      } else {
+        authSection.style.display = 'block';
+        authStatus.textContent = 'Please login or register to continue.';
+        userEmail.textContent = '';
+        logoutBtn.style.display = 'none';
+        changePasswordSection.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
