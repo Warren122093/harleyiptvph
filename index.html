@@ -135,9 +135,13 @@
     </div>
   </div>
   <!-- Bootstrap JS (for tabs only) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- FIX: Use classic Firebase CDN -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase.js"></script>
+<!-- Bootstrap JS (for tabs only) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Firebase Classic CDN (global window.firebase) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase.js"></script>
+<!-- Your code: must come AFTER firebase.js -->
+<script src="auth.js"></script>
   <script src="auth.js"></script>
 </body>
 </html>
+
