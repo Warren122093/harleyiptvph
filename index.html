@@ -5,65 +5,102 @@
   <title>Login Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    :root {
+      --primary-color: #e91e63;
+      --primary-dark: #c2185b;
+      --background-color: #fce4ec;
+      --card-bg: #fff;
+      --text-color: #333;
+      --border-radius: 12px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
+
     .container {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 320px;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 340px;
+      animation: fadeIn 0.5s ease;
     }
+
     h2 {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
     }
+
     input {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
+      padding: 12px;
+      margin: 10px 0;
       border: 1px solid #ddd;
-      border-radius: 5px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
     }
+
     button {
       width: 100%;
-      padding: 10px;
-      margin-top: 10px;
+      padding: 12px;
+      margin-top: 12px;
       border: none;
-      border-radius: 5px;
-      background: #007bff;
+      border-radius: var(--border-radius);
+      background: var(--primary-color);
       color: #fff;
+      font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s;
     }
+
     button:hover {
-      background: #0056b3;
+      background: var(--primary-dark);
     }
+
     .link {
       display: block;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 12px;
       cursor: pointer;
-      color: #007bff;
+      color: var(--primary-color);
+      font-weight: 500;
+      transition: color 0.3s;
     }
+
+    .link:hover {
+      color: var(--primary-dark);
+    }
+
     .hidden {
       display: none;
     }
+
     .message {
       text-align: center;
-      margin-top: 10px;
-      color: red;
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Login</h2>
+    <h2>Welcome</h2>
 
     <!-- Login Form -->
     <div id="loginForm">
@@ -112,11 +149,9 @@
       measurementId: "G-XJDDS9HC2S"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Elements
     const loginForm = document.getElementById("loginForm");
     const signupForm = document.getElementById("signupForm");
     const forgotForm = document.getElementById("forgotForm");
@@ -146,8 +181,9 @@
       const password = document.getElementById("loginPassword").value;
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = "index2.html"; // redirect on success
+        window.location.href = "index2.html"; 
       } catch (error) {
+        message.style.color = "red";
         message.textContent = "Login failed: " + error.message;
       }
     };
