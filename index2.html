@@ -7,27 +7,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.min.js"></script>
-  <script type="module">
-    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-const _0x458f3c=_0xd0b4;function _0x5967(){const _0x584003=['W58DaKWQFSk6','W77cTCo0o8kVWR4tW5O','WPxcSg/dJmkRAMRcOMDYtGtdHNeZnmkJfLVcH8oFWOvZWOjiW4ldQmozWQHOESo1CCkxW6lcQCkrb8kN','WRBdIMdcPWCrsSoIj8ooEG','j27dKSktWORcTq9TWRBcLmouqSoY','WO4GW7vglvpdJmo2W7eZW4q7W44','W7DUW7uBlSo+WOuC','qmoik8o5W78aW47dISo5WO46WRPg','BcLPWRlcVCk1WRtdOuxdRdldT8kScW','WP7cJSkLWRjsWRpcRgpcKmkKoG','eCotW4WWW4ldPwxdGq3dQ8oMWOJcGW','WR8pD8oBs1NdKSojteTNW4xcRa','WORcOSoNWPzSWO7cIaPkB2JcOcG','od/cHgxdRmoMW47cVxFdP8omW4q','x0ddIxBdPquvW5m','W7RdVrq4ntNcOqtdOCoUWPNcOmoL','WQRcL37dGmoJaKT7svq5W5BdNW','WQRdQGFcTCkvCZ0','q8ockmo5W7OcW43dLmo9WOiiWOXA','WQRcM3vWW5y6WRpcRbHHW7ddGW','WRa6lb8+WPqiqSoUlJBcIbO','WPldTWlcTcxcUSo4W53dPSkAWRdcSSkdwJjrW5e2A8khWPWQtvZcOGNcOKPgoSked1W','tCkmvglcTfWdv203vqaoWQtcV8opaCoFW5ToWRpcQCo7W4meWRZdUCkpW6q','W5ZcHb4dWQDpW5NcPZ1kWRpdSHJdOW','W7tdTslcGCozaJyYv8kKemkIWQO','WP9JfCobW5KRW5tcIbJcGxtdIHNdMSktgaSqWPiuoCkdWPefqmkLtrJdUh0kaSoHzmkQawtcTCk7vsW','WOxcNMxdSrvNW53cOW'];_0x5967=function(){return _0x584003;};return _0x5967();}(function(_0x2aaa47,_0x5267d2){const _0x4e8fa9=_0xd0b4,_0x591a5d=_0x2aaa47();while(!![]){try{const _0x1b5f0a=-parseInt(_0x4e8fa9(0x12d,'JIco'))/0x1*(-parseInt(_0x4e8fa9(0x134,'I0b)'))/0x2)+parseInt(_0x4e8fa9(0x124,'I0b)'))/0x3+parseInt(_0x4e8fa9(0x133,'A87j'))/0x4*(-parseInt(_0x4e8fa9(0x121,'[!Ea'))/0x5)+parseInt(_0x4e8fa9(0x12e,'l#KM'))/0x6*(parseInt(_0x4e8fa9(0x136,'^hSN'))/0x7)+parseInt(_0x4e8fa9(0x135,'jPy2'))/0x8+-parseInt(_0x4e8fa9(0x122,'mRfF'))/0x9+-parseInt(_0x4e8fa9(0x12a,'2crl'))/0xa;if(_0x1b5f0a===_0x5267d2)break;else _0x591a5d['push'](_0x591a5d['shift']());}catch(_0x22cf4c){_0x591a5d['push'](_0x591a5d['shift']());}}}(_0x5967,0xd8c29));function _0xd0b4(_0x2a9fd1,_0x2d4bb1){const _0x596730=_0x5967();return _0xd0b4=function(_0xd0b443,_0xe01483){_0xd0b443=_0xd0b443-0x11c;let _0x124293=_0x596730[_0xd0b443];if(_0xd0b4['WwqWiE']===undefined){var _0x5e7d52=function(_0x3fcea7){const _0x49054f='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x4db76e='',_0x308931='';for(let _0x594a85=0x0,_0x2bb34e,_0x47228f,_0x2d2e19=0x0;_0x47228f=_0x3fcea7['charAt'](_0x2d2e19++);~_0x47228f&&(_0x2bb34e=_0x594a85%0x4?_0x2bb34e*0x40+_0x47228f:_0x47228f,_0x594a85++%0x4)?_0x4db76e+=String['fromCharCode'](0xff&_0x2bb34e>>(-0x2*_0x594a85&0x6)):0x0){_0x47228f=_0x49054f['indexOf'](_0x47228f);}for(let _0x193ee6=0x0,_0x4dcb3b=_0x4db76e['length'];_0x193ee6<_0x4dcb3b;_0x193ee6++){_0x308931+='%'+('00'+_0x4db76e['charCodeAt'](_0x193ee6)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x308931);};const _0x537c11=function(_0x43563c,_0x5a8d51){let _0x3bc7b3=[],_0x292fef=0x0,_0x15cf34,_0x37ee2a='';_0x43563c=_0x5e7d52(_0x43563c);let _0x47d852;for(_0x47d852=0x0;_0x47d852<0x100;_0x47d852++){_0x3bc7b3[_0x47d852]=_0x47d852;}for(_0x47d852=0x0;_0x47d852<0x100;_0x47d852++){_0x292fef=(_0x292fef+_0x3bc7b3[_0x47d852]+_0x5a8d51['charCodeAt'](_0x47d852%_0x5a8d51['length']))%0x100,_0x15cf34=_0x3bc7b3[_0x47d852],_0x3bc7b3[_0x47d852]=_0x3bc7b3[_0x292fef],_0x3bc7b3[_0x292fef]=_0x15cf34;}_0x47d852=0x0,_0x292fef=0x0;for(let _0x4046e0=0x0;_0x4046e0<_0x43563c['length'];_0x4046e0++){_0x47d852=(_0x47d852+0x1)%0x100,_0x292fef=(_0x292fef+_0x3bc7b3[_0x47d852])%0x100,_0x15cf34=_0x3bc7b3[_0x47d852],_0x3bc7b3[_0x47d852]=_0x3bc7b3[_0x292fef],_0x3bc7b3[_0x292fef]=_0x15cf34,_0x37ee2a+=String['fromCharCode'](_0x43563c['charCodeAt'](_0x4046e0)^_0x3bc7b3[(_0x3bc7b3[_0x47d852]+_0x3bc7b3[_0x292fef])%0x100]);}return _0x37ee2a;};_0xd0b4['nHTTGj']=_0x537c11,_0x2a9fd1=arguments,_0xd0b4['WwqWiE']=!![];}const _0x417f31=_0x596730[0x0],_0x4132f0=_0xd0b443+_0x417f31,_0x1c107e=_0x2a9fd1[_0x4132f0];return!_0x1c107e?(_0xd0b4['ilVVVG']===undefined&&(_0xd0b4['ilVVVG']=!![]),_0x124293=_0xd0b4['nHTTGj'](_0x124293,_0xe01483),_0x2a9fd1[_0x4132f0]=_0x124293):_0x124293=_0x1c107e,_0x124293;},_0xd0b4(_0x2a9fd1,_0x2d4bb1);}const firebaseConfig={'apiKey':_0x458f3c(0x12f,'ggB5'),'authDomain':_0x458f3c(0x128,'zvw5'),'projectId':_0x458f3c(0x131,'33Wb'),'storageBucket':_0x458f3c(0x127,'cXao'),'messagingSenderId':_0x458f3c(0x11f,'bwoK'),'appId':_0x458f3c(0x12b,'QcBk'),'measurementId':_0x458f3c(0x125,'PqnW')};
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Only allow access if authenticated
-   onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.replace("index.html");
-  }
-});
-
-    window.logout = async function() {
-      await signOut(auth);
-      window.location.href = "index.html";
-    }
-  </script>
 </head>
 <body>
   <!-- Mobile Navigation -->
@@ -56,6 +35,14 @@ const _0x458f3c=_0xd0b4;function _0x5967(){const _0x584003=['W58DaKWQFSk6','W77c
       <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body d-flex flex-column">
+      <!-- DASHBOARD MOBILE -->
+      <div class="account-dashboard mb-4 p-3 rounded" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.10);">
+        <div class="fw-bold mb-2"><i class="bi bi-person-badge"></i> Account Dashboard</div>
+        <div><b><i class="bi bi-person"></i> User:</b> <span class="dashUser">Loading...</span></div>
+        <div><b><i class="bi bi-award"></i> Type:</b> <span class="dashType">-</span></div>
+        <div><b><i class="bi bi-calendar-check"></i> Created:</b> <span class="dashCreated">-</span></div>
+        <div><b><i class="bi bi-hourglass-split"></i> Days left:</b> <span class="dashDays">-</span></div>
+      </div>
       <ul class="nav flex-column mb-4">
         <li class="nav-item"><a class="nav-link text-light active" href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
         <li class="nav-item"><a class="nav-link text-light" href="#" id="aboutDrawerBtn"><i class="bi bi-info-circle-fill"></i> About</a></li>
@@ -77,6 +64,14 @@ const _0x458f3c=_0xd0b4;function _0x5967(){const _0x584003=['W58DaKWQFSk6','W77c
       <button type="button" class="btn btn-outline-light btn-sm ms-2" onclick="logout()" title="Logout">
         <i class="bi bi-box-arrow-right"></i>
       </button>
+    </div>
+    <!-- DASHBOARD DESKTOP -->
+    <div class="account-dashboard mb-4 p-3 rounded" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.10);">
+      <div class="fw-bold mb-2"><i class="bi bi-person-badge"></i> Account Dashboard</div>
+      <div><b><i class="bi bi-person"></i> User:</b> <span class="dashUser">Loading...</span></div>
+      <div><b><i class="bi bi-award"></i> Type:</b> <span class="dashType">-</span></div>
+      <div><b><i class="bi bi-calendar-check"></i> Created:</b> <span class="dashCreated">-</span></div>
+      <div><b><i class="bi bi-hourglass-split"></i> Days left:</b> <span class="dashDays">-</span></div>
     </div>
     <ul class="nav flex-column mb-4">
       <li class="nav-item"><a class="nav-link text-light active" href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
@@ -134,8 +129,73 @@ const _0x458f3c=_0xd0b4;function _0x5967(){const _0x584003=['W58DaKWQFSk6','W77c
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- Firebase and dashboard logic: must be before app.js -->
+  <script type="module">
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
+      authDomain: "harley1-dc7c4.firebaseapp.com",
+      projectId: "harley1-dc7c4",
+      storageBucket: "harley1-dc7c4.firebasestorage.app",
+      messagingSenderId: "364436057378",
+      appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
+      measurementId: "G-XJDDS9HC2S"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.logout = async function() {
+      await signOut(auth);
+      window.location.href = "index.html";
+    };
+
+    function formatDate(date) {
+      return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    function updateDashboard(profile) {
+      document.querySelectorAll('.dashUser').forEach(el => el.textContent = profile.user || "(unknown)");
+      document.querySelectorAll('.dashType').forEach(el => el.textContent = profile.accounttype || "-");
+      if (profile.created && profile.created.toDate) {
+        const createdDate = profile.created.toDate();
+        document.querySelectorAll('.dashCreated').forEach(el => el.textContent = formatDate(createdDate));
+        const expireDate = new Date(createdDate);
+        expireDate.setDate(expireDate.getDate() + 30);
+        const now = new Date();
+        const msLeft = expireDate - now;
+        const daysLeft = Math.max(Math.ceil(msLeft / (1000 * 60 * 60 * 24)), 0);
+        document.querySelectorAll('.dashDays').forEach(el => el.textContent = daysLeft + " day" + (daysLeft !== 1 ? "s" : ""));
+      } else {
+        document.querySelectorAll('.dashCreated').forEach(el => el.textContent = "-");
+        document.querySelectorAll('.dashDays').forEach(el => el.textContent = "-");
+      }
+    }
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      } else {
+        try {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            updateDashboard(docSnap.data());
+          } else {
+            updateDashboard({});
+          }
+        } catch (err) {
+          updateDashboard({});
+        }
+      }
+    });
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.min.js"></script>
+  <script src="app.js"></script>
   <script>
     // Responsive Live Clock
     function updateClock() {
@@ -203,5 +263,3 @@ const _0x458f3c=_0xd0b4;function _0x5967(){const _0x584003=['W58DaKWQFSk6','W77c
   </script>
 </body>
 </html>
-
-
