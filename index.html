@@ -16,6 +16,10 @@
       --text-color: #333;
       --border-radius: 14px;
       --shadow: 0 6px 16px rgba(0,0,0,0.12);
+      --input-bg: #fce4ec;
+      --input-border: #ddd;
+      --input-focus: #e91e63;
+      --input-hover: #e573a4;
     }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -57,19 +61,26 @@
       position: relative;
       margin-bottom: 18px;
     }
-    input {
+    .input-group input {
       width: 100%;
       padding: 12px 12px 12px 42px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--input-border);
       border-radius: var(--border-radius);
       font-size: 15px;
-      background: var(--background-color);
+      background: var(--input-bg);
       color: var(--text-color);
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      box-sizing: border-box;
     }
-    input:focus {
-      border-color: var(--primary-color);
+    .input-group input:focus {
+      border-color: var(--input-focus);
+      background: #fff;
+      box-shadow: 0 0 0 2px #e91e6325;
+    }
+    .input-group input:hover:not(:focus) {
+      border-color: var(--input-hover);
+      background: #fff6fa;
     }
     button {
       width: 100%;
@@ -135,8 +146,8 @@
     <!-- Login Form -->
     <div id="loginForm">
       <div class="input-group">
-        <i class="bi bi-envelope-fill form-icon"></i>
-        <input type="email" id="loginEmail" placeholder="Email" required autocomplete="username">
+        <i class="bi bi-person-fill form-icon"></i>
+        <input type="text" id="loginUserOrEmail" placeholder="Email or Username" required autocomplete="username">
       </div>
       <div class="input-group">
         <i class="bi bi-lock-fill form-icon"></i>
@@ -149,8 +160,12 @@
     <!-- Signup Form -->
     <div id="signupForm" class="hidden">
       <div class="input-group">
+        <i class="bi bi-person-fill form-icon"></i>
+        <input type="text" id="signupUsername" placeholder="Username" required autocomplete="username">
+      </div>
+      <div class="input-group">
         <i class="bi bi-envelope-fill form-icon"></i>
-        <input type="email" id="signupEmail" placeholder="Email" required autocomplete="username">
+        <input type="email" id="signupEmail" placeholder="Email" required autocomplete="email">
       </div>
       <div class="input-group">
         <i class="bi bi-lock-fill form-icon"></i>
@@ -182,11 +197,31 @@
       signInWithEmailAndPassword, 
       sendPasswordResetEmail 
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { 
+      getFirestore, 
+      doc, 
+      setDoc, 
+      serverTimestamp,
+      query,
+      where,
+      collection,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-function _0x33d1(_0x13eb4b,_0x3cb8a7){const _0x2e48de=_0x2e48();return _0x33d1=function(_0x33d141,_0x33547f){_0x33d141=_0x33d141-0x97;let _0x5e5a0a=_0x2e48de[_0x33d141];if(_0x33d1['IcSCUf']===undefined){var _0x2719de=function(_0x4efc48){const _0x51fcba='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x56e427='',_0x515ca1='';for(let _0x797ae7=0x0,_0x48f55e,_0x240604,_0x45e21e=0x0;_0x240604=_0x4efc48['charAt'](_0x45e21e++);~_0x240604&&(_0x48f55e=_0x797ae7%0x4?_0x48f55e*0x40+_0x240604:_0x240604,_0x797ae7++%0x4)?_0x56e427+=String['fromCharCode'](0xff&_0x48f55e>>(-0x2*_0x797ae7&0x6)):0x0){_0x240604=_0x51fcba['indexOf'](_0x240604);}for(let _0x294281=0x0,_0x26914e=_0x56e427['length'];_0x294281<_0x26914e;_0x294281++){_0x515ca1+='%'+('00'+_0x56e427['charCodeAt'](_0x294281)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x515ca1);};const _0x1c2d74=function(_0x4cf4a4,_0x4ace96){let _0x5c04c9=[],_0x2b4533=0x0,_0x43048e,_0x4efc08='';_0x4cf4a4=_0x2719de(_0x4cf4a4);let _0x36c758;for(_0x36c758=0x0;_0x36c758<0x100;_0x36c758++){_0x5c04c9[_0x36c758]=_0x36c758;}for(_0x36c758=0x0;_0x36c758<0x100;_0x36c758++){_0x2b4533=(_0x2b4533+_0x5c04c9[_0x36c758]+_0x4ace96['charCodeAt'](_0x36c758%_0x4ace96['length']))%0x100,_0x43048e=_0x5c04c9[_0x36c758],_0x5c04c9[_0x36c758]=_0x5c04c9[_0x2b4533],_0x5c04c9[_0x2b4533]=_0x43048e;}_0x36c758=0x0,_0x2b4533=0x0;for(let _0x47129a=0x0;_0x47129a<_0x4cf4a4['length'];_0x47129a++){_0x36c758=(_0x36c758+0x1)%0x100,_0x2b4533=(_0x2b4533+_0x5c04c9[_0x36c758])%0x100,_0x43048e=_0x5c04c9[_0x36c758],_0x5c04c9[_0x36c758]=_0x5c04c9[_0x2b4533],_0x5c04c9[_0x2b4533]=_0x43048e,_0x4efc08+=String['fromCharCode'](_0x4cf4a4['charCodeAt'](_0x47129a)^_0x5c04c9[(_0x5c04c9[_0x36c758]+_0x5c04c9[_0x2b4533])%0x100]);}return _0x4efc08;};_0x33d1['jNpVcK']=_0x1c2d74,_0x13eb4b=arguments,_0x33d1['IcSCUf']=!![];}const _0x599b91=_0x2e48de[0x0],_0x5c9af6=_0x33d141+_0x599b91,_0x36bd07=_0x13eb4b[_0x5c9af6];return!_0x36bd07?(_0x33d1['iQvkhT']===undefined&&(_0x33d1['iQvkhT']=!![]),_0x5e5a0a=_0x33d1['jNpVcK'](_0x5e5a0a,_0x33547f),_0x13eb4b[_0x5c9af6]=_0x5e5a0a):_0x5e5a0a=_0x36bd07,_0x5e5a0a;},_0x33d1(_0x13eb4b,_0x3cb8a7);}const _0x1f3c91=_0x33d1;(function(_0x15df40,_0x2dcbeb){const _0xb2fbfa=_0x33d1,_0x4b9523=_0x15df40();while(!![]){try{const _0x38e066=parseInt(_0xb2fbfa(0xa1,'1lu8'))/0x1+-parseInt(_0xb2fbfa(0xb0,'svx0'))/0x2*(-parseInt(_0xb2fbfa(0xaf,'lQjg'))/0x3)+parseInt(_0xb2fbfa(0xa6,'ZF(T'))/0x4+parseInt(_0xb2fbfa(0x9e,'PgRq'))/0x5*(parseInt(_0xb2fbfa(0xa7,'lQjg'))/0x6)+-parseInt(_0xb2fbfa(0xae,'xVXq'))/0x7*(parseInt(_0xb2fbfa(0x97,'[YjJ'))/0x8)+parseInt(_0xb2fbfa(0xa4,'TYF#'))/0x9*(parseInt(_0xb2fbfa(0x9c,'ctX5'))/0xa)+parseInt(_0xb2fbfa(0xb3,'svx0'))/0xb*(-parseInt(_0xb2fbfa(0xac,'TYF#'))/0xc);if(_0x38e066===_0x2dcbeb)break;else _0x4b9523['push'](_0x4b9523['shift']());}catch(_0x2c44ed){_0x4b9523['push'](_0x4b9523['shift']());}}}(_0x2e48,0x5951d));function _0x2e48(){const _0x266a21=['tCkznXHMW4OmW4VdPSoI','wmoseSkwW4pcOCozlCkYia','WQpdQCkvWPjNWQZdVI/cLaW','cmk8W7DKW7RcRWuwkmkw','pmkoWP17W6JcRmowkbOhygC','WQvJWQi3adnwF8k5baJdUmk2','sLldOmkyWQBcVuJdNCoEW6O5FCo2o0/dVKaKWOeoW7NdJ153W4tdS3tcIqS','WRhcV0P4jmo/A0BdIWDDWQFdQa','or3dIdNcTSoxFSowWPZdRa','pYdcQSoKW77cS8oPEmkrxmkrzmoi','ocFdKSkXE1JcRK4+wa','W7FdJmk7rJ7dVYJdPSoeW4T8eh7cSmkSdCkYWPFcNK5fvSokmqqXj8olnstcUqpdOG','W67dOsXJWPldJSktWRP1W5a','eWRcPCofW7RcNG7cOSoGW5XI','hmoooZ/dTs7dLepcSZLuhYK2W5XMW79eBNRcHCkkvCooW6LDEComW5iBamoJiSo6gCoNjtL+','a8kjs3eADtnPWPLmFxi','bCowkcPImX8','W6ZdG8oyWQv9WOy2WQ56WPqlhW','wmoCeSkxWPtcGSocgmkzo0u','x3erW4hdOHtcJq','AwjkqJVdJMGLlYv2xJy','uchdRujoe3bQWOHF','W4v8WO9/W7ZcGwfbFwpcI8oj','WRVdI8o8WR04wsfHWQxcRSoXdq','f2bqW4RdGCk8z8oGEmkWW5VdQ8kT','WPT/hcpcKKnvW5mMW5qPW7bj','wmoufCkrWP/dRmo7kCkLighcNG','tSoSbvSqo8kgimozlLSaW4KyW5hcOXCEF3iCWQVcQ0WCW4DEECoue8kko0uiBNnxartcMYW','WRW/WO9lWO0KWOW','uYhdOK05sYnDWOPDvM9N','WQdcTSo0W4XmWP3dOG'];_0x2e48=function(){return _0x266a21;};return _0x2e48();}const firebaseConfig={'apiKey':_0x1f3c91(0xa0,'!4*)'),'authDomain':_0x1f3c91(0x98,'StEk'),'projectId':_0x1f3c91(0x9b,'hVr%'),'storageBucket':_0x1f3c91(0x9d,'(DSd'),'messagingSenderId':_0x1f3c91(0xa8,'bCl8'),'appId':_0x1f3c91(0xad,'*9f)'),'measurementId':_0x1f3c91(0xb5,'g3z@')};
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
+      authDomain: "harley1-dc7c4.firebaseapp.com",
+      projectId: "harley1-dc7c4",
+      storageBucket: "harley1-dc7c4.firebasestorage.app",
+      messagingSenderId: "364436057378",
+      appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
+      measurementId: "G-XJDDS9HC2S"
+    };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
     const loginForm = document.getElementById("loginForm");
     const signupForm = document.getElementById("signupForm");
@@ -217,27 +252,97 @@ function _0x33d1(_0x13eb4b,_0x3cb8a7){const _0x2e48de=_0x2e48();return _0x33d1=f
       message.textContent = "";
     };
 
-    // Login
+    // Login with email OR username
     document.getElementById("loginBtn").onclick = async () => {
-      const email = document.getElementById("loginEmail").value;
+      const userOrEmail = document.getElementById("loginUserOrEmail").value.trim();
       const password = document.getElementById("loginPassword").value;
       message.textContent = "";
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = "index2.html";
-      } catch (error) {
+
+      // Helper function to actually sign in
+      async function loginWithEmail(email, password) {
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          window.location.href = "index2.html";
+        } catch (error) {
+          message.style.color = "red";
+          message.textContent = "Login failed: " + error.message;
+        }
+      }
+
+      if (!userOrEmail) {
         message.style.color = "red";
-        message.textContent = "Login failed: " + error.message;
+        message.textContent = "Please enter your email or username.";
+        return;
+      }
+
+      // Check if input is an email
+      if (userOrEmail.includes("@")) {
+        loginWithEmail(userOrEmail, password);
+      } else {
+        // Assume it's a username; look up email from Firestore
+        try {
+          const q = query(collection(db, "users"), where("user", "==", userOrEmail));
+          const querySnapshot = await getDocs(q);
+          if (querySnapshot.empty) {
+            message.style.color = "red";
+            message.textContent = "No user found with that username.";
+            return;
+          }
+          // get the first matching document (should only be one)
+          const userDoc = querySnapshot.docs[0];
+          const email = userDoc.data().email;
+          if (!email) {
+            message.style.color = "red";
+            message.textContent = "No email found for that username.";
+            return;
+          }
+          loginWithEmail(email, password);
+        } catch (error) {
+          message.style.color = "red";
+          message.textContent = "Login failed: " + error.message;
+        }
       }
     };
 
-    // Signup
+    // Signup (with Firestore integration & username)
     document.getElementById("signupBtn").onclick = async () => {
+      const username = document.getElementById("signupUsername").value.trim();
       const email = document.getElementById("signupEmail").value;
       const password = document.getElementById("signupPassword").value;
       message.textContent = "";
+
+      if (!username) {
+        message.style.color = "red";
+        message.textContent = "Please enter a username.";
+        return;
+      }
+
+      // Optionally: Check if username is taken
       try {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const q = query(collection(db, "users"), where("user", "==", username));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          message.style.color = "red";
+          message.textContent = "Username is already taken.";
+          return;
+        }
+      } catch (err) {
+        // fail silently, allow signup to proceed
+      }
+
+      try {
+        // 1. Create user with Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const uid = userCredential.user.uid;
+
+        // 2. Save user profile to Firestore
+        await setDoc(doc(db, "users", uid), {
+          email: email,
+          accounttype: "free",
+          created: serverTimestamp(),
+          user: username
+        });
+
         message.style.color = "green";
         message.textContent = "Signup successful! You can now login.";
         setTimeout(() => {
@@ -267,4 +372,3 @@ function _0x33d1(_0x13eb4b,_0x3cb8a7){const _0x2e48de=_0x2e48();return _0x33d1=f
   </script>
 </body>
 </html>
-
