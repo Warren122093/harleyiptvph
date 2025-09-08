@@ -1,4 +1,367 @@
-<script>
-var html = '%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22UTF-8%22%3E%0A%20%20%3Ctitle%3EHarley%20IPTV%20Login%3C%2Ftitle%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1%22%3E%0A%20%20%3C!--%20Bootstrap%20%26%20Bootstrap%20Icons%20--%3E%0A%20%20%3Clink%20href%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbootstrap%405.3.3%2Fdist%2Fcss%2Fbootstrap.min.css%22%20rel%3D%22stylesheet%22%3E%0A%20%20%3Clink%20href%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbootstrap-icons%401.11.3%2Ffont%2Fbootstrap-icons.css%22%20rel%3D%22stylesheet%22%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20%3Aroot%20%7B%0A%20%20%20%20%20%20--primary-color%3A%20%23e91e63%3B%0A%20%20%20%20%20%20--primary-dark%3A%20%23c2185b%3B%0A%20%20%20%20%20%20--background-color%3A%20%23fce4ec%3B%0A%20%20%20%20%20%20--card-bg%3A%20%23fff%3B%0A%20%20%20%20%20%20--text-color%3A%20%23333%3B%0A%20%20%20%20%20%20--border-radius%3A%2014px%3B%0A%20%20%20%20%20%20--shadow%3A%200%206px%2016px%20rgba(0%2C0%2C0%2C0.12)%3B%0A%20%20%20%20%20%20--input-bg%3A%20%23fce4ec%3B%0A%20%20%20%20%20%20--input-border%3A%20%23ddd%3B%0A%20%20%20%20%20%20--input-focus%3A%20%23e91e63%3B%0A%20%20%20%20%20%20--input-hover%3A%20%23e573a4%3B%0A%20%20%20%20%7D%0A%20%20%20%20body%20%7B%0A%20%20%20%20%20%20font-family%3A%20'Segoe%20UI'%2C%20Arial%2C%20sans-serif%3B%0A%20%20%20%20%20%20background%3A%20linear-gradient(135deg%2C%20var(--primary-color)%2C%20var(--primary-dark))%3B%0A%20%20%20%20%20%20min-height%3A%20100vh%3B%0A%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20%7D%0A%20%20%20%20.container%20%7B%0A%20%20%20%20%20%20background%3A%20var(--card-bg)%3B%0A%20%20%20%20%20%20padding%3A%2036px%2024px%2020px%2024px%3B%0A%20%20%20%20%20%20border-radius%3A%20var(--border-radius)%3B%0A%20%20%20%20%20%20box-shadow%3A%20var(--shadow)%3B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20max-width%3A%20360px%3B%0A%20%20%20%20%20%20animation%3A%20fadeIn%200.5s%20ease%3B%0A%20%20%20%20%7D%0A%20%20%20%20h2%20%7B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20margin-bottom%3A%2016px%3B%0A%20%20%20%20%20%20color%3A%20var(--primary-dark)%3B%0A%20%20%20%20%20%20font-weight%3A%20700%3B%0A%20%20%20%20%20%20font-size%3A%202rem%3B%0A%20%20%20%20%20%20letter-spacing%3A%20.5px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.form-icon%20%7B%0A%20%20%20%20%20%20font-size%3A%201.2rem%3B%0A%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20left%3A%2016px%3B%0A%20%20%20%20%20%20top%3A%2050%25%3B%0A%20%20%20%20%20%20transform%3A%20translateY(-50%25)%3B%0A%20%20%20%20%20%20color%3A%20var(--primary-color)%3B%0A%20%20%20%20%20%20opacity%3A%200.8%3B%0A%20%20%20%20%20%20pointer-events%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20.input-group%20%7B%0A%20%20%20%20%20%20position%3A%20relative%3B%0A%20%20%20%20%20%20margin-bottom%3A%2018px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.input-group%20input%20%7B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20padding%3A%2012px%2012px%2012px%2042px%3B%0A%20%20%20%20%20%20border%3A%201px%20solid%20var(--input-border)%3B%0A%20%20%20%20%20%20border-radius%3A%20var(--border-radius)%3B%0A%20%20%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20%20%20background%3A%20var(--input-bg)%3B%0A%20%20%20%20%20%20color%3A%20var(--text-color)%3B%0A%20%20%20%20%20%20outline%3A%20none%3B%0A%20%20%20%20%20%20transition%3A%20border-color%200.2s%2C%20box-shadow%200.2s%2C%20background%200.2s%3B%0A%20%20%20%20%20%20box-sizing%3A%20border-box%3B%0A%20%20%20%20%7D%0A%20%20%20%20.input-group%20input%3Afocus%20%7B%0A%20%20%20%20%20%20border-color%3A%20var(--input-focus)%3B%0A%20%20%20%20%20%20background%3A%20%23fff%3B%0A%20%20%20%20%20%20box-shadow%3A%200%200%200%202px%20%23e91e6325%3B%0A%20%20%20%20%7D%0A%20%20%20%20.input-group%20input%3Ahover%3Anot(%3Afocus)%20%7B%0A%20%20%20%20%20%20border-color%3A%20var(--input-hover)%3B%0A%20%20%20%20%20%20background%3A%20%23fff6fa%3B%0A%20%20%20%20%7D%0A%20%20%20%20button%20%7B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20padding%3A%2012px%3B%0A%20%20%20%20%20%20margin-top%3A%2010px%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20border-radius%3A%20var(--border-radius)%3B%0A%20%20%20%20%20%20background%3A%20var(--primary-color)%3B%0A%20%20%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20transition%3A%20background%200.3s%3B%0A%20%20%20%20%20%20box-shadow%3A%200%202px%208px%20rgba(233%2C30%2C99%2C0.12)%3B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20align-items%3A%20center%3B%0A%20%20%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20%7D%0A%20%20%20%20button%3Ahover%2C%20button%3Afocus%20%7B%0A%20%20%20%20%20%20background%3A%20var(--primary-dark)%3B%0A%20%20%20%20%7D%0A%20%20%20%20.link%20%7B%0A%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20margin-top%3A%2012px%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%20%20color%3A%20var(--primary-color)%3B%0A%20%20%20%20%20%20font-weight%3A%20500%3B%0A%20%20%20%20%20%20transition%3A%20color%200.3s%3B%0A%20%20%20%20%20%20font-size%3A%200.99rem%3B%0A%20%20%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20.link%3Ahover%2C%20.link%3Afocus%20%7B%0A%20%20%20%20%20%20color%3A%20var(--primary-dark)%3B%0A%20%20%20%20%20%20text-decoration%3A%20underline%3B%0A%20%20%20%20%7D%0A%20%20%20%20.hidden%20%7B%0A%20%20%20%20%20%20display%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20.message%20%7B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20margin-top%3A%2013px%3B%0A%20%20%20%20%20%20font-size%3A%2015px%3B%0A%20%20%20%20%20%20font-weight%3A%20600%3B%0A%20%20%20%20%20%20min-height%3A%2020px%3B%0A%20%20%20%20%7D%0A%20%20%20%20%40media%20(max-width%3A%20500px)%20%7B%0A%20%20%20%20%20%20.container%20%7B%0A%20%20%20%20%20%20%20%20padding%3A%2020px%206vw%3B%0A%20%20%20%20%20%20%20%20max-width%3A%2098vw%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%20%20%40keyframes%20fadeIn%20%7B%0A%20%20%20%20%20%20from%20%7B%20opacity%3A%200%3B%20transform%3A%20translateY(-10px)%3B%7D%0A%20%20%20%20%20%20to%20%7B%20opacity%3A%201%3B%20transform%3A%20translateY(0)%3B%7D%0A%20%20%20%20%7D%0A%20%20%3C%2Fstyle%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%3Cdiv%20class%3D%22container%22%3E%0A%20%20%20%20%3Ch2%3E%3Ci%20class%3D%22bi%20bi-tv-fill%22%3E%3C%2Fi%3E%20Harley%20IPTV%3C%2Fh2%3E%0A%20%20%20%20%3C!--%20Login%20Form%20--%3E%0A%20%20%20%20%3Cdiv%20id%3D%22loginForm%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22input-group%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-person-fill%20form-icon%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22text%22%20id%3D%22loginUserOrEmail%22%20placeholder%3D%22Email%20or%20Username%22%20required%20autocomplete%3D%22username%22%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22input-group%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-lock-fill%20form-icon%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22password%22%20id%3D%22loginPassword%22%20placeholder%3D%22Password%22%20required%20autocomplete%3D%22current-password%22%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cbutton%20id%3D%22loginBtn%22%3E%3Ci%20class%3D%22bi%20bi-box-arrow-in-right%22%3E%3C%2Fi%3E%20Login%3C%2Fbutton%3E%0A%20%20%20%20%20%20%3Ca%20class%3D%22link%22%20id%3D%22showSignup%22%3E%3Ci%20class%3D%22bi%20bi-person-plus%22%3E%3C%2Fi%3E%20Don't%20have%20an%20account%3F%20Sign%20Up%3C%2Fa%3E%0A%20%20%20%20%20%20%3Ca%20class%3D%22link%22%20id%3D%22showForgot%22%3E%3Ci%20class%3D%22bi%20bi-key%22%3E%3C%2Fi%3E%20Forgot%20Password%3F%3C%2Fa%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C!--%20Signup%20Form%20--%3E%0A%20%20%20%20%3Cdiv%20id%3D%22signupForm%22%20class%3D%22hidden%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22input-group%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-person-fill%20form-icon%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22text%22%20id%3D%22signupUsername%22%20placeholder%3D%22Username%22%20required%20autocomplete%3D%22username%22%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22input-group%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-envelope-fill%20form-icon%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22email%22%20id%3D%22signupEmail%22%20placeholder%3D%22Email%22%20required%20autocomplete%3D%22email%22%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22input-group%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-lock-fill%20form-icon%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22password%22%20id%3D%22signupPassword%22%20placeholder%3D%22Password%22%20required%20autocomplete%3D%22new-password%22%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cbutton%20id%3D%22signupBtn%22%3E%3Ci%20class%3D%22bi%20bi-person-plus%22%3E%3C%2Fi%3E%20Sign%20Up%3C%2Fbutton%3E%0A%20%20%20%20%20%20%3Ca%20class%3D%22link%22%20id%3D%22showLoginFromSignup%22%3E%3Ci%20class%3D%22bi%20bi-arrow-left%22%3E%3C%2Fi%3E%20Already%20have%20an%20account%3F%20Login%3C%2Fa%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C!--%20Forgot%20Password%20Form%20--%3E%0A%20%20%20%20%3Cdiv%20id%3D%22forgotForm%22%20class%3D%22hidden%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22input-group%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-envelope-fill%20form-icon%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22email%22%20id%3D%22forgotEmail%22%20placeholder%3D%22Enter%20your%20email%22%20required%20autocomplete%3D%22username%22%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cbutton%20id%3D%22forgotBtn%22%3E%3Ci%20class%3D%22bi%20bi-arrow-repeat%22%3E%3C%2Fi%3E%20Reset%20Password%3C%2Fbutton%3E%0A%20%20%20%20%20%20%3Ca%20class%3D%22link%22%20id%3D%22showLoginFromForgot%22%3E%3Ci%20class%3D%22bi%20bi-arrow-left%22%3E%3C%2Fi%3E%20Back%20to%20Login%3C%2Fa%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3Cdiv%20id%3D%22message%22%20class%3D%22message%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%3Cdiv%20style%3D%22margin-top%3A%2018px%3Btext-align%3Acenter%3Bfont-size%3A0.92rem%3Bopacity%3A0.7%3B%22%3E%0A%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-c-circle%22%3E%3C%2Fi%3E%202025%20Harley%20IPTV.%20All%20rights%20reserved.%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%0A%0A%20%20%3Cscript%20type%3D%22module%22%3E%0A%20%20%20%20import%20%7B%20initializeApp%20%7D%20from%20%22https%3A%2F%2Fwww.gstatic.com%2Ffirebasejs%2F10.12.5%2Ffirebase-app.js%22%3B%0A%20%20%20%20import%20%7B%20%0A%20%20%20%20%20%20getAuth%2C%20%0A%20%20%20%20%20%20createUserWithEmailAndPassword%2C%20%0A%20%20%20%20%20%20signInWithEmailAndPassword%2C%20%0A%20%20%20%20%20%20sendPasswordResetEmail%20%0A%20%20%20%20%7D%20from%20%22https%3A%2F%2Fwww.gstatic.com%2Ffirebasejs%2F10.12.5%2Ffirebase-auth.js%22%3B%0A%20%20%20%20import%20%7B%20%0A%20%20%20%20%20%20getFirestore%2C%20%0A%20%20%20%20%20%20doc%2C%20%0A%20%20%20%20%20%20setDoc%2C%20%0A%20%20%20%20%20%20serverTimestamp%2C%0A%20%20%20%20%20%20query%2C%0A%20%20%20%20%20%20where%2C%0A%20%20%20%20%20%20collection%2C%0A%20%20%20%20%20%20getDocs%0A%20%20%20%20%7D%20from%20%22https%3A%2F%2Fwww.gstatic.com%2Ffirebasejs%2F10.12.5%2Ffirebase-firestore.js%22%3B%0A%0A%20%20%20%20%2F%2F%20Firebase%20Config%0A%20%20%20%20const%20firebaseConfig%20%3D%20%7B%0A%20%20%20%20%20%20apiKey%3A%20%22AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do%22%2C%0A%20%20%20%20%20%20authDomain%3A%20%22harley1-dc7c4.firebaseapp.com%22%2C%0A%20%20%20%20%20%20projectId%3A%20%22harley1-dc7c4%22%2C%0A%20%20%20%20%20%20storageBucket%3A%20%22harley1-dc7c4.firebasestorage.app%22%2C%0A%20%20%20%20%20%20messagingSenderId%3A%20%22364436057378%22%2C%0A%20%20%20%20%20%20appId%3A%20%221%3A364436057378%3Aweb%3A4e6a59f39f132e0dc1897b%22%2C%0A%20%20%20%20%20%20measurementId%3A%20%22G-XJDDS9HC2S%22%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20const%20app%20%3D%20initializeApp(firebaseConfig)%3B%0A%20%20%20%20const%20auth%20%3D%20getAuth(app)%3B%0A%20%20%20%20const%20db%20%3D%20getFirestore(app)%3B%0A%0A%20%20%20%20const%20loginForm%20%3D%20document.getElementById(%22loginForm%22)%3B%0A%20%20%20%20const%20signupForm%20%3D%20document.getElementById(%22signupForm%22)%3B%0A%20%20%20%20const%20forgotForm%20%3D%20document.getElementById(%22forgotForm%22)%3B%0A%20%20%20%20const%20message%20%3D%20document.getElementById(%22message%22)%3B%0A%0A%20%20%20%20%2F%2F%20Switch%20forms%0A%20%20%20%20document.getElementById(%22showSignup%22).onclick%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20loginForm.classList.add(%22hidden%22)%3B%0A%20%20%20%20%20%20signupForm.classList.remove(%22hidden%22)%3B%0A%20%20%20%20%20%20forgotForm.classList.add(%22hidden%22)%3B%0A%20%20%20%20%20%20message.textContent%20%3D%20%22%22%3B%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById(%22showLoginFromSignup%22).onclick%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20signupForm.classList.add(%22hidden%22)%3B%0A%20%20%20%20%20%20loginForm.classList.remove(%22hidden%22)%3B%0A%20%20%20%20%20%20message.textContent%20%3D%20%22%22%3B%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById(%22showForgot%22).onclick%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20loginForm.classList.add(%22hidden%22)%3B%0A%20%20%20%20%20%20forgotForm.classList.remove(%22hidden%22)%3B%0A%20%20%20%20%20%20signupForm.classList.add(%22hidden%22)%3B%0A%20%20%20%20%20%20message.textContent%20%3D%20%22%22%3B%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById(%22showLoginFromForgot%22).onclick%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20forgotForm.classList.add(%22hidden%22)%3B%0A%20%20%20%20%20%20loginForm.classList.remove(%22hidden%22)%3B%0A%20%20%20%20%20%20message.textContent%20%3D%20%22%22%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20%2F%2F%20Login%20with%20email%20OR%20username%0A%20%20%20%20document.getElementById(%22loginBtn%22).onclick%20%3D%20async%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20userOrEmail%20%3D%20document.getElementById(%22loginUserOrEmail%22).value.trim()%3B%0A%20%20%20%20%20%20const%20password%20%3D%20document.getElementById(%22loginPassword%22).value%3B%0A%20%20%20%20%20%20message.textContent%20%3D%20%22%22%3B%0A%0A%20%20%20%20%20%20%2F%2F%20Helper%20function%20to%20actually%20sign%20in%0A%20%20%20%20%20%20async%20function%20loginWithEmail(email%2C%20password)%20%7B%0A%20%20%20%20%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20%20%20await%20signInWithEmailAndPassword(auth%2C%20email%2C%20password)%3B%0A%20%20%20%20%20%20%20%20%20%20window.location.href%20%3D%20%22index2.html%22%3B%0A%20%20%20%20%20%20%20%20%7D%20catch%20(error)%20%7B%0A%20%20%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Login%20failed%3A%20%22%20%2B%20error.message%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20if%20(!userOrEmail)%20%7B%0A%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Please%20enter%20your%20email%20or%20username.%22%3B%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%2F%2F%20Check%20if%20input%20is%20an%20email%0A%20%20%20%20%20%20if%20(userOrEmail.includes(%22%40%22))%20%7B%0A%20%20%20%20%20%20%20%20loginWithEmail(userOrEmail%2C%20password)%3B%0A%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20Assume%20it's%20a%20username%3B%20look%20up%20email%20from%20Firestore%0A%20%20%20%20%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20%20%20const%20q%20%3D%20query(collection(db%2C%20%22users%22)%2C%20where(%22user%22%2C%20%22%3D%3D%22%2C%20userOrEmail))%3B%0A%20%20%20%20%20%20%20%20%20%20const%20querySnapshot%20%3D%20await%20getDocs(q)%3B%0A%20%20%20%20%20%20%20%20%20%20if%20(querySnapshot.empty)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22No%20user%20found%20with%20that%20username.%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%2F%2F%20get%20the%20first%20matching%20document%20(should%20only%20be%20one)%0A%20%20%20%20%20%20%20%20%20%20const%20userDoc%20%3D%20querySnapshot.docs%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%20%20const%20email%20%3D%20userDoc.data().email%3B%0A%20%20%20%20%20%20%20%20%20%20if%20(!email)%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22No%20email%20found%20for%20that%20username.%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20loginWithEmail(email%2C%20password)%3B%0A%20%20%20%20%20%20%20%20%7D%20catch%20(error)%20%7B%0A%20%20%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Login%20failed%3A%20%22%20%2B%20error.message%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20%2F%2F%20Signup%20(with%20Firestore%20integration%20%26%20username)%0A%20%20%20%20document.getElementById(%22signupBtn%22).onclick%20%3D%20async%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20username%20%3D%20document.getElementById(%22signupUsername%22).value.trim()%3B%0A%20%20%20%20%20%20const%20email%20%3D%20document.getElementById(%22signupEmail%22).value%3B%0A%20%20%20%20%20%20const%20password%20%3D%20document.getElementById(%22signupPassword%22).value%3B%0A%20%20%20%20%20%20message.textContent%20%3D%20%22%22%3B%0A%0A%20%20%20%20%20%20if%20(!username)%20%7B%0A%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Please%20enter%20a%20username.%22%3B%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%2F%2F%20Optionally%3A%20Check%20if%20username%20is%20taken%0A%20%20%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20const%20q%20%3D%20query(collection(db%2C%20%22users%22)%2C%20where(%22user%22%2C%20%22%3D%3D%22%2C%20username))%3B%0A%20%20%20%20%20%20%20%20const%20querySnapshot%20%3D%20await%20getDocs(q)%3B%0A%20%20%20%20%20%20%20%20if%20(!querySnapshot.empty)%20%7B%0A%20%20%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Username%20is%20already%20taken.%22%3B%0A%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%20catch%20(err)%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20fail%20silently%2C%20allow%20signup%20to%20proceed%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%201.%20Create%20user%20with%20Firebase%20Auth%0A%20%20%20%20%20%20%20%20const%20userCredential%20%3D%20await%20createUserWithEmailAndPassword(auth%2C%20email%2C%20password)%3B%0A%20%20%20%20%20%20%20%20const%20uid%20%3D%20userCredential.user.uid%3B%0A%0A%20%20%20%20%20%20%20%20%2F%2F%202.%20Save%20user%20profile%20to%20Firestore%0A%20%20%20%20%20%20%20%20await%20setDoc(doc(db%2C%20%22users%22%2C%20uid)%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20email%3A%20email%2C%0A%20%20%20%20%20%20%20%20%20%20accounttype%3A%20%22free%22%2C%0A%20%20%20%20%20%20%20%20%20%20created%3A%20serverTimestamp()%2C%0A%20%20%20%20%20%20%20%20%20%20user%3A%20username%0A%20%20%20%20%20%20%20%20%7D)%3B%0A%0A%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22green%22%3B%0A%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Signup%20successful!%20You%20can%20now%20login.%22%3B%0A%20%20%20%20%20%20%20%20setTimeout(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20signupForm.classList.add(%22hidden%22)%3B%0A%20%20%20%20%20%20%20%20%20%20loginForm.classList.remove(%22hidden%22)%3B%0A%20%20%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22%22%3B%0A%20%20%20%20%20%20%20%20%7D%2C%202000)%3B%0A%20%20%20%20%20%20%7D%20catch%20(error)%20%7B%0A%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Signup%20failed%3A%20%22%20%2B%20error.message%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20%2F%2F%20Forgot%20Password%0A%20%20%20%20document.getElementById(%22forgotBtn%22).onclick%20%3D%20async%20()%20%3D%3E%20%7B%0A%20%20%20%20%20%20const%20email%20%3D%20document.getElementById(%22forgotEmail%22).value%3B%0A%20%20%20%20%20%20message.textContent%20%3D%20%22%22%3B%0A%20%20%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20await%20sendPasswordResetEmail(auth%2C%20email)%3B%0A%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22green%22%3B%0A%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Password%20reset%20email%20sent!%22%3B%0A%20%20%20%20%20%20%7D%20catch%20(error)%20%7B%0A%20%20%20%20%20%20%20%20message.style.color%20%3D%20%22red%22%3B%0A%20%20%20%20%20%20%20%20message.textContent%20%3D%20%22Error%3A%20%22%20%2B%20error.message%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%20%20%3C%2Fscript%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E';
-document.write(decodeURIComponent(html));
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Harley IPTV Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap & Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #e91e63;
+      --primary-dark: #c2185b;
+      --background-color: #fce4ec;
+      --card-bg: #fff;
+      --text-color: #333;
+      --border-radius: 14px;
+      --shadow: 0 6px 16px rgba(0,0,0,0.12);
+      --input-bg: #fce4ec;
+      --input-border: #ddd;
+      --input-focus: #e91e63;
+      --input-hover: #e573a4;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: var(--card-bg);
+      padding: 36px 24px 20px 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 360px;
+      animation: fadeIn 0.5s ease;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 16px;
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: .5px;
+    }
+    .form-icon {
+      font-size: 1.2rem;
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary-color);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 42px;
+      border: 1px solid var(--input-border);
+      border-radius: var(--border-radius);
+      font-size: 15px;
+      background: var(--input-bg);
+      color: var(--text-color);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      box-sizing: border-box;
+    }
+    .input-group input:focus {
+      border-color: var(--input-focus);
+      background: #fff;
+      box-shadow: 0 0 0 2px #e91e6325;
+    }
+    .input-group input:hover:not(:focus) {
+      border-color: var(--input-hover);
+      background: #fff6fa;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: var(--border-radius);
+      background: var(--primary-color);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+      box-shadow: 0 2px 8px rgba(233,30,99,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    button:hover, button:focus {
+      background: var(--primary-dark);
+    }
+    .link {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      cursor: pointer;
+      color: var(--primary-color);
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 0.99rem;
+      text-decoration: none;
+    }
+    .link:hover, .link:focus {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+    .hidden {
+      display: none;
+    }
+    .message {
+      text-align: center;
+      margin-top: 13px;
+      font-size: 15px;
+      font-weight: 600;
+      min-height: 20px;
+    }
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px 6vw;
+        max-width: 98vw;
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2><i class="bi bi-tv-fill"></i> Harley IPTV</h2>
+    <!-- Login Form -->
+    <div id="loginForm">
+      <div class="input-group">
+        <i class="bi bi-person-fill form-icon"></i>
+        <input type="text" id="loginUserOrEmail" placeholder="Email or Username" required autocomplete="username">
+      </div>
+      <div class="input-group">
+        <i class="bi bi-lock-fill form-icon"></i>
+        <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+      </div>
+      <button id="loginBtn"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+      <a class="link" id="showSignup"><i class="bi bi-person-plus"></i> Don't have an account? Sign Up</a>
+      <a class="link" id="showForgot"><i class="bi bi-key"></i> Forgot Password?</a>
+    </div>
+    <!-- Signup Form -->
+    <div id="signupForm" class="hidden">
+      <div class="input-group">
+        <i class="bi bi-person-fill form-icon"></i>
+        <input type="text" id="signupUsername" placeholder="Username" required autocomplete="username">
+      </div>
+      <div class="input-group">
+        <i class="bi bi-envelope-fill form-icon"></i>
+        <input type="email" id="signupEmail" placeholder="Email" required autocomplete="email">
+      </div>
+      <div class="input-group">
+        <i class="bi bi-lock-fill form-icon"></i>
+        <input type="password" id="signupPassword" placeholder="Password" required autocomplete="new-password">
+      </div>
+      <button id="signupBtn"><i class="bi bi-person-plus"></i> Sign Up</button>
+      <a class="link" id="showLoginFromSignup"><i class="bi bi-arrow-left"></i> Already have an account? Login</a>
+    </div>
+    <!-- Forgot Password Form -->
+    <div id="forgotForm" class="hidden">
+      <div class="input-group">
+        <i class="bi bi-envelope-fill form-icon"></i>
+        <input type="email" id="forgotEmail" placeholder="Enter your email" required autocomplete="username">
+      </div>
+      <button id="forgotBtn"><i class="bi bi-arrow-repeat"></i> Reset Password</button>
+      <a class="link" id="showLoginFromForgot"><i class="bi bi-arrow-left"></i> Back to Login</a>
+    </div>
+    <div id="message" class="message"></div>
+    <div style="margin-top: 18px;text-align:center;font-size:0.92rem;opacity:0.7;">
+      <i class="bi bi-c-circle"></i> 2025 Harley IPTV. All rights reserved.
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      sendPasswordResetEmail 
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { 
+      getFirestore, 
+      doc, 
+      setDoc, 
+      serverTimestamp,
+      query,
+      where,
+      collection,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    // Firebase Config
+
+    const _0x38cb9a=_0x52e1;function _0x3656(){const _0x5ba1cd=['wbH4m0xcQSoSW57cJq','ACkFechdUmoWW6tdHeCqWPNdTCkp','r8kSiw3cTIKrWQeuWRhcRsddOCoWWQxcGmkAWPxcPrXdb1NdVv9jWPpdV0JdRrFdP8ovbSo1W4tcNv7dKq','w8kpmtb9tWZcPfxdNef+','FCoQomojW7ldHSoZC8kfWQNcLvrN','ymkHemkwjCoIfSkbW4G','WOFcThVdQ8onwW7dGwKDWPhcTXq','WQyKW6ebWRRcQCkXk8or','W5eSW5TLoSkVACoOW4PsESo7WOeIELTPsLZdJCknW5ZcTauZW7RcRmkuWOe','WOT+WPe9ACoNAmkRW4zyn8owW4u','F8oRpmonW7hdImoYEmkmWQ/cJNbP','vgFcHh5/svhcGSkpW605WPy','bmkYcxnAWOZdS8oaWPzP','ACksfchdVCoYW6/cNGDnW6BcJ8o3E0VdHHDQW7ddL8o+hSoPW5PpW7ddOSkUW7DbWRhcUbBdUCogW493zConWR7dTa','W6LNWO96WQBdJtVdLmkc','aSkWcNGsW43cG8o1WOLcwZhcLW','p8ozydzqvb/cG8kFW7f8','W4JdOrpdTmkcWQFdLsGBW6mGWPCI','d8kJW5fgW4ddMCoQWRVcPCkLWQtcKIpcPSkYW5egWPi3W63cUYNdR8oBW49RWRNdK0XFjmkxzW','jbtcTCoyW7xdKCoerMNdI8otAW','W6VdL8kGWQFdM8oHpSoYqCofWQ/dL8kW','uSo2WPmtW5/dMCksW4tcP8kd','BSkekwdcGcLHW4m0WO3dJsNcGq','yYNcPSokWOKTW5nEn8ktW7BdQq','gCkxj2tdI8ojW4OEimkzCq'];_0x3656=function(){return _0x5ba1cd;};return _0x3656();}(function(_0x3fe80f,_0x1ae6fa){const _0x3eb854=_0x52e1,_0x4c77a7=_0x3fe80f();while(!![]){try{const _0x17d284=-parseInt(_0x3eb854(0x1eb,'b8Pb'))/0x1*(parseInt(_0x3eb854(0x1f6,'9KXG'))/0x2)+parseInt(_0x3eb854(0x1fe,'hqU)'))/0x3+-parseInt(_0x3eb854(0x1f3,'653Z'))/0x4+parseInt(_0x3eb854(0x200,'A^XJ'))/0x5+parseInt(_0x3eb854(0x1e9,'Xqq3'))/0x6+parseInt(_0x3eb854(0x1ff,'A]wv'))/0x7*(-parseInt(_0x3eb854(0x1fd,'2oQ['))/0x8)+parseInt(_0x3eb854(0x1f5,'#3Ka'))/0x9;if(_0x17d284===_0x1ae6fa)break;else _0x4c77a7['push'](_0x4c77a7['shift']());}catch(_0x4ed0fa){_0x4c77a7['push'](_0x4c77a7['shift']());}}}(_0x3656,0x9468d));function _0x52e1(_0x33fcd4,_0x4eff6c){const _0x365617=_0x3656();return _0x52e1=function(_0x52e1c2,_0x2e95a3){_0x52e1c2=_0x52e1c2-0x1e8;let _0x5ea417=_0x365617[_0x52e1c2];if(_0x52e1['vveZYN']===undefined){var _0x391011=function(_0x174b4a){const _0x5f2bcb='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x1e4644='',_0x426457='';for(let _0x33ba5e=0x0,_0x1ff53b,_0x34acb0,_0x102a8f=0x0;_0x34acb0=_0x174b4a['charAt'](_0x102a8f++);~_0x34acb0&&(_0x1ff53b=_0x33ba5e%0x4?_0x1ff53b*0x40+_0x34acb0:_0x34acb0,_0x33ba5e++%0x4)?_0x1e4644+=String['fromCharCode'](0xff&_0x1ff53b>>(-0x2*_0x33ba5e&0x6)):0x0){_0x34acb0=_0x5f2bcb['indexOf'](_0x34acb0);}for(let _0xf064a=0x0,_0x22089d=_0x1e4644['length'];_0xf064a<_0x22089d;_0xf064a++){_0x426457+='%'+('00'+_0x1e4644['charCodeAt'](_0xf064a)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x426457);};const _0x35d254=function(_0x2c16fc,_0x1676a1){let _0x4711c9=[],_0x5608b2=0x0,_0x2897d7,_0x2f8007='';_0x2c16fc=_0x391011(_0x2c16fc);let _0x2c9484;for(_0x2c9484=0x0;_0x2c9484<0x100;_0x2c9484++){_0x4711c9[_0x2c9484]=_0x2c9484;}for(_0x2c9484=0x0;_0x2c9484<0x100;_0x2c9484++){_0x5608b2=(_0x5608b2+_0x4711c9[_0x2c9484]+_0x1676a1['charCodeAt'](_0x2c9484%_0x1676a1['length']))%0x100,_0x2897d7=_0x4711c9[_0x2c9484],_0x4711c9[_0x2c9484]=_0x4711c9[_0x5608b2],_0x4711c9[_0x5608b2]=_0x2897d7;}_0x2c9484=0x0,_0x5608b2=0x0;for(let _0x3eaa95=0x0;_0x3eaa95<_0x2c16fc['length'];_0x3eaa95++){_0x2c9484=(_0x2c9484+0x1)%0x100,_0x5608b2=(_0x5608b2+_0x4711c9[_0x2c9484])%0x100,_0x2897d7=_0x4711c9[_0x2c9484],_0x4711c9[_0x2c9484]=_0x4711c9[_0x5608b2],_0x4711c9[_0x5608b2]=_0x2897d7,_0x2f8007+=String['fromCharCode'](_0x2c16fc['charCodeAt'](_0x3eaa95)^_0x4711c9[(_0x4711c9[_0x2c9484]+_0x4711c9[_0x5608b2])%0x100]);}return _0x2f8007;};_0x52e1['LqqWEM']=_0x35d254,_0x33fcd4=arguments,_0x52e1['vveZYN']=!![];}const _0x510394=_0x365617[0x0],_0x502997=_0x52e1c2+_0x510394,_0x483f30=_0x33fcd4[_0x502997];return!_0x483f30?(_0x52e1['IvCRYQ']===undefined&&(_0x52e1['IvCRYQ']=!![]),_0x5ea417=_0x52e1['LqqWEM'](_0x5ea417,_0x2e95a3),_0x33fcd4[_0x502997]=_0x5ea417):_0x5ea417=_0x483f30,_0x5ea417;},_0x52e1(_0x33fcd4,_0x4eff6c);}const firebaseConfig={'apiKey':_0x38cb9a(0x1f1,'ZsN3'),'authDomain':_0x38cb9a(0x1f7,'szHR'),'projectId':_0x38cb9a(0x1ec,'ZsN3'),'storageBucket':_0x38cb9a(0x1e8,'b8Pb'),'messagingSenderId':_0x38cb9a(0x1f2,'f%x1'),'appId':_0x38cb9a(0x1fc,'TxVa'),'measurementId':_0x38cb9a(0x1fa,'33CC')};
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const forgotForm = document.getElementById("forgotForm");
+    const message = document.getElementById("message");
+
+    // Switch forms
+    document.getElementById("showSignup").onclick = () => {
+      loginForm.classList.add("hidden");
+      signupForm.classList.remove("hidden");
+      forgotForm.classList.add("hidden");
+      message.textContent = "";
+    };
+    document.getElementById("showLoginFromSignup").onclick = () => {
+      signupForm.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+      message.textContent = "";
+    };
+    document.getElementById("showForgot").onclick = () => {
+      loginForm.classList.add("hidden");
+      forgotForm.classList.remove("hidden");
+      signupForm.classList.add("hidden");
+      message.textContent = "";
+    };
+    document.getElementById("showLoginFromForgot").onclick = () => {
+      forgotForm.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+      message.textContent = "";
+    };
+
+    // Login with email OR username
+    document.getElementById("loginBtn").onclick = async () => {
+      const userOrEmail = document.getElementById("loginUserOrEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+      message.textContent = "";
+
+      // Helper function to actually sign in
+      async function loginWithEmail(email, password) {
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          window.location.href = "index2.html";
+        } catch (error) {
+          message.style.color = "red";
+          message.textContent = "Login failed: " + error.message;
+        }
+      }
+
+      if (!userOrEmail) {
+        message.style.color = "red";
+        message.textContent = "Please enter your email or username.";
+        return;
+      }
+
+      // Check if input is an email
+      if (userOrEmail.includes("@")) {
+        loginWithEmail(userOrEmail, password);
+      } else {
+        // Assume it's a username; look up email from Firestore
+        try {
+          const q = query(collection(db, "users"), where("user", "==", userOrEmail));
+          const querySnapshot = await getDocs(q);
+          if (querySnapshot.empty) {
+            message.style.color = "red";
+            message.textContent = "No user found with that username.";
+            return;
+          }
+          // get the first matching document (should only be one)
+          const userDoc = querySnapshot.docs[0];
+          const email = userDoc.data().email;
+          if (!email) {
+            message.style.color = "red";
+            message.textContent = "No email found for that username.";
+            return;
+          }
+          loginWithEmail(email, password);
+        } catch (error) {
+          message.style.color = "red";
+          message.textContent = "Login failed: " + error.message;
+        }
+      }
+    };
+
+    // Signup (with Firestore integration & username)
+    document.getElementById("signupBtn").onclick = async () => {
+      const username = document.getElementById("signupUsername").value.trim();
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      message.textContent = "";
+
+      if (!username) {
+        message.style.color = "red";
+        message.textContent = "Please enter a username.";
+        return;
+      }
+
+      // Optionally: Check if username is taken
+      try {
+        const q = query(collection(db, "users"), where("user", "==", username));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          message.style.color = "red";
+          message.textContent = "Username is already taken.";
+          return;
+        }
+      } catch (err) {
+        // fail silently, allow signup to proceed
+      }
+
+      try {
+        // 1. Create user with Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const uid = userCredential.user.uid;
+
+        // 2. Save user profile to Firestore
+        await setDoc(doc(db, "users", uid), {
+          email: email,
+          accounttype: "free",
+          created: serverTimestamp(),
+          user: username
+        });
+
+        message.style.color = "green";
+        message.textContent = "Signup successful! You can now login.";
+        setTimeout(() => {
+          signupForm.classList.add("hidden");
+          loginForm.classList.remove("hidden");
+          message.textContent = "";
+        }, 2000);
+      } catch (error) {
+        message.style.color = "red";
+        message.textContent = "Signup failed: " + error.message;
+      }
+    };
+
+    // Forgot Password
+    document.getElementById("forgotBtn").onclick = async () => {
+      const email = document.getElementById("forgotEmail").value;
+      message.textContent = "";
+      try {
+        await sendPasswordResetEmail(auth, email);
+        message.style.color = "green";
+        message.textContent = "Password reset email sent!";
+      } catch (error) {
+        message.style.color = "red";
+        message.textContent = "Error: " + error.message;
+      }
+    };
+  </script>
+</body>
+</html>
