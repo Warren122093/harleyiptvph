@@ -1,4 +1,283 @@
-<script>
-var html = '%3C!DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22UTF-8%22%20%2F%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1.0%22%2F%3E%0A%20%20%3Ctitle%3EHarley%20IPTV%3C%2Ftitle%3E%0A%20%20%3Clink%20href%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbootstrap%405.3.3%2Fdist%2Fcss%2Fbootstrap.min.css%22%20rel%3D%22stylesheet%22%3E%0A%20%20%3Clink%20href%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbootstrap-icons%401.11.3%2Ffont%2Fbootstrap-icons.css%22%20rel%3D%22stylesheet%22%3E%0A%20%20%3Clink%20rel%3D%22stylesheet%22%20href%3D%22assets%2Fstyle.css%22%2F%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%3C!--%20Top%20Navigation%20above%20Player%20(branding%20and%20clock%20ONLY)%20--%3E%0A%20%20%3Cdiv%20id%3D%22top-nav-player%22%3E%0A%20%20%20%20%3Cspan%20class%3D%22brand-title%22%3E%3Ci%20class%3D%22bi%20bi-tv-fill%22%3E%3C%2Fi%3E%20Harley%20IPTV%3C%2Fspan%3E%0A%20%20%20%20%3Cspan%20class%3D%22cool-clock%22%20id%3D%22playerTopClock%22%3E%3C%2Fspan%3E%0A%20%20%3C%2Fdiv%3E%0A%0A%20%20%3C!--%20Mobile%20Navigation%20(hamburger%20and%20logout%2C%20fixed%20positions%2C%20no%20clock%20here)%20--%3E%0A%20%20%3Cnav%20class%3D%22navbar%20navbar-dark%20d-lg-none%20transparent-nav%20py-2%20mobile-navbar%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22container-fluid%20mobile-navbar-inner%22%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22btn%20btn-outline-light%20nav-hamburger%22%20type%3D%22button%22%20data-bs-toggle%3D%22offcanvas%22%20data-bs-target%3D%22%23navDrawer%22%20aria-controls%3D%22navDrawer%22%20aria-label%3D%22Open%20menu%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-list%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%3C%2Fbutton%3E%0A%20%20%20%20%20%20%3Cbutton%20type%3D%22button%22%20class%3D%22btn%20btn-outline-light%20btn-sm%20nav-logout%22%20onclick%3D%22logout()%22%20title%3D%22Logout%22%20aria-label%3D%22Logout%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-box-arrow-right%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%3C%2Fbutton%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fnav%3E%0A%0A%20%20%3C!--%20Drawer%20Sidebar%20Navigation%20(MOBILE)%20--%3E%0A%20%20%3Cdiv%20class%3D%22offcanvas%20offcanvas-start%20text-light%20transparent-nav%22%20tabindex%3D%22-1%22%20id%3D%22navDrawer%22%20aria-labelledby%3D%22navDrawerLabel%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22offcanvas-header%20d-flex%20align-items-center%20justify-content-between%22%3E%0A%20%20%20%20%20%20%3Ch5%20class%3D%22offcanvas-title%22%20id%3D%22navDrawerLabel%22%3EMenu%3C%2Fh5%3E%0A%20%20%20%20%20%20%3Cbutton%20type%3D%22button%22%20class%3D%22btn-close%20btn-close-white%20ms-2%22%20data-bs-dismiss%3D%22offcanvas%22%20aria-label%3D%22Close%22%3E%3C%2Fbutton%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3Cdiv%20class%3D%22offcanvas-body%20d-flex%20flex-column%22%3E%0A%20%20%20%20%20%20%3Cul%20class%3D%22nav%20flex-column%20mb-4%22%3E%0A%20%20%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%20active%22%20href%3D%22%23%22%3E%3Ci%20class%3D%22bi%20bi-house-door-fill%22%3E%3C%2Fi%3E%20Home%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%22%20href%3D%22%23%22%20id%3D%22aboutDrawerBtn%22%3E%3Ci%20class%3D%22bi%20bi-info-circle-fill%22%3E%3C%2Fi%3E%20About%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%22%20href%3D%22%23%22%20id%3D%22accountDrawerBtn%22%3E%3Ci%20class%3D%22bi%20bi-person-badge%22%3E%3C%2Fi%3E%20Account%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%22%20href%3D%22%23%22%20id%3D%22contactDrawerBtn%22%3E%3Ci%20class%3D%22bi%20bi-envelope-fill%22%3E%3C%2Fi%3E%20Contact%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%22%20href%3D%22%23%22%20onclick%3D%22logout()%22%3E%3Ci%20class%3D%22bi%20bi-box-arrow-right%22%3E%3C%2Fi%3E%20Logout%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%3C%2Ful%3E%0A%20%20%20%20%20%20%3C!--%20Channel%20Group%2FFilter%2FSearch%2FListView%20--%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22mb-4%22%3E%0A%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22groupDropdown%22%20class%3D%22dropdown-label%20mb-2%22%3E%3Ci%20class%3D%22bi%20bi-folder-symlink%22%3E%3C%2Fi%3E%20Channel%20Group%3A%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%3Cselect%20id%3D%22groupDropdown%22%20class%3D%22form-select%20mb-2%22%3E%3C%2Fselect%3E%0A%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22text%22%20id%3D%22channelSearch%22%20class%3D%22form-control%20mb-2%22%20placeholder%3D%22Search%20channels...%22%3E%0A%20%20%20%20%20%20%20%20%3Cul%20class%3D%22list-group%20channel-list-scroll%22%20id%3D%22channelList%22%3E%3C%2Ful%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%0A%0A%20%20%3C!--%20Sidebar%20for%20Desktop%20--%3E%0A%20%20%3Caside%20class%3D%22sidebar%20d-none%20d-lg-flex%20flex-column%20text-light%20transparent-nav%20p-3%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22d-flex%20align-items-center%20justify-content-between%20mb-4%22%3E%0A%20%20%20%20%20%20%3Cspan%20class%3D%22sidebar-title%20fs-4%20fw-bold%22%3EMenu%3C%2Fspan%3E%0A%20%20%20%20%20%20%3Cbutton%20type%3D%22button%22%20class%3D%22btn%20btn-outline-light%20btn-sm%20ms-auto%22%20onclick%3D%22logout()%22%20title%3D%22Logout%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-box-arrow-right%22%3E%3C%2Fi%3E%0A%20%20%20%20%20%20%3C%2Fbutton%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3Cul%20class%3D%22nav%20flex-column%20mb-4%22%3E%0A%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%20active%22%20href%3D%22%23%22%3E%3Ci%20class%3D%22bi%20bi-house-door-fill%22%3E%3C%2Fi%3E%20Home%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%22%20href%3D%22%23%22%20id%3D%22aboutSidebarBtn%22%3E%3Ci%20class%3D%22bi%20bi-info-circle-fill%22%3E%3C%2Fi%3E%20About%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%22%20href%3D%22%23%22%20id%3D%22accountSidebarBtn%22%3E%3Ci%20class%3D%22bi%20bi-person-badge%22%3E%3C%2Fi%3E%20Account%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%22%20href%3D%22%23%22%20id%3D%22contactSidebarBtn%22%3E%3Ci%20class%3D%22bi%20bi-envelope-fill%22%3E%3C%2Fi%3E%20Contact%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%20%20%3Cli%20class%3D%22nav-item%22%3E%3Ca%20class%3D%22nav-link%20text-light%22%20href%3D%22%23%22%20onclick%3D%22logout()%22%3E%3Ci%20class%3D%22bi%20bi-box-arrow-right%22%3E%3C%2Fi%3E%20Logout%3C%2Fa%3E%3C%2Fli%3E%0A%20%20%20%20%3C%2Ful%3E%0A%20%20%20%20%3Cdiv%20class%3D%22mb-4%22%3E%0A%20%20%20%20%20%20%3Clabel%20for%3D%22groupDropdownDesktop%22%20class%3D%22dropdown-label%20mb-2%22%3E%3Ci%20class%3D%22bi%20bi-folder-symlink%22%3E%3C%2Fi%3E%20Channel%20Group%3A%3C%2Flabel%3E%0A%20%20%20%20%20%20%3Cselect%20id%3D%22groupDropdownDesktop%22%20class%3D%22form-select%20mb-2%22%3E%3C%2Fselect%3E%0A%20%20%20%20%20%20%3Cinput%20type%3D%22text%22%20id%3D%22channelSearchDesktop%22%20class%3D%22form-control%20mb-2%22%20placeholder%3D%22Search%20channels...%22%3E%0A%20%20%20%20%20%20%3Cul%20class%3D%22list-group%20channel-list-scroll%22%20id%3D%22channelListDesktop%22%3E%3C%2Ful%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Faside%3E%0A%0A%20%20%3C!--%20Main%20Player%20Fullscreen%20--%3E%0A%20%20%3Cmain%20class%3D%22main-player-area%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22player-wrapper%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22video-aspect%22%3E%0A%20%20%20%20%20%20%20%20%3Cvideo%20id%3D%22video%22%20controls%20autoplay%20poster%3D%22https%3A%2F%2Fimg.icons8.com%2Fios-filled%2F500%2Fnetflix-desktop-app.png%22%3E%3C%2Fvideo%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fmain%3E%0A%0A%20%20%3Cfooter%20class%3D%22bg-primary%20text-light%20text-center%20py-3%20mt-4%20transparent-nav%22%3E%0A%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%3Cspan%20class%3D%22brand-title%22%3E%3Ci%20class%3D%22bi%20bi-tv-fill%22%3E%3C%2Fi%3E%20Harley%20IPTV%3C%2Fspan%3E%0A%20%20%20%20%20%20%3Cbr%3E%0A%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-c-circle%22%3E%3C%2Fi%3E%202025%20Harley%20IPTV.%20All%20rights%20reserved.%20%7C%20%3Cspan%20class%3D%22ms-1%22%3E%F0%9F%87%B5%F0%9F%87%AD%20Pinoy%20IPTV%20Experience%3C%2Fspan%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Ffooter%3E%0A%0A%20%20%3C!--%20Overlay%3A%20About%20--%3E%0A%20%20%3Cdiv%20class%3D%22custom-overlay%22%20id%3D%22aboutOverlay%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22overlay-content%22%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22overlay-close%22%20onclick%3D%22closeOverlay('aboutOverlay')%22%3E%26times%3B%3C%2Fbutton%3E%0A%20%20%20%20%20%20%3Ch3%3E%3Ci%20class%3D%22bi%20bi-info-circle-fill%22%3E%3C%2Fi%3E%20About%20Harley%20IPTV%3C%2Fh3%3E%0A%20%20%20%20%20%20%3Cp%3E%0A%20%20%20%20%20%20%20%20Harley%20IPTV%20is%20your%20gateway%20to%20premium%20Pinoy%20channels%20and%20entertainment%2C%20streaming%20live%20and%20on-demand.%3Cbr%3E%0A%20%20%20%20%20%20%20%20We%20offer%20a%20reliable%2C%20fast%2C%20and%20easy-to-use%20IPTV%20experience%20for%20all%20Filipino%20viewers%20worldwide.%3Cbr%3E%0A%20%20%20%20%20%20%20%20Join%20us%20and%20enjoy%20the%20best%20of%20local%20and%20international%20TV%20anytime%2C%20anywhere!%0A%20%20%20%20%20%20%3C%2Fp%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%0A%20%20%3C!--%20Overlay%3A%20Contact%20--%3E%0A%20%20%3Cdiv%20class%3D%22custom-overlay%22%20id%3D%22contactOverlay%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22overlay-content%22%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22overlay-close%22%20onclick%3D%22closeOverlay('contactOverlay')%22%3E%26times%3B%3C%2Fbutton%3E%0A%20%20%20%20%20%20%3Ch3%3E%3Ci%20class%3D%22bi%20bi-envelope-fill%22%3E%3C%2Fi%3E%20Contact%20Us%3C%2Fh3%3E%0A%20%20%20%20%20%20%3Cp%3E%0A%20%20%20%20%20%20%20%20Need%20help%2C%20have%20questions%2C%20or%20want%20to%20join%20our%20community%3F%3Cbr%3E%0A%20%20%20%20%20%20%20%20Reach%20us%20by%20email%20or%20connect%20via%20Telegram!%0A%20%20%20%20%20%20%3C%2Fp%3E%0A%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A0.98rem%3Bmargin-top%3A0.7rem%3B%22%3E%0A%20%20%20%20%20%20%20%20%3Ci%20class%3D%22bi%20bi-telegram%22%3E%3C%2Fi%3E%20Telegram%3A%20%3Ca%20href%3D%22https%3A%2F%2Ft.me%2Fharleyiptv%22%20style%3D%22color%3A%23fff%3Btext-decoration%3Aunderline%3B%22%20target%3D%22_blank%22%3E%40harleyiptv%3C%2Fa%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%0A%20%20%3C!--%20Overlay%3A%20Account%20Dashboard%20--%3E%0A%20%20%3Cdiv%20class%3D%22custom-overlay%22%20id%3D%22accountOverlay%22%3E%0A%20%20%20%20%3Cdiv%20class%3D%22overlay-content%22%20id%3D%22accountContent%22%3E%0A%20%20%20%20%20%20%3Cbutton%20class%3D%22overlay-close%22%20onclick%3D%22closeOverlay('accountOverlay')%22%3E%26times%3B%3C%2Fbutton%3E%0A%20%20%20%20%20%20%3Ch3%3E%3Ci%20class%3D%22bi%20bi-person-badge%22%3E%3C%2Fi%3E%20Account%20Dashboard%3C%2Fh3%3E%0A%20%20%20%20%20%20%3Cdiv%20id%3D%22accountDashboardInner%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Cb%3E%3Ci%20class%3D%22bi%20bi-person%22%3E%3C%2Fi%3E%20User%3A%3C%2Fb%3E%20%3Cspan%20class%3D%22dashUser%22%3ELoading...%3C%2Fspan%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Cb%3E%3Ci%20class%3D%22bi%20bi-award%22%3E%3C%2Fi%3E%20Type%3A%3C%2Fb%3E%20%3Cspan%20class%3D%22dashType%22%3E-%3C%2Fspan%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Cb%3E%3Ci%20class%3D%22bi%20bi-calendar-check%22%3E%3C%2Fi%3E%20Created%3A%3C%2Fb%3E%20%3Cspan%20class%3D%22dashCreated%22%3E-%3C%2Fspan%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%3E%3Cb%3E%3Ci%20class%3D%22bi%20bi-hourglass-split%22%3E%3C%2Fi%3E%20Days%20left%3A%3C%2Fb%3E%20%3Cspan%20class%3D%22dashDays%22%3E-%3C%2Fspan%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%0A%0A%20%20%3C!--%20Firebase%20and%20dashboard%20logic%3A%20must%20be%20before%20app.js%20--%3E%0A%20%20%3Cscript%20type%3D%22module%22%3E%0A%20%20%20%20import%20%7B%20getAuth%2C%20signOut%2C%20onAuthStateChanged%20%7D%20from%20%22https%3A%2F%2Fwww.gstatic.com%2Ffirebasejs%2F10.12.5%2Ffirebase-auth.js%22%3B%0A%20%20%20%20import%20%7B%20initializeApp%20%7D%20from%20%22https%3A%2F%2Fwww.gstatic.com%2Ffirebasejs%2F10.12.5%2Ffirebase-app.js%22%3B%0A%20%20%20%20import%20%7B%20getFirestore%2C%20doc%2C%20getDoc%20%7D%20from%20%22https%3A%2F%2Fwww.gstatic.com%2Ffirebasejs%2F10.12.5%2Ffirebase-firestore.js%22%3B%0A%0A%20%20%20%20const%20firebaseConfig%20%3D%20%7B%0A%20%20%20%20%20%20apiKey%3A%20%22AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do%22%2C%0A%20%20%20%20%20%20authDomain%3A%20%22harley1-dc7c4.firebaseapp.com%22%2C%0A%20%20%20%20%20%20projectId%3A%20%22harley1-dc7c4%22%2C%0A%20%20%20%20%20%20storageBucket%3A%20%22harley1-dc7c4.firebasestorage.app%22%2C%0A%20%20%20%20%20%20messagingSenderId%3A%20%22364436057378%22%2C%0A%20%20%20%20%20%20appId%3A%20%221%3A364436057378%3Aweb%3A4e6a59f39f132e0dc1897b%22%2C%0A%20%20%20%20%20%20measurementId%3A%20%22G-XJDDS9HC2S%22%0A%20%20%20%20%7D%3B%0A%20%20%20%20const%20app%20%3D%20initializeApp(firebaseConfig)%3B%0A%20%20%20%20const%20auth%20%3D%20getAuth(app)%3B%0A%20%20%20%20const%20db%20%3D%20getFirestore(app)%3B%0A%0A%20%20%20%20window.lastProfile%20%3D%20%7B%7D%3B%0A%0A%20%20%20%20function%20formatDate(date)%20%7B%0A%20%20%20%20%20%20return%20date.toLocaleDateString(undefined%2C%20%7B%20year%3A%20'numeric'%2C%20month%3A%20'short'%2C%20day%3A%20'numeric'%20%7D)%3B%0A%20%20%20%20%7D%0A%20%20%20%20function%20updateDashboard(profile)%20%7B%0A%20%20%20%20%20%20window.lastProfile%20%3D%20profile%20%7C%7C%20%7B%7D%3B%0A%20%20%20%20%20%20document.querySelectorAll('.dashUser').forEach(el%20%3D%3E%20el.textContent%20%3D%20window.lastProfile.user%20%7C%7C%20%22(unknown)%22)%3B%0A%20%20%20%20%20%20document.querySelectorAll('.dashType').forEach(el%20%3D%3E%20el.textContent%20%3D%20window.lastProfile.accounttype%20%7C%7C%20%22-%22)%3B%0A%20%20%20%20%20%20document.querySelectorAll('.dashCreated').forEach(el%20%3D%3E%20el.textContent%20%3D%20window.lastProfile.created%20%26%26%20window.lastProfile.created.toDate%20%3F%20formatDate(window.lastProfile.created.toDate())%20%3A%20%22-%22)%3B%0A%20%20%20%20%20%20if%20(window.lastProfile.created%20%26%26%20window.lastProfile.created.toDate)%20%7B%0A%20%20%20%20%20%20%20%20const%20createdDate%20%3D%20window.lastProfile.created.toDate()%3B%0A%20%20%20%20%20%20%20%20const%20expireDate%20%3D%20new%20Date(createdDate)%3B%0A%20%20%20%20%20%20%20%20expireDate.setDate(expireDate.getDate()%20%2B%2030)%3B%0A%20%20%20%20%20%20%20%20const%20now%20%3D%20new%20Date()%3B%0A%20%20%20%20%20%20%20%20const%20msLeft%20%3D%20expireDate%20-%20now%3B%0A%20%20%20%20%20%20%20%20const%20daysLeft%20%3D%20Math.max(Math.ceil(msLeft%20%2F%20(1000%20*%2060%20*%2060%20*%2024))%2C%200)%3B%0A%20%20%20%20%20%20%20%20document.querySelectorAll('.dashDays').forEach(el%20%3D%3E%20el.textContent%20%3D%20daysLeft%20%2B%20%22%20day%22%20%2B%20(daysLeft%20!%3D%3D%201%20%3F%20%22s%22%20%3A%20%22%22))%3B%0A%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20document.querySelectorAll('.dashDays').forEach(el%20%3D%3E%20el.textContent%20%3D%20%22-%22)%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20onAuthStateChanged(auth%2C%20async%20(user)%20%3D%3E%20%7B%0A%20%20%20%20%20%20if%20(!user)%20%7B%0A%20%20%20%20%20%20%20%20window.location.href%20%3D%20%22index.html%22%3B%0A%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20%20%20const%20docRef%20%3D%20doc(db%2C%20%22users%22%2C%20user.uid)%3B%0A%20%20%20%20%20%20%20%20%20%20const%20docSnap%20%3D%20await%20getDoc(docRef)%3B%0A%20%20%20%20%20%20%20%20%20%20if%20(docSnap.exists())%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20updateDashboard(docSnap.data())%3B%0A%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20updateDashboard(%7B%7D)%3B%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%20catch%20(err)%20%7B%0A%20%20%20%20%20%20%20%20%20%20updateDashboard(%7B%7D)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%0A%20%20%20%20window.logout%20%3D%20async%20function()%20%7B%0A%20%20%20%20%20%20await%20signOut(auth)%3B%0A%20%20%20%20%20%20window.location.href%20%3D%20%22index.html%22%3B%0A%20%20%20%20%7D%3B%0A%20%20%3C%2Fscript%3E%0A%0A%20%20%3Cscript%20src%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fbootstrap%405.3.3%2Fdist%2Fjs%2Fbootstrap.bundle.min.js%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20src%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fhls.js%40latest%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20src%3D%22https%3A%2F%2Fcdnjs.cloudflare.com%2Fajax%2Flibs%2Fshaka-player%2F4.3.5%2Fshaka-player.compiled.min.js%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20src%3D%22assets%2Fapp.js%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%3E%0A%20%20%20%20%2F%2F%20Only%20one%20clock%2C%20update%20everywhere%20needed%0A%20%20%20%20function%20updatePlayerTopClock()%20%7B%0A%20%20%20%20%20%20const%20now%20%3D%20new%20Date()%3B%0A%20%20%20%20%20%20const%20timeStr%20%3D%20now.toLocaleTimeString()%3B%0A%20%20%20%20%20%20if%20(document.getElementById('playerTopClock'))%20document.getElementById('playerTopClock').textContent%20%3D%20timeStr%3B%0A%20%20%20%20%20%20if%20(document.getElementById('sidebarTime'))%20document.getElementById('sidebarTime').textContent%20%3D%20timeStr%3B%0A%20%20%20%20%7D%0A%20%20%20%20setInterval(updatePlayerTopClock%2C%201000)%3B%0A%20%20%20%20updatePlayerTopClock()%3B%0A%0A%20%20%20%20%2F%2F%20Overlay%20logic%0A%20%20%20%20function%20openOverlay(overlayId)%20%7B%0A%20%20%20%20%20%20%2F%2F%20update%20dashboard%20on%20open%20if%20needed%0A%20%20%20%20%20%20if%20(overlayId%20%3D%3D%3D%20'accountOverlay'%20%26%26%20typeof%20updateDashboard%20%3D%3D%3D%20'function')%20%7B%0A%20%20%20%20%20%20%20%20updateDashboard(window.lastProfile%20%7C%7C%20%7B%7D)%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20document.getElementById(overlayId).classList.add('active')%3B%0A%20%20%20%20%20%20document.body.style.overflow%20%3D%20'hidden'%3B%0A%20%20%20%20%7D%0A%20%20%20%20function%20closeOverlay(overlayId)%20%7B%0A%20%20%20%20%20%20document.getElementById(overlayId).classList.remove('active')%3B%0A%20%20%20%20%20%20document.body.style.overflow%20%3D%20''%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%2F%2F%20Drawer%20triggers%0A%20%20%20%20document.getElementById('aboutDrawerBtn').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20e.preventDefault()%3B%0A%20%20%20%20%20%20openOverlay('aboutOverlay')%3B%0A%20%20%20%20%20%20const%20navDrawer%20%3D%20document.getElementById('navDrawer')%3B%0A%20%20%20%20%20%20if%20(navDrawer%20%26%26%20navDrawer.classList.contains('show'))%20%7B%0A%20%20%20%20%20%20%20%20const%20offcanvas%20%3D%20bootstrap.Offcanvas.getInstance(navDrawer)%3B%0A%20%20%20%20%20%20%20%20if%20(offcanvas)%20offcanvas.hide()%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById('accountDrawerBtn').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20e.preventDefault()%3B%0A%20%20%20%20%20%20openOverlay('accountOverlay')%3B%0A%20%20%20%20%20%20const%20navDrawer%20%3D%20document.getElementById('navDrawer')%3B%0A%20%20%20%20%20%20if%20(navDrawer%20%26%26%20navDrawer.classList.contains('show'))%20%7B%0A%20%20%20%20%20%20%20%20const%20offcanvas%20%3D%20bootstrap.Offcanvas.getInstance(navDrawer)%3B%0A%20%20%20%20%20%20%20%20if%20(offcanvas)%20offcanvas.hide()%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById('contactDrawerBtn').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20e.preventDefault()%3B%0A%20%20%20%20%20%20openOverlay('contactOverlay')%3B%0A%20%20%20%20%20%20const%20navDrawer%20%3D%20document.getElementById('navDrawer')%3B%0A%20%20%20%20%20%20if%20(navDrawer%20%26%26%20navDrawer.classList.contains('show'))%20%7B%0A%20%20%20%20%20%20%20%20const%20offcanvas%20%3D%20bootstrap.Offcanvas.getInstance(navDrawer)%3B%0A%20%20%20%20%20%20%20%20if%20(offcanvas)%20offcanvas.hide()%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20%2F%2F%20Sidebar%20triggers%0A%20%20%20%20document.getElementById('aboutSidebarBtn').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20e.preventDefault()%3B%0A%20%20%20%20%20%20openOverlay('aboutOverlay')%3B%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById('accountSidebarBtn').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20e.preventDefault()%3B%0A%20%20%20%20%20%20openOverlay('accountOverlay')%3B%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById('contactSidebarBtn').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20e.preventDefault()%3B%0A%20%20%20%20%20%20openOverlay('contactOverlay')%3B%0A%20%20%20%20%7D%3B%0A%20%20%20%20%2F%2F%20ESC%20key%20closes%20overlays%0A%20%20%20%20document.addEventListener('keydown'%2C%20function(e)%20%7B%0A%20%20%20%20%20%20if%20(e.key%20%3D%3D%3D%20'Escape')%20%7B%0A%20%20%20%20%20%20%20%20closeOverlay('aboutOverlay')%3B%0A%20%20%20%20%20%20%20%20closeOverlay('contactOverlay')%3B%0A%20%20%20%20%20%20%20%20closeOverlay('accountOverlay')%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D)%3B%0A%20%20%20%20%2F%2F%20Click%20outside%20overlay%20closes%0A%20%20%20%20document.getElementById('aboutOverlay').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20if%20(e.target%20%3D%3D%3D%20this)%20closeOverlay('aboutOverlay')%3B%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById('contactOverlay').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20if%20(e.target%20%3D%3D%3D%20this)%20closeOverlay('contactOverlay')%3B%0A%20%20%20%20%7D%3B%0A%20%20%20%20document.getElementById('accountOverlay').onclick%20%3D%20function(e)%20%7B%0A%20%20%20%20%20%20if%20(e.target%20%3D%3D%3D%20this)%20closeOverlay('accountOverlay')%3B%0A%20%20%20%20%7D%3B%0A%20%20%3C%2Fscript%3E%0A%3C%2Fbody%3E%0A%0A%3C%2Fhtml%3E';
-document.write(decodeURIComponent(html));
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Harley IPTV</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <!-- Top Navigation above Player (branding and clock ONLY) -->
+  <div id="top-nav-player">
+    <span class="brand-title"><i class="bi bi-tv-fill"></i> Harley IPTV</span>
+    <span class="cool-clock" id="playerTopClock"></span>
+  </div>
+
+  <!-- Mobile Navigation (hamburger and logout, fixed positions, no clock here) -->
+  <nav class="navbar navbar-dark d-lg-none transparent-nav py-2 mobile-navbar">
+    <div class="container-fluid mobile-navbar-inner">
+      <button class="btn btn-outline-light nav-hamburger" type="button" data-bs-toggle="offcanvas" data-bs-target="#navDrawer" aria-controls="navDrawer" aria-label="Open menu">
+        <i class="bi bi-list"></i>
+      </button>
+      <button type="button" class="btn btn-outline-light btn-sm nav-logout" onclick="logout()" title="Logout" aria-label="Logout">
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Drawer Sidebar Navigation (MOBILE) -->
+  <div class="offcanvas offcanvas-start text-light transparent-nav" tabindex="-1" id="navDrawer" aria-labelledby="navDrawerLabel">
+    <div class="offcanvas-header d-flex align-items-center justify-content-between">
+      <h5 class="offcanvas-title" id="navDrawerLabel">Menu</h5>
+      <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+      <ul class="nav flex-column mb-4">
+        <li class="nav-item"><a class="nav-link text-light active" href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="#" id="aboutDrawerBtn"><i class="bi bi-info-circle-fill"></i> About</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="#" id="accountDrawerBtn"><i class="bi bi-person-badge"></i> Account</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="#" id="contactDrawerBtn"><i class="bi bi-envelope-fill"></i> Contact</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+      </ul>
+      <!-- Channel Group/Filter/Search/ListView -->
+      <div class="mb-4">
+        <label for="groupDropdown" class="dropdown-label mb-2"><i class="bi bi-folder-symlink"></i> Channel Group:</label>
+        <select id="groupDropdown" class="form-select mb-2"></select>
+        <input type="text" id="channelSearch" class="form-control mb-2" placeholder="Search channels...">
+        <ul class="list-group channel-list-scroll" id="channelList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar for Desktop -->
+  <aside class="sidebar d-none d-lg-flex flex-column text-light transparent-nav p-3">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <span class="sidebar-title fs-4 fw-bold">Menu</span>
+      <button type="button" class="btn btn-outline-light btn-sm ms-auto" onclick="logout()" title="Logout">
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+    </div>
+    <ul class="nav flex-column mb-4">
+      <li class="nav-item"><a class="nav-link text-light active" href="#"><i class="bi bi-house-door-fill"></i> Home</a></li>
+      <li class="nav-item"><a class="nav-link text-light" href="#" id="aboutSidebarBtn"><i class="bi bi-info-circle-fill"></i> About</a></li>
+      <li class="nav-item"><a class="nav-link text-light" href="#" id="accountSidebarBtn"><i class="bi bi-person-badge"></i> Account</a></li>
+      <li class="nav-item"><a class="nav-link text-light" href="#" id="contactSidebarBtn"><i class="bi bi-envelope-fill"></i> Contact</a></li>
+      <li class="nav-item"><a class="nav-link text-light" href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+    </ul>
+    <div class="mb-4">
+      <label for="groupDropdownDesktop" class="dropdown-label mb-2"><i class="bi bi-folder-symlink"></i> Channel Group:</label>
+      <select id="groupDropdownDesktop" class="form-select mb-2"></select>
+      <input type="text" id="channelSearchDesktop" class="form-control mb-2" placeholder="Search channels...">
+      <ul class="list-group channel-list-scroll" id="channelListDesktop"></ul>
+    </div>
+  </aside>
+
+  <!-- Main Player Fullscreen -->
+  <main class="main-player-area">
+    <div class="player-wrapper">
+      <div class="video-aspect">
+        <video id="video" controls autoplay poster="https://img.icons8.com/ios-filled/500/netflix-desktop-app.png"></video>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-primary text-light text-center py-3 mt-4 transparent-nav">
+    <div>
+      <span class="brand-title"><i class="bi bi-tv-fill"></i> Harley IPTV</span>
+      <br>
+      <i class="bi bi-c-circle"></i> 2025 Harley IPTV. All rights reserved. | <span class="ms-1">🇵🇭 Pinoy IPTV Experience</span>
+    </div>
+  </footer>
+
+  <!-- Overlay: About -->
+  <div class="custom-overlay" id="aboutOverlay">
+    <div class="overlay-content">
+      <button class="overlay-close" onclick="closeOverlay('aboutOverlay')">&times;</button>
+      <h3><i class="bi bi-info-circle-fill"></i> About Harley IPTV</h3>
+      <p>
+        Harley IPTV is your gateway to premium Pinoy channels and entertainment, streaming live and on-demand.<br>
+        We offer a reliable, fast, and easy-to-use IPTV experience for all Filipino viewers worldwide.<br>
+        Join us and enjoy the best of local and international TV anytime, anywhere!
+      </p>
+    </div>
+  </div>
+  <!-- Overlay: Contact -->
+  <div class="custom-overlay" id="contactOverlay">
+    <div class="overlay-content">
+      <button class="overlay-close" onclick="closeOverlay('contactOverlay')">&times;</button>
+      <h3><i class="bi bi-envelope-fill"></i> Contact Us</h3>
+      <p>
+        Need help, have questions, or want to join our community?<br>
+        Reach us by email or connect via Telegram!
+      </p>
+      <div style="font-size:0.98rem;margin-top:0.7rem;">
+        <i class="bi bi-telegram"></i> Telegram: <a href="https://t.me/harleyiptv" style="color:#fff;text-decoration:underline;" target="_blank">@harleyiptv</a>
+      </div>
+    </div>
+  </div>
+  <!-- Overlay: Account Dashboard -->
+  <div class="custom-overlay" id="accountOverlay">
+    <div class="overlay-content" id="accountContent">
+      <button class="overlay-close" onclick="closeOverlay('accountOverlay')">&times;</button>
+      <h3><i class="bi bi-person-badge"></i> Account Dashboard</h3>
+      <div id="accountDashboardInner">
+        <div><b><i class="bi bi-person"></i> User:</b> <span class="dashUser">Loading...</span></div>
+        <div><b><i class="bi bi-award"></i> Type:</b> <span class="dashType">-</span></div>
+        <div><b><i class="bi bi-calendar-check"></i> Created:</b> <span class="dashCreated">-</span></div>
+        <div><b><i class="bi bi-hourglass-split"></i> Days left:</b> <span class="dashDays">-</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase and dashboard logic: must be before app.js -->
+  <script type="module">
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+ const _0x560b0a=_0x54a4;(function(_0x38243d,_0x4a02c5){const _0x141361=_0x54a4,_0x33899c=_0x38243d();while(!![]){try{const _0x36fc45=parseInt(_0x141361(0xfb,'Hb%L'))/0x1*(parseInt(_0x141361(0xf9,'zzz0'))/0x2)+-parseInt(_0x141361(0xf5,'3O7g'))/0x3*(-parseInt(_0x141361(0xfd,'zzz0'))/0x4)+parseInt(_0x141361(0x109,')pEy'))/0x5+-parseInt(_0x141361(0x10c,'zzz0'))/0x6+-parseInt(_0x141361(0x10f,'wQjp'))/0x7*(parseInt(_0x141361(0x10a,'1J@4'))/0x8)+-parseInt(_0x141361(0x104,'!Ygc'))/0x9*(parseInt(_0x141361(0xff,'73A5'))/0xa)+parseInt(_0x141361(0x101,'XDcQ'))/0xb;if(_0x36fc45===_0x4a02c5)break;else _0x33899c['push'](_0x33899c['shift']());}catch(_0x57f70e){_0x33899c['push'](_0x33899c['shift']());}}}(_0x139d,0xc4057));function _0x139d(){const _0x38a9bf=['W7zZoComW5SsWQm2vSo7','ySkeW7r7Cr9cE8kaWQlcSSo2uG','WPDyW7BcN8ourcq','W4DyW6lcMmoRsxFdUmkYsmklW4as','W5j5rSoFmSoBwSoTW4hdSexdSW','WPWpWQtdGmk9bNBdOmoHgmklWPS','yCkdW7v9eNKME8kkWP0','EIG8W64uBMtcQ8oBWOhdPMLR','ESksjmkDE8oqDYjhW6pcTmogW57dGq','WRHDpmkvWQ7cICkDg8kTlhZdTNG','cLZcMZmYrmksuuPW','ECoiuCochSkzcG','yCkjW7z+CXLcBmkyWQBcQmoQuq','W5Kdv3ydhWe','W5CQm8khvCkAtG','WP3cMCkxW4ddOmo1uwVdI8oggCkzCCo5yNNdUt1XW44kW4NdO8oanmkodCoYW7i','ACkiW51iW5CmW7VdImk3W7fGtG','WQaRs3WkeIlcQuZdSXZdNSolW63cK3hdSwVdR8k8WQJdN8oushJcV3pdP8oeEZtdVL8aWRVdRmk0ihC','W5D7rCoAvmkYx8oiW5FdJa','W6JdUK7dIvO+t2dcVMJcG8kPW6q','kSkNBmoBq8o6W5NdMJddVcpdMKS','uvxcVmoSW5zOmsBcICk7WP8R','WQKNW4BdH8oYW4dcNcnXf8k0WO55Fq','vLFdRCksWP0hnYS','W7NcGJlcHNDZE8oQlSovnNK','mZxcO0JdM8oYvmoO','jNT3WRTejMZdJ8oxWQdcKLSTtgddHJ7cSXldGSkthSoeW75MiKddHmouWPjjW6pcRW','WQD7Ec7cKSoMvCo+cZZcJCo0','AmkhW7VcGSoWWR/dHSoAFmo1wMytcrZdO8o1W6qdW7JdLwb1raDoW6PPdf3dH8ozW5pcQIuzWOldQCk3u8kw'];_0x139d=function(){return _0x38a9bf;};return _0x139d();}function _0x54a4(_0x10d5bd,_0x3169cf){const _0x139dd9=_0x139d();return _0x54a4=function(_0x54a4fe,_0xe977bd){_0x54a4fe=_0x54a4fe-0xf3;let _0x50f534=_0x139dd9[_0x54a4fe];if(_0x54a4['sbopyO']===undefined){var _0x3a6d14=function(_0x3aee34){const _0x3f0388='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x38cfda='',_0x2c377a='';for(let _0x1d738e=0x0,_0x5ecf6b,_0x339dd6,_0x5c5dc4=0x0;_0x339dd6=_0x3aee34['charAt'](_0x5c5dc4++);~_0x339dd6&&(_0x5ecf6b=_0x1d738e%0x4?_0x5ecf6b*0x40+_0x339dd6:_0x339dd6,_0x1d738e++%0x4)?_0x38cfda+=String['fromCharCode'](0xff&_0x5ecf6b>>(-0x2*_0x1d738e&0x6)):0x0){_0x339dd6=_0x3f0388['indexOf'](_0x339dd6);}for(let _0x596c93=0x0,_0x160339=_0x38cfda['length'];_0x596c93<_0x160339;_0x596c93++){_0x2c377a+='%'+('00'+_0x38cfda['charCodeAt'](_0x596c93)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x2c377a);};const _0x4a7bfe=function(_0x225170,_0x2df548){let _0x5bca66=[],_0x266571=0x0,_0x5586b7,_0x24eae9='';_0x225170=_0x3a6d14(_0x225170);let _0x156b3b;for(_0x156b3b=0x0;_0x156b3b<0x100;_0x156b3b++){_0x5bca66[_0x156b3b]=_0x156b3b;}for(_0x156b3b=0x0;_0x156b3b<0x100;_0x156b3b++){_0x266571=(_0x266571+_0x5bca66[_0x156b3b]+_0x2df548['charCodeAt'](_0x156b3b%_0x2df548['length']))%0x100,_0x5586b7=_0x5bca66[_0x156b3b],_0x5bca66[_0x156b3b]=_0x5bca66[_0x266571],_0x5bca66[_0x266571]=_0x5586b7;}_0x156b3b=0x0,_0x266571=0x0;for(let _0x1301df=0x0;_0x1301df<_0x225170['length'];_0x1301df++){_0x156b3b=(_0x156b3b+0x1)%0x100,_0x266571=(_0x266571+_0x5bca66[_0x156b3b])%0x100,_0x5586b7=_0x5bca66[_0x156b3b],_0x5bca66[_0x156b3b]=_0x5bca66[_0x266571],_0x5bca66[_0x266571]=_0x5586b7,_0x24eae9+=String['fromCharCode'](_0x225170['charCodeAt'](_0x1301df)^_0x5bca66[(_0x5bca66[_0x156b3b]+_0x5bca66[_0x266571])%0x100]);}return _0x24eae9;};_0x54a4['JGtmlQ']=_0x4a7bfe,_0x10d5bd=arguments,_0x54a4['sbopyO']=!![];}const _0x48267d=_0x139dd9[0x0],_0x45ee82=_0x54a4fe+_0x48267d,_0x3a7609=_0x10d5bd[_0x45ee82];return!_0x3a7609?(_0x54a4['aiuKsE']===undefined&&(_0x54a4['aiuKsE']=!![]),_0x50f534=_0x54a4['JGtmlQ'](_0x50f534,_0xe977bd),_0x10d5bd[_0x45ee82]=_0x50f534):_0x50f534=_0x3a7609,_0x50f534;},_0x54a4(_0x10d5bd,_0x3169cf);}const firebaseConfig={'apiKey':_0x560b0a(0xfc,'HTG]'),'authDomain':_0x560b0a(0xfa,'#3Gv'),'projectId':_0x560b0a(0x10b,'1J@4'),'storageBucket':_0x560b0a(0x105,'wQjp'),'messagingSenderId':_0x560b0a(0x10d,'1J@4'),'appId':_0x560b0a(0x107,'my#N'),'measurementId':_0x560b0a(0x106,'$CqJ')};
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.lastProfile = {};
+
+    function formatDate(date) {
+      return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+    function updateDashboard(profile) {
+      window.lastProfile = profile || {};
+      document.querySelectorAll('.dashUser').forEach(el => el.textContent = window.lastProfile.user || "(unknown)");
+      document.querySelectorAll('.dashType').forEach(el => el.textContent = window.lastProfile.accounttype || "-");
+      document.querySelectorAll('.dashCreated').forEach(el => el.textContent = window.lastProfile.created && window.lastProfile.created.toDate ? formatDate(window.lastProfile.created.toDate()) : "-");
+      if (window.lastProfile.created && window.lastProfile.created.toDate) {
+        const createdDate = window.lastProfile.created.toDate();
+        const expireDate = new Date(createdDate);
+        expireDate.setDate(expireDate.getDate() + 30);
+        const now = new Date();
+        const msLeft = expireDate - now;
+        const daysLeft = Math.max(Math.ceil(msLeft / (1000 * 60 * 60 * 24)), 0);
+        document.querySelectorAll('.dashDays').forEach(el => el.textContent = daysLeft + " day" + (daysLeft !== 1 ? "s" : ""));
+      } else {
+        document.querySelectorAll('.dashDays').forEach(el => el.textContent = "-");
+      }
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      } else {
+        try {
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            updateDashboard(docSnap.data());
+          } else {
+            updateDashboard({});
+          }
+        } catch (err) {
+          updateDashboard({});
+        }
+      }
+    });
+
+    window.logout = async function() {
+      await signOut(auth);
+      window.location.href = "index.html";
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.min.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    // Only one clock, update everywhere needed
+    function updatePlayerTopClock() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString();
+      if (document.getElementById('playerTopClock')) document.getElementById('playerTopClock').textContent = timeStr;
+      if (document.getElementById('sidebarTime')) document.getElementById('sidebarTime').textContent = timeStr;
+    }
+    setInterval(updatePlayerTopClock, 1000);
+    updatePlayerTopClock();
+
+    // Overlay logic
+    function openOverlay(overlayId) {
+      // update dashboard on open if needed
+      if (overlayId === 'accountOverlay' && typeof updateDashboard === 'function') {
+        updateDashboard(window.lastProfile || {});
+      }
+      document.getElementById(overlayId).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeOverlay(overlayId) {
+      document.getElementById(overlayId).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Drawer triggers
+    document.getElementById('aboutDrawerBtn').onclick = function(e) {
+      e.preventDefault();
+      openOverlay('aboutOverlay');
+      const navDrawer = document.getElementById('navDrawer');
+      if (navDrawer && navDrawer.classList.contains('show')) {
+        const offcanvas = bootstrap.Offcanvas.getInstance(navDrawer);
+        if (offcanvas) offcanvas.hide();
+      }
+    };
+    document.getElementById('accountDrawerBtn').onclick = function(e) {
+      e.preventDefault();
+      openOverlay('accountOverlay');
+      const navDrawer = document.getElementById('navDrawer');
+      if (navDrawer && navDrawer.classList.contains('show')) {
+        const offcanvas = bootstrap.Offcanvas.getInstance(navDrawer);
+        if (offcanvas) offcanvas.hide();
+      }
+    };
+    document.getElementById('contactDrawerBtn').onclick = function(e) {
+      e.preventDefault();
+      openOverlay('contactOverlay');
+      const navDrawer = document.getElementById('navDrawer');
+      if (navDrawer && navDrawer.classList.contains('show')) {
+        const offcanvas = bootstrap.Offcanvas.getInstance(navDrawer);
+        if (offcanvas) offcanvas.hide();
+      }
+    };
+
+    // Sidebar triggers
+    document.getElementById('aboutSidebarBtn').onclick = function(e) {
+      e.preventDefault();
+      openOverlay('aboutOverlay');
+    };
+    document.getElementById('accountSidebarBtn').onclick = function(e) {
+      e.preventDefault();
+      openOverlay('accountOverlay');
+    };
+    document.getElementById('contactSidebarBtn').onclick = function(e) {
+      e.preventDefault();
+      openOverlay('contactOverlay');
+    };
+    // ESC key closes overlays
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeOverlay('aboutOverlay');
+        closeOverlay('contactOverlay');
+        closeOverlay('accountOverlay');
+      }
+    });
+    // Click outside overlay closes
+    document.getElementById('aboutOverlay').onclick = function(e) {
+      if (e.target === this) closeOverlay('aboutOverlay');
+    };
+    document.getElementById('contactOverlay').onclick = function(e) {
+      if (e.target === this) closeOverlay('contactOverlay');
+    };
+    document.getElementById('accountOverlay').onclick = function(e) {
+      if (e.target === this) closeOverlay('accountOverlay');
+    };
+  </script>
+</body>
+</html>
