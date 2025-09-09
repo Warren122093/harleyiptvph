@@ -1,42 +1,18 @@
 # Harley IPTV
 
-Harley IPTV is a responsive web application providing Pinoy and international IPTV channels via a modern, user-friendly interface. It enables seamless live streaming, authentication, and intuitive channel navigation for the best viewing experience.
+Harley IPTV is a responsive web application providing Pinoy and international IPTV channels via a modern, user-friendly interface. It features authentication, channel selection, and live streaming, and is built to work seamlessly across all devices.
 
 ---
 
 ## Features
 
-- **User Authentication**
-  - Login, Signup, and Password Reset via Firebase Auth
-  - Secure user sessions and logout support
-
-- **Channel Selection**
-  - Browse and select from a curated list of Pinoy and international IPTV channels
-  - Live streaming with support for both DASH and HLS formats
-  - Channel switching without page reloads
-
-- **Responsive Design**
-  - Fully optimized for mobile, tablet, and desktop devices
-  - Adaptive layouts using Bootstrap 5
-
-- **Modern User Interface**
-  - Clean, professional look with Bootstrap Icons
-  - Offcanvas navigation for mobile devices
-  - Intuitive controls for channel selection and playback
-
-- **Live Streaming Player**
-  - DASH playback powered by Shaka Player
-  - HLS playback via hls.js
-  - Seamless switching and robust error handling
-
+- **User Authentication** (Login, Signup, Password Reset) powered by Firebase Auth
+- **Channel Selection** with live streaming (DASH & HLS)
+- **Responsive Design** (Mobile, Tablet, Desktop)
+- **Modern UI** with professional icons (Bootstrap Icons)
 - **About & Contact Overlays**
-  - Modal overlays for app information and contacting support
-
 - **Live Clock**
-  - Real-time clock display in the interface
-
-- **One-click Logout**
-  - Fast and secure user sign out
+- **Logout functionality**
 
 ---
 
@@ -59,8 +35,8 @@ Harley IPTV is a responsive web application providing Pinoy and international IP
 
 1. **Clone the repository**
     ```sh
-    git clone https://github.com/Warren122093/harleyiptvph.git
-    cd harleyiptvph
+    git clone https://github.com/<your-org-or-user>/<your-repo>.git
+    cd <your-repo>
     ```
 
 2. **Open `index.html` in your browser**  

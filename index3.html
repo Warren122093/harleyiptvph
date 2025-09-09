@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inject Server - Harley IPTV</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons for copy/clear -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- JSON5 for flexible JSON parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/json5@2.2.3/dist/index.min.js"></script>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="container shadow p-4 rounded mt-5">
+    <a href="index2.html" class="back-link mb-3"><i class="bi bi-arrow-left"></i> Back </a>
+
+    <div id="unlockSection" class="unlock-section">
+      <div class="mb-1">Password required to inject server:</div>
+      <input type="password" id="unlockPwd" class="form-control d-inline-block" placeholder="Type password" autocomplete="off">
+      <button class="unlock-btn" id="unlockBtn" type="button">Unlock</button>
+      <div id="unlockMsg" class="small text-danger mt-2"></div>
+    </div>
+
+    <div id="injectFormSection" class="locked">
+      <h3 class="mb-3 text-center">Inject Server to Firestore</h3>
+      <form id="serverForm">
+        <div class="mb-3">
+          <label class="form-label" for="name">Channel Name</label>
+          <input type="text" class="form-control" id="name" required placeholder="PBB CE LIVE (TFC)">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="drop1">Channel Group/Drop1 <small>(optional, e.g. TFC, CIG, etc.)</small></label>
+          <input type="text" class="form-control" id="drop1" placeholder="TFC">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="url">Stream URL</label>
+          <input type="url" class="form-control" id="url" required placeholder="https://...manifest.mpd">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="image">Image URL (optional)</label>
+          <input type="url" class="form-control" id="image" placeholder="https://.../logo.png">
+          <img id="previewImg" class="preview-img" />
+        </div>
+        <div class="mb-3 position-relative">
+          <label class="form-label" for="key">
+            Key(s) <small>(format: <code>keyid:key</code> or multiple lines)</small>
+          </label>
+          <div class="input-group">
+            <textarea class="form-control" id="key" rows="2" placeholder="8438e8495659425585a09749cd6bc39a:9d92b12db092fe6bdf2207ef7a2a9e65"></textarea>
+            <button type="button" class="btn btn-outline-secondary btn-icon" data-copy="key" title="Copy"><i class="bi bi-clipboard"></i></button>
+            <button type="button" class="btn btn-outline-secondary btn-icon" data-clear="key" title="Clear"><i class="bi bi-x-lg"></i></button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Inject Server</button>
+      </form>
+      <div class="my-3 text-center">
+        <hr>
+        <div class="bulk-section">
+          <label for="bulkJson" class="form-label">Bulk Inject JSON (<b>paste your JSON object here</b>)</label>
+          <div class="input-group">
+            <textarea id="bulkJson" class="form-control" placeholder="{...}" rows="5"></textarea>
+            <button type="button" class="btn btn-outline-secondary btn-icon" data-copy="bulkJson" title="Copy"><i class="bi bi-clipboard"></i></button>
+            <button type="button" class="btn btn-outline-secondary btn-icon" data-clear="bulkJson" title="Clear"><i class="bi bi-x-lg"></i></button>
+          </div>
+          <label for="uploadJsonInput" class="upload-json-label">
+            Upload JSON file (optional): 
+            <input type="file" id="uploadJsonInput" accept=".json,application/json">
+          </label>
+          <button id="bulkInjectBtn" class="btn btn-primary mt-2 w-100">Bulk Inject All</button>
+          <div id="bulkProgress" class="mt-2"></div>
+        </div>
+      </div>
+      <div id="resultMsg" class="result-message text-center"></div>
+      <!-- ---- NEW: JSON Format Converter Tool ---- -->
+      <div class="gen-section">
+        <label for="fixJsonIn">Convert any JSON/Array/List to Channel Object Format</label>
+        <div class="input-group mb-2">
+          <textarea id="fixJsonIn" class="form-control" placeholder="Paste any JSON, array, or list here..." rows="4"></textarea>
+          <button type="button" class="btn btn-outline-secondary btn-icon" data-clear="fixJsonIn" title="Clear"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <button id="fixJsonBtn" class="btn btn-primary w-100 mb-2">Convert & Format</button>
+        <label for="fixedJsonOut" class="mb-1">Formatted Object (for bulk inject):</label>
+        <div class="input-group">
+          <textarea id="fixedJsonOut" readonly></textarea>
+          <button type="button" class="btn btn-outline-secondary btn-icon" data-copy="fixedJsonOut" title="Copy"><i class="bi bi-clipboard"></i></button>
+          <button type="button" class="btn btn-outline-secondary btn-icon" data-clear="fixedJsonOut" title="Clear"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div id="fixJsonMsg" class="small text-danger"></div>
+      </div>
+      <!-- ---- END NEW TOOL ---- -->
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOD_WjTx_QV4NmdWOA1qn1iw2Bfhck8do",
+      authDomain: "harley1-dc7c4.firebaseapp.com",
+      projectId: "harley1-dc7c4",
+      storageBucket: "harley1-dc7c4.firebasestorage.app",
+      messagingSenderId: "364436057378",
+      appId: "1:364436057378:web:4e6a59f39f132e0dc1897b",
+      measurementId: "G-XJDDS9HC2S"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Unlock logic
+    const PASSWORD = "@renann54*";
+    const unlockSection = document.getElementById('unlockSection');
+    const injectFormSection = document.getElementById('injectFormSection');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const unlockPwd = document.getElementById('unlockPwd');
+    const unlockMsg = document.getElementById('unlockMsg');
+
+    unlockBtn.onclick = tryUnlock;
+    unlockPwd.onkeydown = function(e) { if (e.key === "Enter") tryUnlock(); };
+
+    function tryUnlock() {
+      if (unlockPwd.value.trim() === PASSWORD) {
+        injectFormSection.classList.remove('locked');
+        unlockSection.style.display = "none";
+        unlockMsg.textContent = "";
+        setTimeout(() => document.getElementById('name').focus(), 100);
+      } else {
+        unlockMsg.textContent = "Incorrect password!";
+        unlockPwd.value = "";
+      }
+    }
+
+    // Image preview
+    document.getElementById('image').addEventListener('input', function() {
+      const url = this.value.trim();
+      const img = document.getElementById('previewImg');
+      if (url) {
+        img.src = url;
+        img.style.display = "block";
+      } else {
+        img.style.display = "none";
+      }
+    });
+
+    // Parse keys
+    function parseKeyField(str) {
+      // Accepts one or more lines of "keyid:key", returns {keyid: key, ...}
+      const lines = str.split('\n').map(l => l.trim()).filter(Boolean);
+      const keyObj = {};
+      for (const line of lines) {
+        const [k, v] = line.split(':').map(s => s.trim());
+        if (k && v) keyObj[k] = v;
+      }
+      return Object.keys(keyObj).length ? keyObj : null;
+    }
+
+    document.getElementById('serverForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const drop1 = document.getElementById('drop1').value.trim();
+      const url = document.getElementById('url').value.trim();
+      const image = document.getElementById('image').value.trim();
+      const keyRaw = document.getElementById('key').value.trim();
+      const key = parseKeyField(keyRaw);
+
+      if (!name || !url) {
+        showMsg("Channel name and URL are required!", "danger");
+        return;
+      }
+      try {
+        // Check if already exists
+        const q = query(collection(db, "freeserver"), where("name", "==", name));
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          showMsg("❌ Already exists: " + name, "danger");
+          return;
+        }
+        const docRef = await addDoc(collection(db, "freeserver"), {
+          name,
+          drop1,
+          url,
+          image,
+          key
+        });
+        showMsg("✅ Server injected! Document ID: <code>" + docRef.id + "</code>", "success");
+        this.reset();
+        document.getElementById('previewImg').style.display = "none";
+      } catch (err) {
+        showMsg("❌ Failed: " + err.message, "danger");
+      }
+    });
+
+    // Upload JSON file and insert contents into textarea
+    document.getElementById('uploadJsonInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        let content = ev.target.result.trim();
+        // Auto-wrap in braces if missing
+        if (!content.startsWith('{')) content = '{' + content;
+        if (!content.endsWith('}')) content = content + '}';
+        try {
+          // Use JSON5 to support JS object style and unquoted keys
+          const obj = JSON5.parse(content);
+          document.getElementById('bulkJson').value = JSON.stringify(obj, null, 2);
+        } catch (err) {
+          showMsg("❌ JSON parse error: " + err.message, "danger");
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    // Bulk inject
+    document.getElementById('bulkInjectBtn').onclick = async function() {
+      const textarea = document.getElementById('bulkJson');
+      let jsonRaw = textarea.value.trim();
+      // Auto-wrap in braces if missing
+      if (!jsonRaw.startsWith('{')) jsonRaw = '{' + jsonRaw;
+      if (!jsonRaw.endsWith('}')) jsonRaw = jsonRaw + '}';
+      let data;
+      try {
+        // Use JSON5 to support both JSON and JS-like object
+        data = JSON5.parse(jsonRaw);
+      } catch (err) {
+        showMsg("❌ JSON parse error: " + err.message, "danger");
+        return;
+      }
+      // Get all current names for duplicate check
+      showMsg("Checking for existing channels...", "info");
+      const allDocs = await getDocs(collection(db, "freeserver"));
+      const existingNames = new Set();
+      allDocs.forEach(doc => {
+        if (doc.data().name) existingNames.add(doc.data().name.trim().toLowerCase());
+      });
+
+      let toAdd = [];
+      for (const key in data) {
+        const ch = data[key];
+        // Accept both "logo" or "image"
+        const image = ch.logo || ch.image || "";
+        const drop1 = ch.drop1 || "";
+        const name = ch.name ? ch.name.trim() : "";
+        if (!name) continue; // skip if no name
+        if (existingNames.has(name.toLowerCase())) continue; // skip if duplicate
+        toAdd.push({
+          name,
+          drop1,
+          url: ch.url || "",
+          image,
+          key: ch.keys || ch.key || null
+        });
+        existingNames.add(name.toLowerCase());
+      }
+      if (toAdd.length === 0) {
+        showMsg("No new servers to inject (all are duplicates or invalid).", "secondary");
+        return;
+      }
+
+      let success = 0, fail = 0;
+      document.getElementById('bulkProgress').innerHTML = `<div class="progress"><div id="progBar" class="progress-bar" role="progressbar" style="width:0%">0%</div></div>`;
+      const progBar = document.getElementById('progBar');
+      for (let i = 0; i < toAdd.length; ++i) {
+        const srv = toAdd[i];
+        try {
+          await addDoc(collection(db, "freeserver"), srv);
+          success++;
+        } catch (e) {
+          fail++;
+        }
+        let pct = Math.round(((i + 1) / toAdd.length) * 100);
+        progBar.style.width = pct + "%";
+        progBar.textContent = `${pct}%`;
+      }
+      showMsg(`✅ Bulk inject complete! Added: ${success}, Failed: ${fail}, Skipped: ${Object.keys(data).length - toAdd.length}`, "success");
+      document.getElementById('bulkProgress').innerHTML = "";
+    };
+
+    function showMsg(msg, type) {
+      const el = document.getElementById('resultMsg');
+      el.innerHTML = msg;
+      el.className = "result-message text-center text-" + (type || "secondary");
+    }
+
+    // ========= JSON FORMATTER TOOL =========
+    document.getElementById('fixJsonBtn').onclick = function() {
+      const input = document.getElementById('fixJsonIn').value.trim();
+      const out = document.getElementById('fixedJsonOut');
+      const msg = document.getElementById('fixJsonMsg');
+      msg.textContent = "";
+      out.value = "";
+
+      if (!input) {
+        msg.textContent = "Please paste or type some data!";
+        return;
+      }
+      let data;
+      try {
+        // Try to parse with JSON5 (handles most formats)
+        let testIn = input;
+        // If it's a plain array or object, wrap in {} if needed
+        if (!testIn.startsWith("{") && !testIn.startsWith("[")) testIn = "{" + testIn + "}";
+        data = JSON5.parse(testIn);
+      } catch (e) {
+        msg.textContent = "Parse error: " + e.message;
+        return;
+      }
+
+      // If it's an array, convert to keyed object
+      let keyPrefix = "channel_";
+      let outObj = {};
+      if (Array.isArray(data)) {
+        data.forEach((item, idx) => {
+          // Try to use name or url as key if present
+          let k = "";
+          if (item.name) k = item.name.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+          if (!k && item.url) k = "url_" + idx;
+          if (!k) k = keyPrefix + idx;
+          outObj[k] = convertChannelEntry(item);
+        });
+      } else {
+        // If already object, but not in required format, fix each value
+        Object.entries(data).forEach(([k, v], i) => {
+          outObj[k] = convertChannelEntry(v);
+        });
+      }
+
+      // Output as JSON5-like (unquoted keys)
+      let formatted = '{\n';
+      let count = 0;
+      for (const [k, v] of Object.entries(outObj)) {
+        formatted += k + ': ' + JSON.stringify(v, null, 2).replace(/^{\n/, '{\n  ').replace(/\n}/, '\n}') + (count < Object.keys(outObj).length - 1 ? ',\n' : '\n');
+        count++;
+      }
+      formatted += '}';
+      out.value = formatted;
+      msg.textContent = "Copy and paste this into the Bulk Inject box below!";
+    };
+
+    // Helper: standardizes a channel entry
+    function convertChannelEntry(ch) {
+      // Map possible field names to standard ones
+      const out = {};
+      out.name = ch.name || ch.title || ch.channelName || "";
+      out.url = ch.url || ch.stream || ch.link || ch.src || "";
+      out.logo = ch.logo || ch.image || ch.icon || "";
+      out.drop1 = ch.drop1 || "";
+      // Accept both "keys" object or "key" array/string
+      if (ch.keys && typeof ch.keys === "object") {
+        out.keys = ch.keys;
+      } else if (ch.key && typeof ch.key === "object") {
+        out.keys = ch.key;
+      } else if (ch.key && typeof ch.key === "string") {
+        // key as string: try parse format keyid:key or keyid1:key1\nkeyid2:key2
+        let lines = ch.key.split('\n').map(l => l.trim()).filter(Boolean);
+        let keys = {};
+        lines.forEach(line => {
+          let [k, v] = line.split(':').map(s => s.trim());
+          if (k && v) keys[k] = v;
+        });
+        out.keys = Object.keys(keys).length ? keys : undefined;
+      } else if (ch.keys && typeof ch.keys === "string") {
+        // keys as string
+        let lines = ch.keys.split('\n').map(l => l.trim()).filter(Boolean);
+        let keys = {};
+        lines.forEach(line => {
+          let [k, v] = line.split(':').map(s => s.trim());
+          if (k && v) keys[k] = v;
+        });
+        out.keys = Object.keys(keys).length ? keys : undefined;
+      }
+      return out;
+    }
+
+    // ========== END FORMATTER TOOL =========
+
+    // ===== Copy/Clear Buttons =====
+    function setupCopyClear() {
+      document.querySelectorAll('.btn-icon[data-copy]').forEach(btn => {
+        btn.onclick = function() {
+          const id = btn.getAttribute('data-copy');
+          const el = document.getElementById(id);
+          if (el) {
+            navigator.clipboard.writeText(el.value || el.textContent || "").then(() => {
+              btn.innerHTML = '<i class="bi bi-clipboard-check"></i>';
+              setTimeout(() => btn.innerHTML = '<i class="bi bi-clipboard"></i>', 900);
+            });
+          }
+        };
+      });
+      document.querySelectorAll('.btn-icon[data-clear]').forEach(btn => {
+        btn.onclick = function() {
+          const id = btn.getAttribute('data-clear');
+          const el = document.getElementById(id);
+          if (el) el.value = '';
+        };
+      });
+    }
+    setupCopyClear();
+  </script>
+</body>
+</html>
