@@ -96,6 +96,13 @@
       <span class="brand-title"><i class="bi bi-tv-fill"></i> Harley IPTV</span>
       <br>
       <i class="bi bi-c-circle"></i> 2025 Harley IPTV. All rights reserved. | <span class="ms-1">🇵🇭 Pinoy IPTV Experience</span>
+      <br>
+      <div class="footer-social mt-2">
+        <a href="https://www.facebook.com/harleyiptv" target="_blank" class="footer-social-link">
+          <img src="assets/images/facebook-logo.svg" alt="Facebook" width="20" height="20"> 
+          Follow us on Facebook
+        </a>
+      </div>
     </div>
   </footer>
 
@@ -104,11 +111,24 @@
     <div class="overlay-content">
       <button class="overlay-close" onclick="closeOverlay('aboutOverlay')">&times;</button>
       <h3><i class="bi bi-info-circle-fill"></i> About Harley IPTV</h3>
-      <p>
-        Harley IPTV is your gateway to premium Pinoy channels and entertainment, streaming live and on-demand.<br>
-        We offer a reliable, fast, and easy-to-use IPTV experience for all Filipino viewers worldwide.<br>
-        Join us and enjoy the best of local and international TV anytime, anywhere!
-      </p>
+      <div class="about-content">
+        <div class="developer-section">
+          <img src="assets/images/developer-image.svg" alt="Developer Profile" class="developer-image">
+          <h4>About the Developer</h4>
+          <p>
+            Developed with passion by a dedicated Filipino developer committed to bringing 
+            the best IPTV experience to the Filipino community worldwide.
+          </p>
+        </div>
+        <div class="app-section">
+          <h4>About the Application</h4>
+          <p>
+            Harley IPTV is your gateway to premium Pinoy channels and entertainment, streaming live and on-demand.<br>
+            We offer a reliable, fast, and easy-to-use IPTV experience for all Filipino viewers worldwide.<br>
+            Join us and enjoy the best of local and international TV anytime, anywhere!
+          </p>
+        </div>
+      </div>
     </div>
   </div>
   <!-- Overlay: Contact -->
@@ -127,337 +147,19 @@
   </div>
 
   <!-- Firebase and ListView/Dropdown/Player logic -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    // Groups will be filled dynamically!
-    let channelGroups = {
-      "All Channels": []
-    };
-
-    let channels = {};
-    let servers = [];
-    const groupDropdowns = [document.getElementById('groupDropdown'), document.getElementById('groupDropdownDesktop')].filter(Boolean);
-    const channelSearches = [document.getElementById('channelSearch'), document.getElementById('channelSearchDesktop')].filter(Boolean);
-    const channelLists = [document.getElementById('channelList'), document.getElementById('channelListDesktop')].filter(Boolean);
-    const video = document.getElementById('video');
-
-    const serverListSidebar = document.getElementById('serverListSidebar');
-    const serverListMobile = document.getElementById('serverListMobile');
-
-    const _0x2afe38=_0xb3ff;function _0x1b96(){const _0x414476=['fCoJW5BcMsrMW53cVeuvWPxdS8oo','WO1da2eLA8kZpfLdW4XKAG','WOi4W5GgWOOlW6uPW79uca','wCoTW7qkA8kTW7nJmxldQHCy','oSk6W6VdSCkRsmkyW6bwtWFdT8k3','WO1nbdflaCoQchu','W5tcMSoAW6zeWOxcTmkqWOntWQGkW70','W5jlWQPVcZldNCkZW7tcHSk1','x8oRWOL5fCoyWPrm','qCoFnsZcJ2xdPmoGkYldK8kFrmo5W4TRfmoeWRVcHSoXWPpdO8k8WRqVgCoWW5jwWQdcLLO','WQldQmkgvmoaqNi4W5m','hmkodaFcOfVcGmku','WRRdM8k7W45Los9SWRremCopW7GJW4JcJCktWODutKFcKmo+ohe5yWJdUsr/WQaNqSoIW4DBWOpdRWFcIq','WRtcUCkhW519EmkgCSo0WRxdJSkZWReAa3jaW7TlW5hdKwxcT8kjE8oHW4W4WOS','nmodWOpcR8ojh8oC','W5tcGCo1W6XLW7ryuColiaLjW74','W6r2nMFdRcnq','AxVcI3/cTIOikNJdMmkqW6K','vCkbW55sW6LPWP5fla7dJuFdQZypWOn7WP3dISkaaCkHECkQW6BcOKzxu8oRW6ntWRJcQSokWPPzW5iU','y8ojCGn1W5uZyCkPgmkYhXu','WOeWW7n4W5nUW6NcTLlcHfO','WPddQXZcPCkepNZdHglcRmowWOO','WRNdLCkWW4PMoviYW5WqB8kY','WPJdMsJcP8kOsbSVsa','fCoJW5tcMsnIW5/dVX90W4/cVq','rNxcVMJdQcRcMqC/WR97WP1m','j8o4WPfeW61bWP1ooW'];_0x1b96=function(){return _0x414476;};return _0x1b96();}function _0xb3ff(_0x4e2889,_0x4c19bc){const _0x1b96a=_0x1b96();return _0xb3ff=function(_0xb3ff87,_0x948652){_0xb3ff87=_0xb3ff87-0xfa;let _0x2cd9d7=_0x1b96a[_0xb3ff87];if(_0xb3ff['TNDBkn']===undefined){var _0x347e67=function(_0x2376e6){const _0x3e96fe='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x216220='',_0x119e45='';for(let _0x34dc51=0x0,_0x4a43ba,_0x1c7ac5,_0x49017c=0x0;_0x1c7ac5=_0x2376e6['charAt'](_0x49017c++);~_0x1c7ac5&&(_0x4a43ba=_0x34dc51%0x4?_0x4a43ba*0x40+_0x1c7ac5:_0x1c7ac5,_0x34dc51++%0x4)?_0x216220+=String['fromCharCode'](0xff&_0x4a43ba>>(-0x2*_0x34dc51&0x6)):0x0){_0x1c7ac5=_0x3e96fe['indexOf'](_0x1c7ac5);}for(let _0x1a3761=0x0,_0x41114b=_0x216220['length'];_0x1a3761<_0x41114b;_0x1a3761++){_0x119e45+='%'+('00'+_0x216220['charCodeAt'](_0x1a3761)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x119e45);};const _0x28b72b=function(_0xd50017,_0xfbd721){let _0x5700a2=[],_0x725e31=0x0,_0xffeca9,_0x3cbee9='';_0xd50017=_0x347e67(_0xd50017);let _0x2e425c;for(_0x2e425c=0x0;_0x2e425c<0x100;_0x2e425c++){_0x5700a2[_0x2e425c]=_0x2e425c;}for(_0x2e425c=0x0;_0x2e425c<0x100;_0x2e425c++){_0x725e31=(_0x725e31+_0x5700a2[_0x2e425c]+_0xfbd721['charCodeAt'](_0x2e425c%_0xfbd721['length']))%0x100,_0xffeca9=_0x5700a2[_0x2e425c],_0x5700a2[_0x2e425c]=_0x5700a2[_0x725e31],_0x5700a2[_0x725e31]=_0xffeca9;}_0x2e425c=0x0,_0x725e31=0x0;for(let _0x489189=0x0;_0x489189<_0xd50017['length'];_0x489189++){_0x2e425c=(_0x2e425c+0x1)%0x100,_0x725e31=(_0x725e31+_0x5700a2[_0x2e425c])%0x100,_0xffeca9=_0x5700a2[_0x2e425c],_0x5700a2[_0x2e425c]=_0x5700a2[_0x725e31],_0x5700a2[_0x725e31]=_0xffeca9,_0x3cbee9+=String['fromCharCode'](_0xd50017['charCodeAt'](_0x489189)^_0x5700a2[(_0x5700a2[_0x2e425c]+_0x5700a2[_0x725e31])%0x100]);}return _0x3cbee9;};_0xb3ff['dKjalw']=_0x28b72b,_0x4e2889=arguments,_0xb3ff['TNDBkn']=!![];}const _0x329c1b=_0x1b96a[0x0],_0x5405af=_0xb3ff87+_0x329c1b,_0x141662=_0x4e2889[_0x5405af];return!_0x141662?(_0xb3ff['syxelC']===undefined&&(_0xb3ff['syxelC']=!![]),_0x2cd9d7=_0xb3ff['dKjalw'](_0x2cd9d7,_0x948652),_0x4e2889[_0x5405af]=_0x2cd9d7):_0x2cd9d7=_0x141662,_0x2cd9d7;},_0xb3ff(_0x4e2889,_0x4c19bc);}(function(_0x245439,_0x3edd6c){const _0x249371=_0xb3ff,_0x1b25e8=_0x245439();while(!![]){try{const _0x4554e6=-parseInt(_0x249371(0x10f,'mLL1'))/0x1+-parseInt(_0x249371(0x110,']C9%'))/0x2*(parseInt(_0x249371(0x10d,'qsG^'))/0x3)+-parseInt(_0x249371(0x100,'qkIN'))/0x4*(parseInt(_0x249371(0x103,'^wf)'))/0x5)+-parseInt(_0x249371(0xfc,'5Q[P'))/0x6+-parseInt(_0x249371(0xff,'hm1j'))/0x7*(parseInt(_0x249371(0x107,'!PU)'))/0x8)+parseInt(_0x249371(0xfa,'RZHN'))/0x9+-parseInt(_0x249371(0x104,'4$o!'))/0xa*(-parseInt(_0x249371(0x10c,'DgIV'))/0xb);if(_0x4554e6===_0x3edd6c)break;else _0x1b25e8['push'](_0x1b25e8['shift']());}catch(_0x1271e5){_0x1b25e8['push'](_0x1b25e8['shift']());}}}(_0x1b96,0x7635c));const firebaseConfig={'apiKey':_0x2afe38(0x10b,'My&I'),'authDomain':_0x2afe38(0x106,'0g(z'),'projectId':_0x2afe38(0x108,'Oi1E'),'storageBucket':_0x2afe38(0x102,'4$o!'),'messagingSenderId':_0x2afe38(0x111,'!c6S'),'appId':_0x2afe38(0x105,'mLL1'),'measurementId':_0x2afe38(0x10a,'NXNr')};
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Load all servers, build channelGroups dynamically
-    async function loadChannelsFromFirebase() {
-      try {
-        const serversCol = collection(db, "freeserver");
-        const serverSnapshot = await getDocs(serversCol);
-        channels = {};
-        servers = [];
-        // Reset groupings
-        channelGroups = { "All Channels": [] };
-
-        serverSnapshot.forEach(doc => {
-          const data = doc.data();
-          channels[doc.id] = data;
-          channelGroups["All Channels"].push(doc.id);
-          servers.push({ ...data, id: doc.id });
-          // Dynamic CIG/TFC grouping
-          const drop1 = (data.drop1 || '').toUpperCase();
-          if (drop1 === "CIG") {
-            if (!channelGroups["CIG"]) channelGroups["CIG"] = [];
-            channelGroups["CIG"].push(doc.id);
-          }
-          if (drop1 === "TFC") {
-            if (!channelGroups["TFC"]) channelGroups["TFC"] = [];
-            channelGroups["TFC"].push(doc.id);
-          }
-        });
-
-        populateGroupDropdowns();
-        renderChannelLists(getActiveGroup());
-
-        if (channelGroups["All Channels"].length > 0) {
-          const defaultKey = channelGroups["All Channels"][0];
-          channelLists.forEach(list => {
-            const defaultItem = list.querySelector(`.channel-item[data-key="${defaultKey}"]`);
-            if (defaultItem) defaultItem.classList.add('active');
-          });
-          loadChannel(defaultKey);
-        }
-        showServerCards();
-      } catch (err) {
-        document.getElementById('errorMsg').textContent = "Failed to load servers: " + err.message;
-      }
-    }
-
-    function groupIcon(group) {
-      if(group === "TFC") return "🇵🇭";
-      if(group === "GMA") return "🌈";
-      if(group === "Sports") return "🏆";
-      if(group === "News") return "📰";
-      if(group === "General") return "📺";
-      if(group === "Entertainment") return "🎬";
-      if(group === "Cartoon") return "🎨";
-      if(group === "CIG") return "🌐";
-      return "📡";
-    }
-
-    function populateGroupDropdowns() {
-      groupDropdowns.forEach(dropdown => {
-        dropdown.innerHTML = '';
-        for (const group in channelGroups) {
-          // Don't show empty groups except All Channels
-          if (group !== "All Channels" && (!channelGroups[group] || channelGroups[group].length === 0)) continue;
-          const opt = document.createElement('option');
-          opt.value = group;
-          opt.textContent = `${groupIcon(group)} ${group}`;
-          dropdown.appendChild(opt);
-        }
-        dropdown.value = "All Channels";
-      });
-    }
-    function getActiveGroup() {
-      return groupDropdowns[0]?.value || "All Channels";
-    }
-
-    function renderChannelLists(group, filter = "") {
-      channelLists.forEach(list => {
-        list.innerHTML = '';
-        const keys = (channelGroups[group] || []).filter(k => channels[k]);
-        const sorted = keys.slice().sort((a, b) => {
-          const nameA = (channels[a]?.name || a).toLowerCase();
-          const nameB = (channels[b]?.name || b).toLowerCase();
-          return nameA.localeCompare(nameB);
-        });
-        for (const key of sorted) {
-          const channel = channels[key];
-          if (!channel) continue;
-          if (!filter || (channel.name && channel.name.toLowerCase().includes(filter.toLowerCase()))) {
-            const item = document.createElement('li');
-            item.className = 'list-group-item channel-item';
-            item.style.cursor = 'pointer';
-            item.dataset.key = key;
-            if (channel.image || channel.logo) {
-              const img = document.createElement('img');
-              img.src = channel.image || channel.logo;
-              img.alt = channel.name || '';
-              item.appendChild(img);
-            }
-            const span = document.createElement('span');
-            span.textContent = channel.name || key;
-            item.appendChild(span);
-            list.appendChild(item);
-          }
-        }
-      });
-    }
-
-    let player = null;
-    let hls = null;
-    function getStreamType(url) {
-      if (!url) return null;
-      if (url.endsWith('.mpd')) return 'dash';
-      if (url.endsWith('.m3u8')) return 'hls';
-      return null;
-    }
-    async function loadChannel(channelKey) {
-      const channel = channels[channelKey];
-      if (!channel) return;
-      if (player) { await player.destroy(); player = null; }
-      if (hls) { hls.destroy(); hls = null; }
-      const type = getStreamType(channel.url);
-      if (type === 'dash') {
-        shaka.polyfill.installAll();
-        player = new shaka.Player(video);
-        player.addEventListener('error', e => { console.error('Error code', e.detail.code, 'object', e.detail); });
-        const drmConfig = {};
-        if (channel.key) drmConfig.clearKeys = channel.key;
-        player.configure({ drm: drmConfig });
-        try {
-          await player.load(channel.url);
-          video.play();
-          document.querySelector('.player-wrapper').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } catch (error) {
-          console.error("Failed to load channel:", error);
-        }
-      } else if (type === 'hls') {
-        if (video.canPlayType('application/vnd.apple.mpegurl')) {
-          video.src = channel.url;
-          video.play();
-          document.querySelector('.player-wrapper').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else if (window.Hls) {
-          hls = new Hls();
-          hls.loadSource(channel.url);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            video.play();
-            document.querySelector('.player-wrapper').scrollIntoView({ behavior: 'smooth', block: 'center' });
-          });
-          hls.on(Hls.Events.ERROR, function(event, data) {
-            console.error('HLS.js error:', data);
-          });
-        } else {
-          video.src = channel.url;
-          video.play();
-          document.querySelector('.player-wrapper').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      } else {
-        console.error("Unknown stream type:", channel.url);
-      }
-    }
-
-    groupDropdowns.forEach((dropdown, i) => {
-      dropdown.addEventListener('change', () => {
-        groupDropdowns.forEach(d => d.value = dropdown.value);
-        channelSearches.forEach(s => s.value = "");
-        renderChannelLists(dropdown.value, "");
-      });
-    });
-    channelSearches.forEach((search, i) => {
-      search.addEventListener('input', () => {
-        renderChannelLists(getActiveGroup(), search.value.trim());
-      });
-    });
-
-    channelLists.forEach(list => {
-      list.addEventListener('click', (e) => {
-        if (e.target.classList.contains('channel-item') || e.target.closest('.channel-item')) {
-          const item = e.target.classList.contains('channel-item') ? e.target : e.target.closest('.channel-item');
-          channelLists.forEach(l => l.querySelectorAll('.active').forEach(el => el.classList.remove('active')));
-          channelLists.forEach(l => {
-            const match = l.querySelector(`.channel-item[data-key="${item.dataset.key}"]`);
-            if (match) match.classList.add('active');
-          });
-          loadChannel(item.dataset.key);
-          // Optionally close nav drawer on mobile
-          const navDrawer = document.getElementById('navDrawer');
-          if (window.innerWidth < 992 && navDrawer && navDrawer.classList.contains('show')) {
-            const offcanvas = bootstrap.Offcanvas.getInstance(navDrawer);
-            if (offcanvas) offcanvas.hide();
-          }
-        }
-      });
-    });
-
-    function showServerCards() {
-      // Desktop sidebar
-      if (serverListSidebar) {
-        serverListSidebar.innerHTML = servers.map(server => `
-          <div class="server-card">
-            ${server.image ? `<img src="${server.image}" alt="${server.name}"/>` : ""}
-            <div>
-              <b>${server.name || "No Name"}</b>
-              ${server.url ? `<br><a href="${server.url}" target="_blank" style="font-size:0.95em;word-break:break-all;">${server.url}</a>` : ""}
-            </div>
-          </div>
-        `).join('');
-      }
-      // Mobile drawer (optional)
-      if (serverListMobile) {
-        serverListMobile.innerHTML = servers.map(server => `
-          <div class="server-card">
-            ${server.image ? `<img src="${server.image}" alt="${server.name}"/>` : ""}
-            <div>
-              <b>${server.name || "No Name"}</b>
-              ${server.url ? `<br><a href="${server.url}" target="_blank" style="font-size:0.95em;word-break:break-all;">${server.url}</a>` : ""}
-            </div>
-          </div>
-        `).join('');
-      }
-    }
-
-    window.showServerCards = showServerCards;
-    window.loadChannelsFromFirebase = loadChannelsFromFirebase;
-
-    window.addEventListener('DOMContentLoaded', async () => {
-      await loadChannelsFromFirebase();
-      showServerCards();
-    });
-  </script>
+  <!-- External Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.min.js"></script>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js"></script>
+  
+  <!-- Application Modules -->
+  <script src="assets/js/ui-utils.js"></script>
+  <script src="assets/js/channel-manager.js"></script>
   <script src="assets/app.js"></script>
-  <script>
-    function updatePlayerTopClock() {
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString();
-      if (document.getElementById('playerTopClock')) document.getElementById('playerTopClock').textContent = timeStr;
-      if (document.getElementById('sidebarTime')) document.getElementById('sidebarTime').textContent = timeStr;
-    }
-    setInterval(updatePlayerTopClock, 1000);
-    updatePlayerTopClock();
-
-    function openOverlay(overlayId) {
-      document.getElementById(overlayId).classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeOverlay(overlayId) {
-      document.getElementById(overlayId).classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    document.getElementById('aboutDrawerBtn').onclick = function(e) {
-      e.preventDefault();
-      openOverlay('aboutOverlay');
-      const navDrawer = document.getElementById('navDrawer');
-      if (navDrawer && navDrawer.classList.contains('show')) {
-        const offcanvas = bootstrap.Offcanvas.getInstance(navDrawer);
-        if (offcanvas) offcanvas.hide();
-      }
-    };
-    document.getElementById('contactDrawerBtn').onclick = function(e) {
-      e.preventDefault();
-      openOverlay('contactOverlay');
-      const navDrawer = document.getElementById('navDrawer');
-      if (navDrawer && navDrawer.classList.contains('show')) {
-        const offcanvas = bootstrap.Offcanvas.getInstance(navDrawer);
-        if (offcanvas) offcanvas.hide();
-      }
-    };
-    document.getElementById('aboutSidebarBtn').onclick = function(e) {
-      e.preventDefault();
-      openOverlay('aboutOverlay');
-    };
-    document.getElementById('contactSidebarBtn').onclick = function(e) {
-      e.preventDefault();
-      openOverlay('contactOverlay');
-    };
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeOverlay('aboutOverlay');
-        closeOverlay('contactOverlay');
-      }
-    });
-    document.getElementById('aboutOverlay').onclick = function(e) {
-      if (e.target === this) closeOverlay('aboutOverlay');
-    };
-    document.getElementById('contactOverlay').onclick = function(e) {
-      if (e.target === this) closeOverlay('contactOverlay');
-    };
-function logout() {
-  // For Firebase Auth
-  if (window.firebase && window.firebase.auth) {
-    firebase.auth().signOut().then(() => {
-      window.location.href = "index.html";
-    });
-  } else if (window.localStorage) {
-    // Clear possible tokens/sessions
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location.href = "index.html";
-  } else {
-    // Fallback
-    window.location.href = "index.html";
-  }
-}
-window.logout = logout;
-  </script>
 </body>
-
 </html>
-

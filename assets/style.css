@@ -294,6 +294,26 @@ footer {
   animation: fadeIn 0.7s;
 }
 
+.footer-social {
+  margin-top: 0.5rem;
+}
+
+.footer-social-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.footer-social-link:hover {
+  color: #fff;
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
 .brand-title {
   font-size: clamp(1.3rem, 3vw, 2.1rem);
   font-weight: 700;
@@ -865,4 +885,72 @@ button:focus, .btn:focus, .unlock-btn:focus, .btn-primary:focus {
 #loginBtn {
   width: auto;
   min-width: 180px;
+}
+
+/* Developer Section Styles */
+.developer-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(233, 30, 99, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(233, 30, 99, 0.2);
+}
+
+.developer-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1rem auto;
+  display: block;
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 4px 16px var(--shadow-color);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.developer-section h4 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.app-section {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-section h4 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.about-content {
+  text-align: left;
+}
+
+.about-content p {
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+/* Responsive adjustments for developer section */
+@media (max-width: 500px) {
+  .developer-section {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .developer-image {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .developer-section h4,
+  .app-section h4 {
+    font-size: 1.1rem;
+  }
 }
